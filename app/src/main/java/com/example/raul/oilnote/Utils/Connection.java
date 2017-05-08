@@ -16,8 +16,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 /**
- * Created by raul on 6/5/17.
- *
  * Clase Conexión.
  */
 

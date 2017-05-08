@@ -1,8 +1,6 @@
 package com.example.raul.oilnote.Objects;
 
 /**
- * Created by raul on 6/5/17.
- *
  * Clase Usuario.
  */
 

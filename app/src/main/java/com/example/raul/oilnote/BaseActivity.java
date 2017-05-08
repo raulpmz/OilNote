@@ -9,7 +9,7 @@ import com.example.raul.oilnote.Objects.User;
 import com.example.raul.oilnote.Utils.Connection;
 
 /**
- * Created by raul on 6/5/17.
+ * Clase base.
  */
 
 public class BaseActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{

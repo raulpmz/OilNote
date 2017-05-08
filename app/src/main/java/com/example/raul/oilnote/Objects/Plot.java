@@ -3,8 +3,6 @@ package com.example.raul.oilnote.Objects;
 import java.util.ArrayList;
 
 /**
- * Created by raul on 6/5/17.
- *
  * Clase Parcela.
  */
 
