@@ -34,7 +34,7 @@ public class Plot {
         this.longitude      = 0;
     }
 
-    // Getter & Setter:
+    // Getter's & Setter's:
 
     public String getName() {
         return name;
