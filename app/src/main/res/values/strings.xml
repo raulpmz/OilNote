@@ -1,12 +1,19 @@
 <resources>
+    <!--    Base_Activity        -->
     <string name="app_name">Oil Note</string>
     <string name="name">OilNote</string>
     <string name="title_activity_main2">Main2Activity</string>
-
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_settings">Opciones</string>
 
-    <string name="action_settings">Settings</string>
-    <string name="title_activity_navi">NaviActivity</string>
+    <!--    Login_Activity        -->
+    <string name="user">Usuario</string>
+    <string name="password">Contraseña</string>
+    <string name="btn_enter">Entrar</string>
+    <string name="btn_registration">Registro</string>
+
+    <!--    Main_Activity        -->
+
 
 </resources>

@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.example.raul.oilnote.Objects.Laborer;
 import com.example.raul.oilnote.Objects.User;
@@ -20,7 +21,7 @@ import com.example.raul.oilnote.Utils.Connection;
  * Clase base.
  */
 
-public class BaseActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+public class BaseActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener{
 
     protected Connection connection;
     protected User user;
@@ -35,8 +36,7 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(paramBundle);
         setContentView(layout);
 
-        connection = new Connection();
-
+        // Toolbar:
         toolbar = (Toolbar) findViewById(R.id.toolbar);
 
         if(toolbar != null){
@@ -44,17 +44,25 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
             setSupportActionBar(toolbar);
         }
 
+        // DrawerLayout:
         drawer = (DrawerLayout) findViewById(R.id.drawer_menu);
+
+        // ActionBarDrawerToggle:
         toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
 
         toggle.syncState();
 
+        // NavigationView:
         navigationView = (NavigationView) findViewById(R.id.navigation_menu);
         if (navigationView != null){
             navigationView.setNavigationItemSelectedListener(this);
         }
+
+        //Clase Conexión:
+        connection = new Connection();
+
     }
 
 
@@ -77,26 +85,23 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
     }
 
     @Override
+    public void onClick(View v) {}
+
+    @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_menu);
         switch (item.getItemId()) {
             case R.id.nav_camera:
-                Log.e("Pulsado","MenuDrawer");
                 break;
             case R.id.nav_gallery:
-                Log.e("Pulsado","MenuDrawer");
                 break;
             case R.id.nav_slideshow:
-                Log.e("Pulsado","MenuDrawer");
                 break;
             case R.id.nav_manage:
-                Log.e("Pulsado","MenuDrawer");
                 break;
             case R.id.nav_share:
-                Log.e("Pulsado","MenuDrawer");
                 break;
             case R.id.nav_send:
-                Log.e("Pulsado","MenuDrawer");
                 break;
         }
 
@@ -107,16 +112,20 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onResume() {
         super.onResume();
-        toggle.syncState();
     }
 
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_menu);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
+        if(drawer != null){
+            if (drawer.isDrawerOpen(GravityCompat.START)) {
+                drawer.closeDrawer(GravityCompat.START);
+            } else {
+                super.onBackPressed();
+            }
+        }else{
             super.onBackPressed();
         }
+
     }
 }
