@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.example.raul.oilnote.Activitys.MainActivity">
-
-    <include
-        layout="@layout/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
 
     <android.support.v4.widget.DrawerLayout
         android:id="@+id/drawer_menu"
@@ -18,18 +14,33 @@
         android:layout_height="match_parent"
         tools:openDrawer="start">
 
-        <android.support.design.widget.NavigationView xmlns:app="http://schemas.android.com/apk/res-auto"
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <include
+                layout="@layout/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <include
+                layout="@layout/content_main"
+                android:layout_width="match_parent" />
+
+        </LinearLayout>
+
+        <android.support.design.widget.NavigationView
             android:id="@+id/navigation_menu"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="start"
             android:fitsSystemWindows="true"
             app:headerLayout="@layout/menu_header"
-            app:menu="@menu/menu_app" />
+            app:menu="@menu/menu_app">
 
-        <include layout="@layout/content_main" />
-
-
+        </android.support.design.widget.NavigationView>
     </android.support.v4.widget.DrawerLayout>
 
 </LinearLayout>

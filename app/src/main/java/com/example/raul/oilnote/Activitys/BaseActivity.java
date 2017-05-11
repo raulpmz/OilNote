@@ -7,6 +7,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -21,12 +22,13 @@ import com.example.raul.oilnote.Utils.Connection;
 
 public class BaseActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
-    private Connection connection;
-    private User user;
-    private Laborer laborer;
-    private DrawerLayout drawer;
-    private static Toolbar toolbar;
-    private ActionBarDrawerToggle toggle;
+    protected Connection connection;
+    protected User user;
+    protected Laborer laborer;
+    protected DrawerLayout drawer;
+    protected static Toolbar toolbar;
+    protected ActionBarDrawerToggle toggle;
+    protected NavigationView navigationView;
 
     public void onCreate(Bundle paramBundle, int layout) {
 
@@ -49,55 +51,55 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
 
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.navigation_menu);
+        navigationView = (NavigationView) findViewById(R.id.navigation_menu);
         if (navigationView != null){
             navigationView.setNavigationItemSelectedListener(this);
         }
     }
 
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.toolbar_menu, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Log.e("Pulsado","MenuTool");
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_menu);
+        switch (item.getItemId()) {
+            case R.id.nav_camera:
+                Log.e("Pulsado","MenuDrawer");
+                break;
+            case R.id.nav_gallery:
+                Log.e("Pulsado","MenuDrawer");
+                break;
+            case R.id.nav_slideshow:
+                Log.e("Pulsado","MenuDrawer");
+                break;
+            case R.id.nav_manage:
+                Log.e("Pulsado","MenuDrawer");
+                break;
+            case R.id.nav_share:
+                Log.e("Pulsado","MenuDrawer");
+                break;
+            case R.id.nav_send:
+                Log.e("Pulsado","MenuDrawer");
+                break;
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_menu);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
