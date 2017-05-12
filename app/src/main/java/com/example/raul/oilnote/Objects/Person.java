@@ -8,26 +8,21 @@ public class Person {
 
     // Variables:
 
-    private String name, first_last_name, second_last_name, email, dni, photo;
+    private String name, last_name, email, photo;
 
     // Constructores:
 
     public Person() {
         this.name               = "";
-        this.first_last_name    = "";
-        this.second_last_name   = "";
+        this.last_name          = "";
         this.email              = "";
-        this.dni                = "";
         this.photo              = "";
     }
 
-    public Person(String name, String first_last_name, String second_last_name, String email, String dni, String photo) {
-
+    public Person(String name, String last_name, String email, String photo) {
         this.name               = name;
-        this.first_last_name    = first_last_name;
-        this.second_last_name   = second_last_name;
+        this.last_name          = last_name;
         this.email              = email;
-        this.dni                = dni;
         this.photo              = photo;
     }
 
@@ -41,20 +36,12 @@ public class Person {
         this.name = name;
     }
 
-    public String getFirst_last_name() {
-        return first_last_name;
+    public void setLast_name(String last_name) {
+        this.last_name = last_name;
     }
 
-    public void setFirst_last_name(String first_last_name) {
-        this.first_last_name = first_last_name;
-    }
-
-    public String getSecond_last_name() {
-        return second_last_name;
-    }
-
-    public void setSecond_last_name(String second_last_name) {
-        this.second_last_name = second_last_name;
+    public String getLast_name() {
+        return last_name;
     }
 
     public String getEmail() {
@@ -63,14 +50,6 @@ public class Person {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getDni() {
-        return dni;
-    }
-
-    public void setDni(String dni) {
-        this.dni = dni;
     }
 
     public String getPhoto() {

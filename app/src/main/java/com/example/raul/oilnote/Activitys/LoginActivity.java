@@ -5,13 +5,15 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.example.raul.oilnote.R;
 
 public class LoginActivity extends BaseActivity {
 
-    private Button btn_enter, btn_registration;
-    private EditText et_mail, et_password;
+    private Button btn_enter;
+    private TextView tv_registration;
+    private EditText et_user, et_password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,15 +22,17 @@ public class LoginActivity extends BaseActivity {
 
         // Botones:
         btn_enter           = (Button) findViewById(R.id.btn_enter);
-        btn_registration    = (Button) findViewById(R.id.btn_registration);
+
+        // TextView:
+        tv_registration     = (TextView) findViewById(R.id.tv_registration);
 
         // EditText:
-        et_mail             = (EditText) findViewById(R.id.et_mail);
+        et_user             = (EditText) findViewById(R.id.et_user);
         et_password         = (EditText) findViewById(R.id.et_password);
 
         // onClick:
         btn_enter           .setOnClickListener(this);
-        btn_registration    .setOnClickListener(this);
+        tv_registration     .setOnClickListener(this);
     }
 
     @Override
@@ -40,11 +44,13 @@ public class LoginActivity extends BaseActivity {
             // En el caso de la selección del botón entrar abrimos MainActivity:
             case R.id.btn_enter:
                 startActivity(new Intent(this, MainActivity.class));
+                finish();
                 break;
 
             // En el caso de la selección del botón registrar abrimos RegistrationActivity:
-            case R.id.btn_registration:
+            case R.id.tv_registration:
                 startActivity(new Intent(this,RegistrationActivity.class));
+                finish();
                 break;
         }
     }

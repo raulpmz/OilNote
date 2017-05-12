@@ -1,5 +1,5 @@
 <resources>
-    <!--    Base_Activity        -->
+    <!--                Base_Activity               -->
     <string name="app_name">Oil Note</string>
     <string name="name">OilNote</string>
     <string name="title_activity_main2">Main2Activity</string>
@@ -7,13 +7,16 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_settings">Opciones</string>
 
-    <!--    Login_Activity        -->
+    <!--                Login_Activity              -->
     <string name="user">Usuario</string>
     <string name="password">Contraseña</string>
     <string name="btn_enter">Entrar</string>
-    <string name="btn_registration">Registro</string>
+    <string name="tv_registration">¿No tienes cuenta aún? Create una</string>
 
-    <!--    Main_Activity        -->
+    <!--                Main_Activity               -->
 
-
+    <!--            Registration_Activity           -->
+    <string name="btn_registration">Crear cuenta</string>
+    <string name="tv_login">¿Ya eres usuario? Iniciar sesión</string>
+    <string name="mail">Correo</string>
 </resources>

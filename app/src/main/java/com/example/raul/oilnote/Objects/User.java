@@ -6,19 +6,31 @@ package com.example.raul.oilnote.Objects;
 
 public class User extends Person{
 
+    // Variables:
+
     private String user, password;
 
+    // Constructores:
+
     public User() {
-        super("", "", "", "", "", "");
+        super("", "", "", "");
         this.user       = "";
         this.password   = "";
     }
 
-    public User(String name, String first_last_name, String second_last_name, String email, String dni, String photo, String user, String password) {
-        super(name, first_last_name, second_last_name, email, dni, photo);
+    public User(String name, String last_name, String email, String photo, String user, String password) {
+        super(name, last_name, email, photo);
         this.user       = user;
         this.password   = password;
     }
+
+    public User(String user, String email, String password) {
+        super("", "", email, "");
+        this.user       = user;
+        this.password   = password;
+    }
+
+    //  Getter's & Setter's:
 
     public String getUser() {
         return user;
@@ -35,4 +47,6 @@ public class User extends Person{
     public void setPassword(String password) {
         this.password = password;
     }
+
+
 }
