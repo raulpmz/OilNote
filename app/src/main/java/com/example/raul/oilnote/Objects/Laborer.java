@@ -13,13 +13,13 @@ public class Laborer extends Person{
     // Constructores:
 
     public Laborer() {
-        super("", "", "", "", "", "");
+        super("", "", "", "");
         this.job = "";
         this.salary = "";
     }
 
-    public Laborer(String name, String first_last_name, String second_last_name, String email, String dni, String photo, String job, String salary) {
-        super(name, first_last_name, second_last_name, email, dni, photo);
+    public Laborer(String name, String last_name, String email, String photo, String job, String salary) {
+        super(name, last_name, email, photo);
         this.job = job;
         this.salary = salary;
     }

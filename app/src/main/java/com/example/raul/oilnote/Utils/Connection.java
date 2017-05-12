@@ -22,6 +22,7 @@ import java.net.URL;
 public class Connection {
 
     private HttpURLConnection conn;
+
     public static final int CONNECTION_TIMEOUT = 10 * 20000;
 
     public JSONObject sendRequest(String link) throws JSONException {
@@ -64,7 +65,7 @@ public class Connection {
         return jobject;
     }
 
-    public static boolean compruebaConexion(Context context) {
+    public static boolean checkConnection(Context context) {
         boolean connected = false;
 
         ConnectivityManager connec = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -79,5 +80,31 @@ public class Connection {
             }
         }
         return connected;
+    }
+
+    public static int stateConnection(String link){
+        HttpURLConnection connection;
+
+        try {
+            URL url = new URL(link);
+            connection = (HttpURLConnection) url.openConnection();
+            connection.setReadTimeout(CONNECTION_TIMEOUT);
+            connection.setConnectTimeout(CONNECTION_TIMEOUT);
+            connection.setRequestMethod("POST");
+            connection.setDoInput(true);
+            connection.setDoOutput(true);
+
+            int responseCode = connection.getResponseCode();
+
+            if(responseCode == HttpURLConnection.HTTP_OK ) return 1;
+            else if (responseCode == HttpURLConnection.HTTP_INTERNAL_ERROR) return 0;
+            else if(responseCode == HttpURLConnection.HTTP_INTERNAL_ERROR)return 0;
+
+        } catch (MalformedURLException e) {
+        } catch (IOException e) {
+            e.getMessage();
+        }
+        return 0;
+
     }
 }

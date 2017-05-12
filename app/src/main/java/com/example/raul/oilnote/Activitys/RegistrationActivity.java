@@ -45,15 +45,22 @@ public class RegistrationActivity extends BaseActivity {
 
         switch (v.getId()){
 
-            // En el caso de la selección del botón entrar abrimos MainActivity:
-            case R.id.tv_login:
-                startActivity(new Intent(this, LoginActivity.class));
-                finish();
-                break;
-
             // En el caso de la selección del botón registrar abrimos RegistrationActivity:
             case R.id.btn_registration:
                 break;
+
+            // En el caso de la selección del botón entrar abrimos MainActivity:
+            case R.id.tv_login:
+            startActivity(new Intent(this, LoginActivity.class));
+            finish();
+            break;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(this,LoginActivity.class));
+        finish();
     }
 }
