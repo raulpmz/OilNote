@@ -3,17 +3,26 @@ package com.example.raul.oilnote.Utils;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Clase Conexión.
@@ -21,14 +30,16 @@ import java.net.URL;
 
 public class Connection {
 
-    private HttpURLConnection conn;
+    // Variables:
 
+    private HttpURLConnection conn;
     public static final int CONNECTION_TIMEOUT = 10 * 20000;
 
-    public JSONObject sendRequest(String link) throws JSONException {
-        JSONArray jArray = null;
-        JSONObject jobject=null;
+    // Método para conectar con el servidor y obetener los datos de la consulta en JSON:
 
+    public JSONArray sendRequest(String link, HashMap<String, String> values) throws JSONException {
+
+        JSONArray jArray = null;
         try {
             URL url = new URL(link);
             conn = (HttpURLConnection) url.openConnection();
@@ -37,33 +48,72 @@ public class Connection {
             conn.setRequestMethod("POST");
             conn.setDoInput(true);
             conn.setDoOutput(true);
-
             conn.connect();
 
-            if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
+            if (values != null) {
+                OutputStream os = conn.getOutputStream();
+                OutputStreamWriter osWriter = new OutputStreamWriter(os, "UTF-8");
+                BufferedWriter writer = new BufferedWriter(osWriter);
+                writer.write(getPostData(values));
+                writer.flush();
+                writer.close();
+                os.close();
+            }
 
-                BufferedReader r = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-                StringBuilder result = new StringBuilder();
-                String line;
-                while ((line = r.readLine()) != null) {
-                    result.append(line);
+            if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
+                InputStream is = conn.getInputStream();
+                InputStreamReader isReader = new InputStreamReader(is, "UTF-8");
+                BufferedReader reader = new BufferedReader(isReader);
+                String result = "";
+                String line = null;
+                StringBuilder sb = new StringBuilder();
+
+                while ((line = reader.readLine()) != null) {
+                    sb.append(line + "\n");
                 }
+                is.close();
+                result = sb.toString();
 
                 try {
-                    jobject = new JSONObject(result.toString());
-                    return jobject;
+
+                    jArray = new JSONArray(result);
+                    return jArray;
+
                 } catch (JSONException e) {
-                    //Log.e("ERROR => ", "Error convirtiendo los datos a JSON : " + e.toString());
+
+                    Log.e("ERROR => ", "Error convirtiendo los datos a JSON : " + e.toString());
                     e.printStackTrace();
                     return null;
                 }
             }
-        } catch (MalformedURLException e) {
-        } catch (IOException e) {
-            e.getMessage();
         }
-        return jobject;
+        catch (MalformedURLException e) {}
+        catch (IOException e) {}
+        return jArray;
     }
+
+    public String getPostData(HashMap<String, String> values) {
+        StringBuilder builder = new StringBuilder();
+        boolean first = true;
+
+        for (Map.Entry<String, String> entry : values.entrySet()) {
+
+            if (first) {
+                first = false;
+            }else{
+                builder.append("&");
+            }
+            try {
+                builder.append(URLEncoder.encode(entry.getKey(),"UTF-8"));
+                builder.append("=");
+                builder.append(URLEncoder.encode(entry.getValue(),"UTF-8"));
+            }
+            catch (UnsupportedEncodingException e) {}
+        }
+        return builder.toString();
+    }
+
+    // Comprueba el estado de las conexiones de nuestro dispositivo, con el fin de avisar al usuario para que las active :
 
     public static boolean checkConnection(Context context) {
         boolean connected = false;
@@ -82,6 +132,8 @@ public class Connection {
         return connected;
     }
 
+    // Comprueba el estado del servidor al que nos conectamos para poder controlar los mensajes que se muestran al usuario:
+
     public static int stateConnection(String link){
         HttpURLConnection connection;
 
@@ -98,7 +150,7 @@ public class Connection {
 
             if(responseCode == HttpURLConnection.HTTP_OK ) return 1;
             else if (responseCode == HttpURLConnection.HTTP_INTERNAL_ERROR) return 0;
-            else if(responseCode == HttpURLConnection.HTTP_INTERNAL_ERROR)return 0;
+            //else if()retu;
 
         } catch (MalformedURLException e) {
         } catch (IOException e) {

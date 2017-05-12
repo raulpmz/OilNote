@@ -1,5 +1,6 @@
 package com.example.raul.oilnote.Activitys;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -30,6 +31,8 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
     protected static Toolbar toolbar;
     protected ActionBarDrawerToggle toggle;
     protected NavigationView navigationView;
+    protected ProgressDialog progressDialog;
+    protected String url_consulta;
 
     public void onCreate(Bundle paramBundle, int layout) {
 
@@ -62,6 +65,15 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
 
         //Clase Conexión:
         connection = new Connection();
+
+        // Url consulta:
+
+        url_consulta = "http://iesayala.ddns.net/raulpmz/php.php";
+
+        // ProgressDialog:
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setCancelable(false);
+        progressDialog.setMax(100);
 
     }
 
