@@ -12,6 +12,9 @@
     <string name="password">Contraseña</string>
     <string name="btn_enter">Entrar</string>
     <string name="tv_registration">¿No tienes cuenta aún? Create una</string>
+    <string name="login_fail">Usuario o contraseña incorrectos</string>
+    <string name="emptry_camp">Este campo no puede estar vacio</string>
+    <string name="error_password">La contraseña debe de contener al menos 6 caracteres</string>
 
     <!--                Main_Activity               -->
 

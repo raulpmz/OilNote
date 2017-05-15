@@ -38,7 +38,6 @@ public class Connection {
     // Método para conectar con el servidor y obetener los datos de la consulta en JSON:
 
     public JSONArray sendRequest(String link, HashMap<String, String> values) throws JSONException {
-
         JSONArray jArray = null;
         try {
             URL url = new URL(link);
@@ -80,9 +79,8 @@ public class Connection {
                     return jArray;
 
                 } catch (JSONException e) {
-
                     Log.e("ERROR => ", "Error convirtiendo los datos a JSON : " + e.toString());
-                    e.printStackTrace();
+                    e.getMessage();
                     return null;
                 }
             }
@@ -90,6 +88,7 @@ public class Connection {
         catch (MalformedURLException e) {}
         catch (IOException e) {}
         return jArray;
+
     }
 
     public String getPostData(HashMap<String, String> values) {

@@ -23,6 +23,9 @@ public class LoginActivity extends BaseActivity {
     private Button btn_enter;
     private TextView tv_registration;
     private EditText et_user, et_password;
+    private JSONArray jSONArray;
+    private JSONObject jsonObject;
+    private String url_consulta, username, userpassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,12 +41,20 @@ public class LoginActivity extends BaseActivity {
         // EditText:
         et_user             = (EditText) findViewById(R.id.et_user);
         et_password         = (EditText) findViewById(R.id.et_password);
+        et_user             .setText("raulpmz");
+        et_password         .setText("administrador");
 
         // onClick:
         btn_enter           .setOnClickListener(this);
         tv_registration     .setOnClickListener(this);
 
-        connection = new Connection();
+        // Variables y objetos:
+        url_consulta    = "http://iesayala.ddns.net/raulpmz/imprime.php";
+        jSONArray       = new JSONArray();
+        jsonObject      = new JSONObject();
+
+        //Clase Conexión:
+        connection      = new Connection();
     }
 
     @Override
@@ -54,7 +65,9 @@ public class LoginActivity extends BaseActivity {
 
             // En el caso de la selección del botón entrar abrimos MainActivity:
             case R.id.btn_enter:
-                loginVerification();
+                username        = et_user.getText().toString();
+                userpassword    = et_password.getText().toString();
+                startLogin();
                 break;
 
             // En el caso de la selección del botón registrar abrimos RegistrationActivity:
@@ -66,21 +79,40 @@ public class LoginActivity extends BaseActivity {
     }
 
     // Verificamos si el usuario y la contraseña son correctos:
-    public void loginVerification(){
-        //new LoginTask(et_user.getText().toString(),et_password.getText().toString()).execute();
+    public Boolean loginVerification(){
+
+        // Si el EditText Usuario está vacio:
+        if(et_user.getText().toString().isEmpty()){
+            et_user.setError(getString(R.string.emptry_camp));
+            return false;
+        }
+
+        // Si el EditText Contraseña está vacio:
+        if(et_password.getText().toString().isEmpty()){
+            et_password.setError(getString(R.string.emptry_camp));
+            return false;
+        }
+
+        if(et_password.getText().length() < 6){
+            et_password.setError(getString(R.string.error_password));
+            return false;
+        }
+        return true;
     }
 
+    // Iniciar consulta asincrona:
+    public void startLogin(){
+        Log.e("User",username);
+        Log.e("Password",userpassword);
+        if(loginVerification()) new LoginTask().execute();
+    }
 
+    // Login:
+    public void Login(){
+        startActivity(new Intent(this,MainActivity.class));
+    }
 
     class LoginTask extends AsyncTask<String, String, JSONArray> {
-
-        private JSONArray jSONArray;
-        private String username, userpassword;
-
-        public LoginTask(String username, String userpassword) {
-            this.username = username;
-            this.userpassword = userpassword;
-        }
 
         @Override
         protected void onPreExecute() {
@@ -92,33 +124,36 @@ public class LoginActivity extends BaseActivity {
         }
 
         @Override
-        protected JSONArray doInBackground(String... args) {
+        protected JSONArray doInBackground(String... params) {
             try {
                 HashMap<String, String> parametrosPost = new HashMap<>();
-                parametrosPost.put("ins_sql", "select * from users where user_name ='"+username+"' and user_password = '"+userpassword+"'");
+                parametrosPost.put("ins_sql", "select * from users where user_name ='" + username + "' and user_password = '" + userpassword + "'");
+
                 jSONArray = connection.sendRequest(url_consulta, parametrosPost);
+                Log.e("jSONArray",""+parametrosPost);
 
                 if (jSONArray != null) {
-                    System.out.println("Obtiene objeto jSon");
                     return jSONArray;
 
                 }else{
-                    System.out.println("No obtiene objeto jSon");
+                    Log.e("No obtiene objeto jSon","Json nulo");
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                e.getMessage();
             }
             return null;
         }
 
-        protected void onPostExecute(JSONObject json) {
+        protected void onPostExecute(JSONArray json) {
             if (progressDialog != null && progressDialog.isShowing()) {
                 progressDialog.dismiss();
             }
-            if (json != null) {
+            if (json != null && json.length() > 0) {
                 Log.e("Json",""+json);
+                Login();
             }else {
                 Log.e("Json","Vacio");
+                et_password.setError(getString(R.string.login_fail));
             }
         }
     }
