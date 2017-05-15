@@ -20,10 +20,11 @@ import java.util.HashMap;
 
 public class LoginActivity extends BaseActivity {
 
-    private Button btn_enter;
-    private TextView tv_registration;
-    private EditText et_user, et_password;
-    private String username, userpassword;
+    protected Button btn_enter;
+    protected TextView tv_registration;
+    protected EditText et_user, et_password;
+    protected String username, userpassword, url_query;
+    protected Connection connection;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,11 +47,12 @@ public class LoginActivity extends BaseActivity {
         btn_enter           .setOnClickListener(this);
         tv_registration     .setOnClickListener(this);
 
-        // Variables y objetos:
-
-
         //Clase Conexión:
-        connection      = new Connection();
+        connection  = new Connection();
+
+        // Url:
+        url_query   = "http://iesayala.ddns.net/raulpmz/imprime.php";
+
     }
 
     @Override
