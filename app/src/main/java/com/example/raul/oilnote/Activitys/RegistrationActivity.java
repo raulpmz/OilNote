@@ -1,12 +1,15 @@
 package com.example.raul.oilnote.Activitys;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -69,7 +72,9 @@ public class RegistrationActivity extends BaseActivity {
                 this.user    = et_user.getText().toString().toLowerCase();
                 this.email   = et_mail.getText().toString().toLowerCase();
                 this.pass    = et_password.getText().toString();
-
+                //Lineas para ocultar el teclado virtual (Hide keyboard)
+                InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(et_password.getWindowToken(), 0);
                 startRegitrer();
 
                 break;
@@ -217,6 +222,7 @@ public class RegistrationActivity extends BaseActivity {
 
         // Variables:
         private JSONObject jsonObject    = new JSONObject();
+        private JSONArray jsonArray      = new JSONArray();
 
         private HashMap<String, String> parametrosPost = new HashMap<>();
 
@@ -234,10 +240,10 @@ public class RegistrationActivity extends BaseActivity {
             try {
                 Log.e("Entra","Registro");
                 HashMap<String, String> parametrosPost = new HashMap<>();
-                parametrosPost.put("ins_sql", "INSERT INTO users (user_name, user_email, user_password) VALUES( '" + user + "','" + email + "','" + pass + "')"); //INSERT INTO users (user_name, user_email, user_password) VALUES("raulpmz","raulpm92@gmail.com","administrador");
+                parametrosPost.put("ins_sql", "INSERT INTO users (user_name, user_email, user_password) VALUES('" + user + "','" + email + "','" + pass + "');"); //INSERT INTO users (user_name, user_email, user_password) VALUES("raulpmz","raulpm92@gmail.com","administrador");
                 Log.e("parametrosPost",""+parametrosPost);
                 jsonObject = connection.sendWrite(url_insert, parametrosPost);
-                Log.e("jsonObject",""+jsonObject);
+                Log.e("jsonObject",""+jSONArray);
 
                 if (jsonObject != null) {
                     return jsonObject;
@@ -256,7 +262,7 @@ public class RegistrationActivity extends BaseActivity {
 
             if (json != null) {
                 try {
-                    if(json.getInt("added") == 1){
+                    if(json.getString("added").equals(1)){
                         Snackbar.make(findViewById(R.id.layout_Register), getResources().getString(R.string.successful_registration), Toast.LENGTH_SHORT).show();
                     }else{
                         Snackbar.make(findViewById(R.id.layout_Register), getResources().getString(R.string.error_registration), Toast.LENGTH_SHORT).show();

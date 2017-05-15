@@ -92,7 +92,9 @@ public class Connection {
     }
 
     public JSONObject sendWrite(String link, HashMap<String, String> values) throws JSONException {
-        JSONObject jsonObject = null;
+
+        JSONObject jobject = null;
+
         try {
             URL url = new URL(link);
             conn = (HttpURLConnection) url.openConnection();
@@ -128,23 +130,19 @@ public class Connection {
                 result = sb.toString();
 
                 try {
-
-                    jsonObject = new JSONObject(result);
-                    return jsonObject;
-
+                    jobject = new JSONObject(result.toString());
+                    return jobject;
                 } catch (JSONException e) {
-                    Log.e("ERROR => ", "Error convirtiendo los datos a JSON : " + e.toString());
-                    e.getMessage();
+                    Log.e("JSONException", e.getMessage());
+                    e.printStackTrace();
                     return null;
                 }
             }
+        } catch (MalformedURLException e) {
+        } catch (IOException e) {
+            e.getMessage();
         }
-
-        catch (MalformedURLException e) {}
-        catch (IOException e) {}
-
-        return jsonObject;
-
+        return jobject;
     }
 
     public String getPostData(HashMap<String, String> values) {
