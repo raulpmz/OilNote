@@ -1,21 +1,34 @@
 package com.example.raul.oilnote.Activitys;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.raul.oilnote.R;
+import com.example.raul.oilnote.Utils.Connection;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
 
 public class RegistrationActivity extends BaseActivity {
 
     // Variables:
-    private TextView tv_login;
-    private EditText et_user, et_mail, et_password;
-    private Button btn_registration;
+    protected TextView tv_login;
+    protected EditText et_user, et_mail, et_password;
+    protected Button btn_registration;
+    protected String user, email, pass, url_query, url_insert;
+    protected Connection connection;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +41,7 @@ public class RegistrationActivity extends BaseActivity {
         // EditText:
         et_user             = (EditText) findViewById(R.id.et_user);
         et_mail             = (EditText) findViewById(R.id.et_mail);
-        et_password         = (EditText) findViewById(R.id.et_mail);
+        et_password         = (EditText) findViewById(R.id.et_password);
 
         // Button:
         btn_registration    = (Button) findViewById(R.id.btn_registration);
@@ -37,6 +50,12 @@ public class RegistrationActivity extends BaseActivity {
         tv_login            .setOnClickListener(this);
         btn_registration    .setOnClickListener(this);
 
+        //Clase Conexión:
+        connection  = new Connection();
+
+        // Url:
+        url_query   = "http://iesayala.ddns.net/raulpmz/imprime.php";
+        url_insert  = "http://iesayala.ddns.net/raulpmz/imprime.php";
     }
 
     @Override
@@ -47,6 +66,12 @@ public class RegistrationActivity extends BaseActivity {
 
             // En el caso de la selección del botón registrar abrimos RegistrationActivity:
             case R.id.btn_registration:
+                this.user    = et_user.getText().toString().toLowerCase();
+                this.email   = et_mail.getText().toString().toLowerCase();
+                this.pass    = et_password.getText().toString();
+
+                startRegitrer();
+
                 break;
 
             // En el caso de la selección del botón entrar abrimos MainActivity:
@@ -54,6 +79,194 @@ public class RegistrationActivity extends BaseActivity {
             startActivity(new Intent(this, LoginActivity.class));
             finish();
             break;
+        }
+    }
+
+    // Método para comprobar que los EditText's estén correctamente rellenados:
+    public Boolean regitrerVerification(){
+
+        // Si el EditText Usuario está vacio:
+        if(et_user.getText().toString().isEmpty()){
+            et_user.setError(getString(R.string.emptry_camp));
+            et_user.requestFocus();
+            return false;
+        }
+
+        if(et_user.getText().length() < 4){
+            et_user.setError(getString(R.string.error_user));
+            et_user.requestFocus();
+            return false;
+        }
+
+        // Si el EditText Correo está vacio:
+        if(et_mail.getText().toString().isEmpty()){
+            et_mail.setError(getString(R.string.emptry_camp));
+            et_mail.requestFocus();
+            return false;
+        }
+
+        // Si el EditText Contraseña está vacio:
+        if(et_password.getText().toString().isEmpty()){
+            et_password.setError(getString(R.string.emptry_camp));
+            et_password.requestFocus();
+            return false;
+        }
+
+        if(et_password.getText().length() < 6){
+            et_password.setError(getString(R.string.error_password));
+            et_password.requestFocus();
+            return false;
+        }
+
+        // Comprobamos que tiene estructura de email:
+        if(et_mail.getText().toString().contains("@") && (et_mail.getText().toString().contains(".es") || et_mail.getText().toString().contains(".com") || et_mail.getText().toString().contains(".net"))){
+            return true;
+        }else{
+            et_mail.setError(getString(R.string.error_mail));
+            et_mail.requestFocus();
+            return false;
+        }
+    }
+
+    // Ejecutamos el hilo:
+    public void startRegitrer(){
+        if(regitrerVerification()) new CheckRegistrationTask().execute();
+    }
+
+    // Hilo:
+    class CheckRegistrationTask extends AsyncTask<String, String, JSONArray> {
+
+        // Variables:
+        private boolean user_exist       = false;
+        private boolean email_exist      = false;
+
+        private JSONArray jsonArrayUser  = new JSONArray();
+        private JSONObject jsonObject    = new JSONObject();
+        private JSONArray jsonArrayEmail = new JSONArray();
+
+        private HashMap<String, String> parametrosPost = new HashMap<>();
+
+        @Override
+        protected void onPreExecute() {
+            progressDialog = new ProgressDialog(RegistrationActivity.this);
+            progressDialog.setMessage("Cargando...");
+            progressDialog.setIndeterminate(false);
+            progressDialog.setCancelable(true);
+            progressDialog.show();
+        }
+
+        @Override
+        protected JSONArray doInBackground(String... params) {
+            try {
+
+                // Consulto que el usuario no existe en la base de datos:
+                parametrosPost.put("ins_sql", "select * from users where user_name = '" + user + "'");
+                jsonArrayUser = connection.sendRequest(url_query, parametrosPost);
+                Log.e("jsonArrayUser",""+jsonArrayUser);
+                if (jsonArrayUser != null && jsonArrayUser.length() > 0 ) {
+                    user_exist  = true;
+                    Log.e("user_exist","true");
+                    return jSONArray;
+                }else{
+                    Log.e("user_exist","false");
+                }
+
+                // Consulto que el correo no tiene más de una cuenta registrada:
+                parametrosPost.put("ins_sql", "select * from users where user_email ='" + email + "'");
+                jsonArrayEmail = connection.sendRequest(url_query, parametrosPost);
+                Log.e("user_exist",""+jsonArrayEmail);
+                if (jsonArrayEmail != null && jsonArrayEmail.length() > 0) {
+                    email_exist = true;
+                    Log.e("email_exist","true");
+                    return jSONArray;
+                }else{
+                    Log.e("email_exist","false");
+                }
+            } catch (Exception e) {
+                e.getMessage();
+            }
+
+            return null;
+        }
+        protected void onPostExecute(JSONArray json) {
+            if (progressDialog != null && progressDialog.isShowing()) {
+                progressDialog.dismiss();
+            }
+
+            // Si no hay ningun usuario con este tipo lanzo el hilo para registrarlo:
+            if (!user_exist && !email_exist) {
+                new RegistrationTask().execute();
+            }else {
+                // Si el usuario ya está en uso:
+                if(user_exist){
+                    et_user.setError(getString(R.string.user_exist));
+                    et_user.requestFocus();
+                }
+
+                // Si el correo ya tiene una cuenta registrada:
+                if(email_exist){
+                    et_mail.setError(getString(R.string.email_exist));
+                    et_mail.requestFocus();
+                }
+            }
+        }
+    }
+
+    // Hilo:
+    class RegistrationTask extends AsyncTask<String, String, JSONObject> {
+
+        // Variables:
+        private JSONObject jsonObject    = new JSONObject();
+
+        private HashMap<String, String> parametrosPost = new HashMap<>();
+
+        @Override
+        protected void onPreExecute() {
+            progressDialog = new ProgressDialog(RegistrationActivity.this);
+            progressDialog.setMessage("Cargando...");
+            progressDialog.setIndeterminate(false);
+            progressDialog.setCancelable(true);
+            progressDialog.show();
+        }
+
+        @Override
+        protected JSONObject doInBackground(String... params) {
+            try {
+                Log.e("Entra","Registro");
+                HashMap<String, String> parametrosPost = new HashMap<>();
+                parametrosPost.put("ins_sql", "INSERT INTO users (user_name, user_email, user_password) VALUES( '" + user + "','" + email + "','" + pass + "')"); //INSERT INTO users (user_name, user_email, user_password) VALUES("raulpmz","raulpm92@gmail.com","administrador");
+                Log.e("parametrosPost",""+parametrosPost);
+                jsonObject = connection.sendWrite(url_insert, parametrosPost);
+                Log.e("jsonObject",""+jsonObject);
+
+                if (jsonObject != null) {
+                    return jsonObject;
+                }
+
+            } catch (JSONException e) {
+                e.getMessage();
+            }
+
+            return null;
+        }
+        protected void onPostExecute(JSONObject json) {
+            if (progressDialog != null && progressDialog.isShowing()) {
+                progressDialog.dismiss();
+            }
+
+            if (json != null) {
+                try {
+                    if(json.getInt("added") == 1){
+                        Snackbar.make(findViewById(R.id.layout_Register), getResources().getString(R.string.successful_registration), Toast.LENGTH_SHORT).show();
+                    }else{
+                        Snackbar.make(findViewById(R.id.layout_Register), getResources().getString(R.string.error_registration), Toast.LENGTH_SHORT).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }else{
+                Snackbar.make(findViewById(R.id.layout_Register), getResources().getString(R.string.error_registration), Toast.LENGTH_SHORT).show();
+            }
         }
     }
 

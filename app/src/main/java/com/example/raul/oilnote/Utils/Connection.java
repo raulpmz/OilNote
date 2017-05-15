@@ -91,6 +91,62 @@ public class Connection {
 
     }
 
+    public JSONObject sendWrite(String link, HashMap<String, String> values) throws JSONException {
+        JSONObject jsonObject = null;
+        try {
+            URL url = new URL(link);
+            conn = (HttpURLConnection) url.openConnection();
+            conn.setReadTimeout(CONNECTION_TIMEOUT);
+            conn.setConnectTimeout(CONNECTION_TIMEOUT);
+            conn.setRequestMethod("POST");
+            conn.setDoInput(true);
+            conn.setDoOutput(true);
+            conn.connect();
+
+            if (values != null) {
+                OutputStream os = conn.getOutputStream();
+                OutputStreamWriter osWriter = new OutputStreamWriter(os, "UTF-8");
+                BufferedWriter writer = new BufferedWriter(osWriter);
+                writer.write(getPostData(values));
+                writer.flush();
+                writer.close();
+                os.close();
+            }
+
+            if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
+                InputStream is = conn.getInputStream();
+                InputStreamReader isReader = new InputStreamReader(is, "UTF-8");
+                BufferedReader reader = new BufferedReader(isReader);
+                String result = "";
+                String line = null;
+                StringBuilder sb = new StringBuilder();
+
+                while ((line = reader.readLine()) != null) {
+                    sb.append(line + "\n");
+                }
+                is.close();
+                result = sb.toString();
+
+                try {
+
+                    jsonObject = new JSONObject(result);
+                    return jsonObject;
+
+                } catch (JSONException e) {
+                    Log.e("ERROR => ", "Error convirtiendo los datos a JSON : " + e.toString());
+                    e.getMessage();
+                    return null;
+                }
+            }
+        }
+
+        catch (MalformedURLException e) {}
+        catch (IOException e) {}
+
+        return jsonObject;
+
+    }
+
     public String getPostData(HashMap<String, String> values) {
         StringBuilder builder = new StringBuilder();
         boolean first = true;

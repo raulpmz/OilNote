@@ -18,6 +18,9 @@ import com.example.raul.oilnote.Objects.User;
 import com.example.raul.oilnote.R;
 import com.example.raul.oilnote.Utils.Connection;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 /**
  * Clase base.
  */
@@ -32,7 +35,9 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
     protected ActionBarDrawerToggle toggle;
     protected NavigationView navigationView;
     protected ProgressDialog progressDialog;
-    protected String url_consulta;
+    protected String url_query, url_insert;
+    protected JSONArray jSONArray;
+    protected JSONObject jsonObject;
 
     public void onCreate(Bundle paramBundle, int layout) {
 
@@ -64,17 +69,19 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
         }
 
         //Clase Conexión:
-        connection = new Connection();
+        connection  = new Connection();
 
-        // Url consulta:
-
-        url_consulta = "http://iesayala.ddns.net/raulpmz/php.php";
+        // Url:
+        url_query   = "http://iesayala.ddns.net/raulpmz/imprime.php";
+        url_insert  = "http://iesayala.ddns.net/raulpmz/imprime.php";
 
         // ProgressDialog:
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
         progressDialog.setMax(100);
 
+        jSONArray       = new JSONArray();
+        jsonObject      = new JSONObject();
     }
 
 

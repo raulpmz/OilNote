@@ -12,7 +12,7 @@
     <string name="password">Contraseña</string>
     <string name="btn_enter">Entrar</string>
     <string name="tv_registration">¿No tienes cuenta aún? Create una</string>
-    <string name="login_fail">Usuario o contraseña incorrectos</string>
+    <string name="login_fail">El usuario no existe o la contraseña es incorrecta</string>
     <string name="emptry_camp">Este campo no puede estar vacio</string>
     <string name="error_password">La contraseña debe de contener al menos 6 caracteres</string>
 
@@ -22,4 +22,15 @@
     <string name="btn_registration">Crear cuenta</string>
     <string name="tv_login">¿Ya eres usuario? Iniciar sesión</string>
     <string name="mail">Correo</string>
+    <string name="error_mail">La dirección de correo no es correcta.
+                                        \n\t\tEjem: tu_correo@gmail.com
+                                        \n\t\tEjem: tu_correo@megasur.es
+                                        \n\t\tEjem: tu_correo@hotmail.es
+                                        \n\t\tEtc...
+    </string>
+    <string name="email_exist">Este correo ya está registrado</string>
+    <string name="user_exist">Este usuario ya se encuentra en uso</string>
+    <string name="error_user">El usuario debe de contener al menos 4 caracteres</string>
+    <string name="successful_registration">Usuario registrado exitosamente</string>
+    <string name="error_registration">Fallo en el registro del usuario</string>
 </resources>

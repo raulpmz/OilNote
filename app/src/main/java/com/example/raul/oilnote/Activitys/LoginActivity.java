@@ -23,9 +23,7 @@ public class LoginActivity extends BaseActivity {
     private Button btn_enter;
     private TextView tv_registration;
     private EditText et_user, et_password;
-    private JSONArray jSONArray;
-    private JSONObject jsonObject;
-    private String url_consulta, username, userpassword;
+    private String username, userpassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,9 +47,7 @@ public class LoginActivity extends BaseActivity {
         tv_registration     .setOnClickListener(this);
 
         // Variables y objetos:
-        url_consulta    = "http://iesayala.ddns.net/raulpmz/imprime.php";
-        jSONArray       = new JSONArray();
-        jsonObject      = new JSONObject();
+
 
         //Clase Conexión:
         connection      = new Connection();
@@ -65,7 +61,7 @@ public class LoginActivity extends BaseActivity {
 
             // En el caso de la selección del botón entrar abrimos MainActivity:
             case R.id.btn_enter:
-                username        = et_user.getText().toString();
+                username        = et_user.getText().toString().toLowerCase();
                 userpassword    = et_password.getText().toString();
                 startLogin();
                 break;
@@ -108,8 +104,9 @@ public class LoginActivity extends BaseActivity {
     }
 
     // Login:
-    public void Login(){
+    public void login(){
         startActivity(new Intent(this,MainActivity.class));
+        finish();
     }
 
     class LoginTask extends AsyncTask<String, String, JSONArray> {
@@ -129,7 +126,7 @@ public class LoginActivity extends BaseActivity {
                 HashMap<String, String> parametrosPost = new HashMap<>();
                 parametrosPost.put("ins_sql", "select * from users where user_name ='" + username + "' and user_password = '" + userpassword + "'");
 
-                jSONArray = connection.sendRequest(url_consulta, parametrosPost);
+                jSONArray = connection.sendRequest(url_query, parametrosPost);
                 Log.e("jSONArray",""+parametrosPost);
 
                 if (jSONArray != null) {
@@ -150,7 +147,7 @@ public class LoginActivity extends BaseActivity {
             }
             if (json != null && json.length() > 0) {
                 Log.e("Json",""+json);
-                Login();
+                login();
             }else {
                 Log.e("Json","Vacio");
                 et_password.setError(getString(R.string.login_fail));
