@@ -33,4 +33,9 @@
     <string name="error_user">El usuario debe de contener al menos 4 caracteres</string>
     <string name="successful_registration">Usuario registrado exitosamente</string>
     <string name="error_registration">Fallo en el registro del usuario</string>
+
+    <!--            Registration_Activity           -->
+    <string name="add_laborer">Añadir trabajador</string>
+    <string name="add_worker_day">Añadir jornales</string>
+    
 </resources>
