@@ -73,7 +73,7 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
 
         // Url:
         url_query   = "http://iesayala.ddns.net/raulpmz/imprime.php";
-        url_insert  = "http://iesayala.ddns.net/raulpmz/imprime.php";
+        url_insert  = "http://iesayala.ddns.net/raulpmz/escribe.php";
 
         // ProgressDialog:
         progressDialog = new ProgressDialog(this);

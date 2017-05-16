@@ -58,7 +58,7 @@ public class RegistrationActivity extends BaseActivity {
 
         // Url:
         url_query   = "http://iesayala.ddns.net/raulpmz/imprime.php";
-        url_insert  = "http://iesayala.ddns.net/raulpmz/imprime.php";
+        url_insert  = "http://iesayala.ddns.net/raulpmz/escribe.php";
     }
 
     @Override
@@ -146,7 +146,6 @@ public class RegistrationActivity extends BaseActivity {
         private boolean email_exist      = false;
 
         private JSONArray jsonArrayUser  = new JSONArray();
-        private JSONObject jsonObject    = new JSONObject();
         private JSONArray jsonArrayEmail = new JSONArray();
 
         private HashMap<String, String> parametrosPost = new HashMap<>();
@@ -221,9 +220,7 @@ public class RegistrationActivity extends BaseActivity {
     class RegistrationTask extends AsyncTask<String, String, JSONObject> {
 
         // Variables:
-        private JSONObject jsonObject    = new JSONObject();
-        private JSONArray jsonArray      = new JSONArray();
-
+        private JSONObject jsonObject = new JSONObject();
         private HashMap<String, String> parametrosPost = new HashMap<>();
 
         @Override
@@ -239,11 +236,10 @@ public class RegistrationActivity extends BaseActivity {
         protected JSONObject doInBackground(String... params) {
             try {
                 Log.e("Entra","Registro");
-                HashMap<String, String> parametrosPost = new HashMap<>();
                 parametrosPost.put("ins_sql", "INSERT INTO users (user_name, user_email, user_password) VALUES('" + user + "','" + email + "','" + pass + "');"); //INSERT INTO users (user_name, user_email, user_password) VALUES("raulpmz","raulpm92@gmail.com","administrador");
                 Log.e("parametrosPost",""+parametrosPost);
                 jsonObject = connection.sendWrite(url_insert, parametrosPost);
-                Log.e("jsonObject",""+jSONArray);
+                Log.e("jsonObject",""+jsonObject);
 
                 if (jsonObject != null) {
                     return jsonObject;
@@ -262,7 +258,7 @@ public class RegistrationActivity extends BaseActivity {
 
             if (json != null) {
                 try {
-                    if(json.getString("added").equals(1)){
+                    if(json.getInt("added") == 1){
                         Snackbar.make(findViewById(R.id.layout_Register), getResources().getString(R.string.successful_registration), Toast.LENGTH_SHORT).show();
                     }else{
                         Snackbar.make(findViewById(R.id.layout_Register), getResources().getString(R.string.error_registration), Toast.LENGTH_SHORT).show();

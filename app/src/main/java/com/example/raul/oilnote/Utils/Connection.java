@@ -94,7 +94,6 @@ public class Connection {
     public JSONObject sendWrite(String link, HashMap<String, String> values) throws JSONException {
 
         JSONObject jobject = null;
-
         try {
             URL url = new URL(link);
             conn = (HttpURLConnection) url.openConnection();
@@ -104,34 +103,29 @@ public class Connection {
             conn.setDoInput(true);
             conn.setDoOutput(true);
             conn.connect();
-
             if (values != null) {
                 OutputStream os = conn.getOutputStream();
-                OutputStreamWriter osWriter = new OutputStreamWriter(os, "UTF-8");
+                OutputStreamWriter osWriter = new OutputStreamWriter(os,
+                        "UTF-8");
                 BufferedWriter writer = new BufferedWriter(osWriter);
                 writer.write(getPostData(values));
                 writer.flush();
                 writer.close();
                 os.close();
             }
-
             if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
-                InputStream is = conn.getInputStream();
-                InputStreamReader isReader = new InputStreamReader(is, "UTF-8");
-                BufferedReader reader = new BufferedReader(isReader);
-                String result = "";
-                String line = null;
-                StringBuilder sb = new StringBuilder();
-
-                while ((line = reader.readLine()) != null) {
-                    sb.append(line + "\n");
+                BufferedReader r = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                StringBuilder result = new StringBuilder();
+                String line;
+                while ((line = r.readLine()) != null) {
+                    result.append(line);
                 }
-                is.close();
-                result = sb.toString();
-
                 try {
-                    jobject = new JSONObject(result.toString());
-                    return jobject;
+                    if(result.toString() != "Error"){
+                        jobject = new JSONObject(result.toString());
+                    }else{
+                        jobject =  null;
+                    }
                 } catch (JSONException e) {
                     Log.e("JSONException", e.getMessage());
                     e.printStackTrace();
