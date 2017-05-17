@@ -10,7 +10,7 @@ import org.json.JSONArray;
 
 import java.util.HashMap;
 
-import static com.example.raul.oilnote.Utils.GlobalVars.BASE_URL_READ;
+import static com.example.raul.oilnote.Utils.GlobalVars.*;
 
 public class ListWorkerActivity extends BaseActivity {
 
@@ -36,7 +36,7 @@ public class ListWorkerActivity extends BaseActivity {
 
             try {
                 // Consulto los trabajadores que tiene el usuario:
-                parametrosPost.put("ins_sql", "select * from workers where user_cod = '" + user + "'");
+                parametrosPost.put("ins_sql", "select * from workers where user_cod = '" + USER_COD + "'");
                 jsonArray = connection.sendRequest(BASE_URL_READ, parametrosPost);
 
                 if (jsonArray != null) {

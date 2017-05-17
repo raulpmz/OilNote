@@ -13,8 +13,10 @@ public class GlobalVars {
 
     // USER DATE:
 
-    public static final int    USER_COD         = 0;
-    public static final String USER_NAME        = "";
-    public static final String USER_EMAIL       = "";
-    public static final String USER_PASSWORD    = "";
+    public static int    USER_COD               = 0;
+    public static String USER_NAME              = "";
+    public static String USER_EMAIL             = "";
+    public static String USER_PASSWORD          = "";
+
+
 }

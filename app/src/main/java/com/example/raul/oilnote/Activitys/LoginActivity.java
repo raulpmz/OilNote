@@ -10,21 +10,28 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.raul.oilnote.Objects.User;
+import com.example.raul.oilnote.Objects.Worker;
 import com.example.raul.oilnote.R;
 import com.example.raul.oilnote.Utils.Connection;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.util.HashMap;
 
 import static com.example.raul.oilnote.Utils.GlobalVars.BASE_URL_READ;
+import static com.example.raul.oilnote.Utils.GlobalVars.USER_COD;
+import static com.example.raul.oilnote.Utils.GlobalVars.USER_EMAIL;
+import static com.example.raul.oilnote.Utils.GlobalVars.USER_NAME;
+import static com.example.raul.oilnote.Utils.GlobalVars.USER_PASSWORD;
 
 public class LoginActivity extends BaseActivity {
 
     protected Button btn_enter;
     protected TextView tv_registration;
     protected EditText et_user, et_password;
-    protected String username, userpassword, url_query;
+    protected String username, userpassword;
     protected Connection connection;
 
     @Override
@@ -48,8 +55,11 @@ public class LoginActivity extends BaseActivity {
         btn_enter           .setOnClickListener(this);
         tv_registration     .setOnClickListener(this);
 
-        //Clase Conexión:
+        // Clase Conexión:
         connection  = new Connection();
+
+        // Object's:
+        user = new User();
     }
 
     @Override
@@ -97,6 +107,14 @@ public class LoginActivity extends BaseActivity {
         return true;
     }
 
+    // Método para guardar en variables globales para facilitar el acceso a los datos del usuario en la aplicación:
+    public void setGoblarVars(User user){
+        USER_COD        = user.getUserCod();
+        USER_NAME       = user.getUserName();
+        USER_EMAIL      = user.getEmail();
+        USER_PASSWORD   = user.getPassword();
+    }
+
     // Si los datos complen de forma correcta las condiciones se inicia la consulta asincrona:
     public void startLogin(){
         Log.e("User",username);
@@ -140,13 +158,25 @@ public class LoginActivity extends BaseActivity {
             if (progressDialog != null && progressDialog.isShowing()) {
                 progressDialog.dismiss();
             }
+            try {
+                if (json != null && json.length() > 0) {
+                    Log.e("Json",""+json);
 
-            if (json != null && json.length() > 0) {
-                Log.e("Json",""+json);
-                startActivity(new Intent(LoginActivity.this,MainActivity.class));
-                finish();
-            }else {
-                et_password.setError(getString(R.string.login_fail));
+                    user.setUserCod(json.getJSONObject(0).getInt("user_cod"));
+                    user.setUserName(json.getJSONObject(0).getString("user_name"));
+                    user.setEmail(json.getJSONObject(0).getString("user_email"));
+                    user.setPassword(json.getJSONObject(0).getString("user_password"));
+
+                    setGoblarVars(user);
+
+                    startActivity(new Intent(LoginActivity.this,MainActivity.class));
+                    finish();
+
+                }else {
+                    et_password.setError(getString(R.string.login_fail));
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
         }
     }

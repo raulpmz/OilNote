@@ -8,22 +8,23 @@ public class User{
 
     // Variables:
 
-    private String  userCod, user, last_name, email, password, photo;
+    private String  userName, last_name, email, password, photo;
+    private int userCod;
 
     // Constructores:
 
     public User() {
-        this.user       = "";
-        this.user       = "";
+        this.userCod    = 0;
+        this.userName   = "";
         this.last_name  = "";
         this.email      = "";
         this.password   = "";
         this.photo      = "";
     }
 
-    public User(String userCod, String user, String last_name, String email, String password, String photo) {
+    public User(int userCod, String userName, String last_name, String email, String password, String photo) {
         this.userCod    = userCod;
-        this.user       = user;
+        this.userName   = userName;
         this.last_name  = last_name;
         this.email      = email;
         this.password   = password;
@@ -33,20 +34,20 @@ public class User{
     // Getter's & Setter's:
 
 
-    public String getUserCod() {
+    public int getUserCod() {
         return userCod;
     }
 
-    public void setUserCod(String userCod) {
+    public void setUserCod(int userCod) {
         this.userCod = userCod;
     }
 
-    public String getUser() {
-        return user;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUser(String user) {
-        this.user = user;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getLast_name() {
