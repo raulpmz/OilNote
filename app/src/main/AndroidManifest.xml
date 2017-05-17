@@ -27,7 +27,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppThemeOilNote">
-
         <activity
             android:name=".Activitys.LoginActivity"
             android:windowSoftInputMode="stateHidden">
@@ -38,7 +37,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".Activitys.MainActivity" />
-        <activity android:name=".Activitys.RegistrationActivity"></activity>
+        <activity android:name=".Activitys.RegistrationActivity" />
+        <activity android:name=".Activitys.AddWorkerActivity"></activity>
     </application>
 
 </manifest>

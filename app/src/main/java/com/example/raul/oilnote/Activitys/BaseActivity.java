@@ -110,7 +110,7 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(MenuItem item) {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_menu);
         switch (item.getItemId()) {
-            case R.id.nav_camera:
+            /*case R.id.nav_camera:
                 break;
             case R.id.nav_gallery:
                 break;
@@ -121,7 +121,7 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_share:
                 break;
             case R.id.nav_send:
-                break;
+                break;*/
         }
 
         drawer.closeDrawer(GravityCompat.START);
