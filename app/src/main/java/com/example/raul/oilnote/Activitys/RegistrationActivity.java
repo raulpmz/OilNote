@@ -6,8 +6,6 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
-import android.text.InputType;
-import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -24,13 +22,15 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 
+import static com.example.raul.oilnote.Utils.HttpQuery.*;
+
 public class RegistrationActivity extends BaseActivity {
 
     // Variables:
     protected TextView tv_login;
     protected EditText et_user, et_mail, et_password;
     protected Button btn_registration;
-    protected String user, email, pass, url_query, url_insert;
+    protected String user, email, pass;
     protected Connection connection;
 
     @Override
@@ -55,10 +55,6 @@ public class RegistrationActivity extends BaseActivity {
 
         //Clase Conexión:
         connection  = new Connection();
-
-        // Url:
-        url_query   = "http://iesayala.ddns.net/raulpmz/imprime.php";
-        url_insert  = "http://iesayala.ddns.net/raulpmz/escribe.php";
     }
 
     @Override
@@ -69,10 +65,12 @@ public class RegistrationActivity extends BaseActivity {
 
             // En el caso de la selección del botón registrar abrimos RegistrationActivity:
             case R.id.btn_registration:
-                this.user    = et_user.getText().toString().toLowerCase();
-                this.email   = et_mail.getText().toString().toLowerCase();
-                this.pass    = et_password.getText().toString();
-                //Lineas para ocultar el teclado virtual (Hide keyboard)
+
+                user    = et_user.getText().toString().toLowerCase();
+                email   = et_mail.getText().toString().toLowerCase();
+                pass    = et_password.getText().toString();
+
+                //Ocultar el teclado:
                 InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(et_password.getWindowToken(), 0);
                 startRegitrer();
@@ -81,8 +79,10 @@ public class RegistrationActivity extends BaseActivity {
 
             // En el caso de la selección del botón entrar abrimos MainActivity:
             case R.id.tv_login:
+
             startActivity(new Intent(this, LoginActivity.class));
             finish();
+
             break;
         }
     }
@@ -138,7 +138,7 @@ public class RegistrationActivity extends BaseActivity {
         if(regitrerVerification()) new CheckRegistrationTask().execute();
     }
 
-    // Hilo:
+    // Hilo que comprueba que no hay ningún usuario con esas credenciales:
     class CheckRegistrationTask extends AsyncTask<String, String, JSONArray> {
 
         // Variables:
@@ -161,30 +161,24 @@ public class RegistrationActivity extends BaseActivity {
 
         @Override
         protected JSONArray doInBackground(String... params) {
-            try {
 
+            try {
                 // Consulto que el usuario no existe en la base de datos:
                 parametrosPost.put("ins_sql", "select * from users where user_name = '" + user + "'");
-                jsonArrayUser = connection.sendRequest(url_query, parametrosPost);
-                Log.e("jsonArrayUser",""+jsonArrayUser);
+                jsonArrayUser = connection.sendRequest(BASE_URL_READ, parametrosPost);
+
                 if (jsonArrayUser != null && jsonArrayUser.length() > 0 ) {
                     user_exist  = true;
-                    Log.e("user_exist","true");
                     return jSONArray;
-                }else{
-                    Log.e("user_exist","false");
                 }
 
                 // Consulto que el correo no tiene más de una cuenta registrada:
                 parametrosPost.put("ins_sql", "select * from users where user_email ='" + email + "'");
-                jsonArrayEmail = connection.sendRequest(url_query, parametrosPost);
-                Log.e("user_exist",""+jsonArrayEmail);
+                jsonArrayEmail = connection.sendRequest(BASE_URL_READ, parametrosPost);
+
                 if (jsonArrayEmail != null && jsonArrayEmail.length() > 0) {
                     email_exist = true;
-                    Log.e("email_exist","true");
                     return jSONArray;
-                }else{
-                    Log.e("email_exist","false");
                 }
             } catch (Exception e) {
                 e.getMessage();
@@ -192,6 +186,7 @@ public class RegistrationActivity extends BaseActivity {
 
             return null;
         }
+
         protected void onPostExecute(JSONArray json) {
             if (progressDialog != null && progressDialog.isShowing()) {
                 progressDialog.dismiss();
@@ -216,7 +211,7 @@ public class RegistrationActivity extends BaseActivity {
         }
     }
 
-    // Hilo:
+    // Hilo encargado de registrar al usuario:
     class RegistrationTask extends AsyncTask<String, String, JSONObject> {
 
         // Variables:
@@ -234,12 +229,10 @@ public class RegistrationActivity extends BaseActivity {
 
         @Override
         protected JSONObject doInBackground(String... params) {
+
             try {
-                Log.e("Entra","Registro");
                 parametrosPost.put("ins_sql", "INSERT INTO users (user_name, user_email, user_password) VALUES('" + user + "','" + email + "','" + pass + "');"); //INSERT INTO users (user_name, user_email, user_password) VALUES("raulpmz","raulpm92@gmail.com","administrador");
-                Log.e("parametrosPost",""+parametrosPost);
-                jsonObject = connection.sendWrite(url_insert, parametrosPost);
-                Log.e("jsonObject",""+jsonObject);
+                jsonObject = connection.sendWrite(BASE_URL_WRITE, parametrosPost);
 
                 if (jsonObject != null) {
                     return jsonObject;

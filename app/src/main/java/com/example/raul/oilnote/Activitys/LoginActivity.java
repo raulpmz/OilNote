@@ -14,9 +14,10 @@ import com.example.raul.oilnote.R;
 import com.example.raul.oilnote.Utils.Connection;
 
 import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.util.HashMap;
+
+import static com.example.raul.oilnote.Utils.HttpQuery.BASE_URL_READ;
 
 public class LoginActivity extends BaseActivity {
 
@@ -49,10 +50,6 @@ public class LoginActivity extends BaseActivity {
 
         //Clase Conexión:
         connection  = new Connection();
-
-        // Url:
-        url_query   = "http://iesayala.ddns.net/raulpmz/imprime.php";
-
     }
 
     @Override
@@ -95,6 +92,7 @@ public class LoginActivity extends BaseActivity {
             et_password.setError(getString(R.string.error_password));
             return false;
         }
+
         return true;
     }
 
@@ -124,19 +122,18 @@ public class LoginActivity extends BaseActivity {
 
         @Override
         protected JSONArray doInBackground(String... params) {
+
             try {
                 HashMap<String, String> parametrosPost = new HashMap<>();
                 parametrosPost.put("ins_sql", "select * from users where user_name ='" + username + "' and user_password = '" + userpassword + "'");
 
-                jSONArray = connection.sendRequest(url_query, parametrosPost);
+                jSONArray = connection.sendRequest(BASE_URL_READ, parametrosPost);
                 Log.e("jSONArray",""+parametrosPost);
 
                 if (jSONArray != null) {
                     return jSONArray;
-
-                }else{
-                    Log.e("No obtiene objeto jSon","Json nulo");
                 }
+
             } catch (Exception e) {
                 e.getMessage();
             }
@@ -147,11 +144,11 @@ public class LoginActivity extends BaseActivity {
             if (progressDialog != null && progressDialog.isShowing()) {
                 progressDialog.dismiss();
             }
+
             if (json != null && json.length() > 0) {
                 Log.e("Json",""+json);
                 login();
             }else {
-                Log.e("Json","Vacio");
                 et_password.setError(getString(R.string.login_fail));
             }
         }

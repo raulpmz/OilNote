@@ -1,6 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:weightSum="1"
+    android:background="@color/Beige">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.09"
+        android:orientation="horizontal"
+        android:padding="7dp">
+
+        <ImageView
+            android:id="@+id/image_worker"
+            android:layout_width="41dp"
+            android:layout_height="48dp"
+            app:srcCompat="@drawable/user_shape" />
+
+        <TextView
+            android:id="@+id/name_worker"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1.00"
+            android:gravity="center_vertical"
+            android:paddingLeft="10dp"
+            android:text="TextView"
+            android:textStyle="bold" />
+
+    </LinearLayout>
 
 </LinearLayout>
