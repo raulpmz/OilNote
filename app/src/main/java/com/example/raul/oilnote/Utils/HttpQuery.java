@@ -8,4 +8,12 @@ public class HttpQuery {
 
     public static final String BASE_URL_READ   = "http://iesayala.ddns.net/raulpmz/imprime.php";
     public static final String BASE_URL_WRITE  = "http://iesayala.ddns.net/raulpmz/escribe.php";
+
+    public static String getBaseUrlRead() {
+        return BASE_URL_READ;
+    }
+
+    public static String getBaseUrlWrite() {
+        return BASE_URL_WRITE;
+    }
 }
