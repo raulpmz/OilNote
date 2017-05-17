@@ -12,7 +12,10 @@ import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
-import android.widget.ImageView;
+
+/**
+ *      Clase personalizada para redondear los ImagenView:
+ */
 
 public class RoundedImageView extends android.support.v7.widget.AppCompatImageView {
 
