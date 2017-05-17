@@ -22,7 +22,7 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 
-import static com.example.raul.oilnote.Utils.HttpQuery.*;
+import static com.example.raul.oilnote.Utils.GlobalVars.*;
 
 public class RegistrationActivity extends BaseActivity {
 

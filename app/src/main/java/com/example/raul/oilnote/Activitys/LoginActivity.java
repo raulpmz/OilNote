@@ -17,7 +17,7 @@ import org.json.JSONArray;
 
 import java.util.HashMap;
 
-import static com.example.raul.oilnote.Utils.HttpQuery.BASE_URL_READ;
+import static com.example.raul.oilnote.Utils.GlobalVars.BASE_URL_READ;
 
 public class LoginActivity extends BaseActivity {
 

@@ -4,33 +4,42 @@ package com.example.raul.oilnote.Objects;
  * Clase Usuario.
  */
 
-public class User extends Person{
+public class User{
 
     // Variables:
 
-    private String user, password;
+    private String  userCod, user, last_name, email, password, photo;
 
     // Constructores:
 
     public User() {
-        super("", "", "", "");
         this.user       = "";
+        this.user       = "";
+        this.last_name  = "";
+        this.email      = "";
         this.password   = "";
+        this.photo      = "";
     }
 
-    public User(String name, String last_name, String email, String photo, String user, String password) {
-        super(name, last_name, email, photo);
+    public User(String userCod, String user, String last_name, String email, String password, String photo) {
+        this.userCod    = userCod;
         this.user       = user;
+        this.last_name  = last_name;
+        this.email      = email;
         this.password   = password;
+        this.photo      = photo;
     }
 
-    public User(String user, String email, String password) {
-        super("", "", email, "");
-        this.user       = user;
-        this.password   = password;
+    // Getter's & Setter's:
+
+
+    public String getUserCod() {
+        return userCod;
     }
 
-    //  Getter's & Setter's:
+    public void setUserCod(String userCod) {
+        this.userCod = userCod;
+    }
 
     public String getUser() {
         return user;
@@ -38,6 +47,22 @@ public class User extends Person{
 
     public void setUser(String user) {
         this.user = user;
+    }
+
+    public String getLast_name() {
+        return last_name;
+    }
+
+    public void setLast_name(String last_name) {
+        this.last_name = last_name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {
@@ -48,5 +73,11 @@ public class User extends Person{
         this.password = password;
     }
 
+    public String getPhoto() {
+        return photo;
+    }
 
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
 }

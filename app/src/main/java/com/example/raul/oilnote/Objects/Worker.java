@@ -4,41 +4,80 @@ package com.example.raul.oilnote.Objects;
  * Clase Trabajador.
  */
 
-public class Worker extends Person{
+public class Worker{
 
     // Variables:
 
-    private String job, salary;
+    private String workerCod, workerName, workerNick, workerPhone, workerPhoto;
+    private int workerJob;
 
     // Constructores:
 
     public Worker() {
-        super("", "", "", "");
-        this.job = "";
-        this.salary = "";
+        workerCod   = "";
+        workerName  = "";
+        workerNick  = "";
+        workerPhone = "";
+        workerJob   = 1;
+        workerPhoto = "";
     }
 
-    public Worker(String name, String last_name, String email, String photo, String job, String salary) {
-        super(name, last_name, email, photo);
-        this.job = job;
-        this.salary = salary;
+    public Worker(String workerCod, String workerName, String workerNick, String workerPhone, int workerJob, String workerPhoto) {
+        this.workerCod      = workerCod;
+        this.workerName     = workerName;
+        this.workerNick     = workerNick;
+        this.workerPhone    = workerPhone;
+        this.workerJob      = workerJob;
+        this.workerPhoto    = workerPhoto;
     }
 
-    // Getter's & Setter's:
+    // Getter's & Setters:
 
-    public String getJob() {
-        return job;
+    public String getWorkerCod() {
+        return workerCod;
     }
 
-    public void setJob(String job) {
-        this.job = job;
+    public void setWorkerCod(String workerCod) {
+        this.workerCod = workerCod;
     }
 
-    public String getSalary() {
-        return salary;
+    public String getWorkerName() {
+        return workerName;
     }
 
-    public void setSalary(String salary) {
-        this.salary = salary;
+    public void setWorkerName(String workerName) {
+        this.workerName = workerName;
+    }
+
+    public String getWorkerNick() {
+        return workerNick;
+    }
+
+    public void setWorkerNick(String workerNick) {
+        this.workerNick = workerNick;
+    }
+
+    public String getWorkerPhone() {
+        return workerPhone;
+    }
+
+    public void setWorkerPhone(String workerPhone) {
+        this.workerPhone = workerPhone;
+    }
+
+    public int getWorkerJob() {
+        return workerJob;
+    }
+
+    public void setWorkerJob(int workerJob) {
+        this.workerJob = workerJob;
+    }
+
+    public String getWorkerPhoto() {
+        return workerPhoto;
+    }
+
+    public void setWorkerPhoto(String workerPhoto) {
+        this.workerPhoto = workerPhoto;
     }
 }
