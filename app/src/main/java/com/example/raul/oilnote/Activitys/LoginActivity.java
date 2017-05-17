@@ -88,6 +88,7 @@ public class LoginActivity extends BaseActivity {
             return false;
         }
 
+        // Si el EditText Contraseña tiene menos de 6 digitos:
         if(et_password.getText().length() < 6){
             et_password.setError(getString(R.string.error_password));
             return false;
@@ -96,25 +97,20 @@ public class LoginActivity extends BaseActivity {
         return true;
     }
 
-    // Iniciar consulta asincrona:
+    // Si los datos complen de forma correcta las condiciones se inicia la consulta asincrona:
     public void startLogin(){
         Log.e("User",username);
         Log.e("Password",userpassword);
         if(loginVerification()) new LoginTask().execute();
     }
 
-    // Login:
-    public void login(){
-        startActivity(new Intent(this,MainActivity.class));
-        finish();
-    }
-
+    // Hilo para comprobar los datos del usuario se encuentran en la base de datos:
     class LoginTask extends AsyncTask<String, String, JSONArray> {
 
         @Override
         protected void onPreExecute() {
             progressDialog = new ProgressDialog(LoginActivity.this);
-            progressDialog.setMessage("Cargando...");
+            progressDialog.setMessage("Comprobando datos...");
             progressDialog.setIndeterminate(false);
             progressDialog.setCancelable(true);
             progressDialog.show();
@@ -147,7 +143,8 @@ public class LoginActivity extends BaseActivity {
 
             if (json != null && json.length() > 0) {
                 Log.e("Json",""+json);
-                login();
+                startActivity(new Intent(LoginActivity.this,MainActivity.class));
+                finish();
             }else {
                 et_password.setError(getString(R.string.login_fail));
             }

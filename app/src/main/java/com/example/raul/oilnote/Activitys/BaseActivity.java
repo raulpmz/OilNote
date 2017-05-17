@@ -36,7 +36,6 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
     protected ActionBarDrawerToggle toggle;
     protected NavigationView navigationView;
     protected ProgressDialog progressDialog;
-    protected String url_query, url_insert;
     protected JSONArray jSONArray;
     protected JSONObject jsonObject;
 
@@ -72,10 +71,6 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
         //Clase Conexión:
         connection  = new Connection();
 
-        // Url:
-        url_query   = "http://iesayala.ddns.net/raulpmz/imprime.php";
-        url_insert  = "http://iesayala.ddns.net/raulpmz/escribe.php";
-
         // ProgressDialog:
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
@@ -107,6 +102,7 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public void onClick(View v) {}
 
+    // Opciones del Navigation Drawer:
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_menu);

@@ -153,7 +153,7 @@ public class RegistrationActivity extends BaseActivity {
         @Override
         protected void onPreExecute() {
             progressDialog = new ProgressDialog(RegistrationActivity.this);
-            progressDialog.setMessage("Cargando...");
+            progressDialog.setMessage("Comprobando...");
             progressDialog.setIndeterminate(false);
             progressDialog.setCancelable(true);
             progressDialog.show();
@@ -221,7 +221,7 @@ public class RegistrationActivity extends BaseActivity {
         @Override
         protected void onPreExecute() {
             progressDialog = new ProgressDialog(RegistrationActivity.this);
-            progressDialog.setMessage("Cargando...");
+            progressDialog.setMessage("Registrado usuario...");
             progressDialog.setIndeterminate(false);
             progressDialog.setCancelable(true);
             progressDialog.show();
