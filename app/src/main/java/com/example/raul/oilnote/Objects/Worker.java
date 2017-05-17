@@ -4,7 +4,7 @@ package com.example.raul.oilnote.Objects;
  * Clase Trabajador.
  */
 
-public class Laborer extends Person{
+public class Worker extends Person{
 
     // Variables:
 
@@ -12,13 +12,13 @@ public class Laborer extends Person{
 
     // Constructores:
 
-    public Laborer() {
+    public Worker() {
         super("", "", "", "");
         this.job = "";
         this.salary = "";
     }
 
-    public Laborer(String name, String last_name, String email, String photo, String job, String salary) {
+    public Worker(String name, String last_name, String email, String photo, String job, String salary) {
         super(name, last_name, email, photo);
         this.job = job;
         this.salary = salary;

@@ -38,7 +38,11 @@
         </activity>
         <activity android:name=".Activitys.MainActivity" />
         <activity android:name=".Activitys.RegistrationActivity" />
-        <activity android:name=".Activitys.AddWorkerActivity"></activity>
+        <activity android:name=".Activitys.AddWorkerActivity" />
+        <activity
+            android:name=".Activitys.ListWorkerActivity"
+            android:label="@string/title_activity_list_worker"
+            android:theme="@style/AppThemeOilNote"></activity>
     </application>
 
 </manifest>

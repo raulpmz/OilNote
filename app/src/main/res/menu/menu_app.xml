@@ -3,7 +3,16 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/add_loborer"
+            android:id="@+id/home"
+            android:icon="@drawable/home_button"
+            android:title="@string/home" />
+        <item
+            android:id="@+id/list_worker"
+            android:icon="@drawable/list_button_with_3_elements"
+            android:title="@string/list_worker" />
+
+        <item
+            android:id="@+id/add_worker"
             android:icon="@drawable/add_user_button"
             android:title="@string/add_laborer" />
         <item

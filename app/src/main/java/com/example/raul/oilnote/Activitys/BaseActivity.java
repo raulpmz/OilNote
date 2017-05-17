@@ -1,6 +1,7 @@
 package com.example.raul.oilnote.Activitys;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -13,7 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.example.raul.oilnote.Objects.Laborer;
+import com.example.raul.oilnote.Objects.Worker;
 import com.example.raul.oilnote.Objects.User;
 import com.example.raul.oilnote.R;
 import com.example.raul.oilnote.Utils.Connection;
@@ -29,7 +30,7 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
 
     protected Connection connection;
     protected User user;
-    protected Laborer laborer;
+    protected Worker worker;
     protected DrawerLayout drawer;
     protected static Toolbar toolbar;
     protected ActionBarDrawerToggle toggle;
@@ -109,19 +110,38 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_menu);
+        Intent intent;
+        // Opciones del drawer:
         switch (item.getItemId()) {
-            /*case R.id.nav_camera:
+
+            // Botón home del drawer:
+            case R.id.home:
+                if(!BaseActivity.this.getClass().equals(MainActivity.class)){
+                    intent = new Intent(this,MainActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                    BaseActivity.this.finish();
+                }
                 break;
-            case R.id.nav_gallery:
+
+            // Botón para acceder a la lista de trabajadores:
+            case R.id.list_worker:
+                if(!BaseActivity.this.getClass().equals(ListWorkerActivity.class)){
+                    intent = new Intent(this,ListWorkerActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                }
                 break;
-            case R.id.nav_slideshow:
+
+            // Botón para añadir trabajador:
+            case R.id.add_worker:
+                if(!BaseActivity.this.getClass().equals(AddWorkerActivity.class)){
+                    intent = new Intent(this,AddWorkerActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                }
                 break;
-            case R.id.nav_manage:
-                break;
-            case R.id.nav_share:
-                break;
-            case R.id.nav_send:
-                break;*/
+
         }
 
         drawer.closeDrawer(GravityCompat.START);

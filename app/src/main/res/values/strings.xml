@@ -6,6 +6,8 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_settings">Opciones</string>
+    <string name="home">Inicio</string>
+    <string name="list_worker">Lista de trabajadores</string>
 
     <!--                Login_Activity              -->
     <string name="user">Usuario</string>
@@ -37,5 +39,6 @@
     <!--            Registration_Activity           -->
     <string name="add_laborer">Añadir trabajador</string>
     <string name="add_worker_day">Añadir jornales</string>
+    <string name="title_activity_list_worker">ListWorkerActivity</string>
 
 </resources>
