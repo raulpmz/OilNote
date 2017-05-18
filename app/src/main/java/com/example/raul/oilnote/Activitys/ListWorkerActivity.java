@@ -3,12 +3,13 @@ package com.example.raul.oilnote.Activitys;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ListView;
 
 import com.example.raul.oilnote.Adapters.ListWorkerAdapter;
 import com.example.raul.oilnote.Objects.Worker;
 import com.example.raul.oilnote.R;
-import com.example.raul.oilnote.Utils.RoundedImageView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -17,7 +18,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import static com.example.raul.oilnote.Utils.Codification.decodeBase64;
 import static com.example.raul.oilnote.Utils.GlobalVars.*;
 
 public class ListWorkerActivity extends BaseActivity {
@@ -34,6 +34,18 @@ public class ListWorkerActivity extends BaseActivity {
         listWorkers     = new ArrayList<>();
 
         new ListWorkersTask().execute();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.toolbar_menu, menu);
+
+        menu.findItem(R.id.action_settings).setVisible(false);
+        menu.findItem(R.id.action_settings).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+        menu.findItem(R.id.action_add_worker).setVisible(true);
+        menu.findItem(R.id.action_add_worker).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        return super.onCreateOptionsMenu(menu);
+
     }
 
     class ListWorkersTask extends AsyncTask<Void, Void, JSONArray>{
