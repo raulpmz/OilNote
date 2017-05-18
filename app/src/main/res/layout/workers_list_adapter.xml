@@ -12,15 +12,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="0.09"
-        android:orientation="horizontal"
-        android:background="@color/WhiteSmoke">
+        android:background="@drawable/shape"
+        android:orientation="horizontal">
 
-        <com.example.raul.oilnote.Utils.RoundedImageView
+        <ImageView
             android:id="@+id/image_worker"
             android:layout_width="41dp"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/user"
-            android:layout_weight="0.09" />
+            android:layout_weight="0.09"
+            app:srcCompat="@drawable/user" />
 
         <TextView
             android:id="@+id/name_worker"
@@ -30,7 +30,8 @@
             android:gravity="center_vertical"
             android:paddingLeft="10dp"
             android:text="TextView"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:textColor="@color/White"/>
 
     </LinearLayout>
 

@@ -1,5 +1,7 @@
 package com.example.raul.oilnote.Objects;
 
+import android.graphics.drawable.Drawable;
+
 /**
  * Clase Trabajador.
  */
@@ -80,4 +82,5 @@ public class Worker{
     public void setWorkerPhoto(String workerPhoto) {
         this.workerPhoto = workerPhoto;
     }
+
 }
