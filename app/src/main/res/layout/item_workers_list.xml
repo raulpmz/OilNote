@@ -12,10 +12,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="0.09"
-        android:background="@drawable/shape"
+        android:background="@drawable/border_layout"
         android:orientation="horizontal">
 
-        <ImageView
+        <com.example.raul.oilnote.Utils.RoundedImageView
             android:id="@+id/image_worker"
             android:layout_width="41dp"
             android:layout_height="wrap_content"

@@ -1,5 +1,6 @@
 package com.example.raul.oilnote.Objects;
 
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 
 /**
@@ -12,6 +13,7 @@ public class Worker{
 
     private String workerCod, workerName, workerNick, workerPhone, workerPhoto;
     private int workerJob;
+    private Bitmap photoBitmap;
 
     // Constructores:
 
@@ -22,6 +24,7 @@ public class Worker{
         workerPhone = "";
         workerJob   = 1;
         workerPhoto = "";
+        photoBitmap = null;
     }
 
     public Worker(String workerCod, String workerName, String workerNick, String workerPhone, int workerJob, String workerPhoto) {
@@ -83,4 +86,11 @@ public class Worker{
         this.workerPhoto = workerPhoto;
     }
 
+    public Bitmap getPhotoBitmap() {
+        return photoBitmap;
+    }
+
+    public void setPhotoBitmap(Bitmap photoBitmap) {
+        this.photoBitmap = photoBitmap;
+    }
 }
