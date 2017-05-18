@@ -125,20 +125,17 @@ public class LoginActivity extends BaseActivity {
     // Hilo para comprobar los datos del usuario se encuentran en la base de datos:
     class LoginTask extends AsyncTask<String, String, JSONArray> {
 
+        private HashMap<String, String> parametrosPost = new HashMap<>();
+
         @Override
         protected void onPreExecute() {
-            progressDialog = new ProgressDialog(LoginActivity.this);
-            progressDialog.setMessage("Comprobando datos...");
-            progressDialog.setIndeterminate(false);
-            progressDialog.setCancelable(true);
-            progressDialog.show();
+            onProgressDialog(LoginActivity.this,getResources().getString(R.string.loading));
         }
 
         @Override
         protected JSONArray doInBackground(String... params) {
 
             try {
-                HashMap<String, String> parametrosPost = new HashMap<>();
                 parametrosPost.put("ins_sql", "select * from users where user_name ='" + username + "' and user_password = '" + userpassword + "'");
 
                 jSONArray = connection.sendRequest(BASE_URL_READ, parametrosPost);
@@ -155,9 +152,7 @@ public class LoginActivity extends BaseActivity {
         }
 
         protected void onPostExecute(JSONArray json) {
-            if (progressDialog != null && progressDialog.isShowing()) {
-                progressDialog.dismiss();
-            }
+            onStopProgressDialog();
             try {
                 if (json != null && json.length() > 0) {
                     Log.e("Json",""+json);

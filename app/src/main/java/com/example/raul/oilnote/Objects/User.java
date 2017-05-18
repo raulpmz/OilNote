@@ -33,7 +33,6 @@ public class User{
 
     // Getter's & Setter's:
 
-
     public int getUserCod() {
         return userCod;
     }

@@ -8,7 +8,9 @@
     <string name="action_settings">Opciones</string>
     <string name="home">Inicio</string>
     <string name="list_worker">Lista de trabajadores</string>
-    <string name="loading">Cargando</string>
+    <string name="loading">Cargando datos...</string>
+    <string name="checking">Comprobando datos...</string>
+    <string name="user_register">"Registrado usuario..."</string>
 
     <!--                Login_Activity              -->
     <string name="user">Usuario</string>

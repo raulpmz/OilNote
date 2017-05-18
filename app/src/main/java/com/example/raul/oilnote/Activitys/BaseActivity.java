@@ -29,11 +29,11 @@ import org.json.JSONObject;
 
 public class BaseActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener{
 
+    protected static Toolbar toolbar;
     protected Connection connection;
     protected User user;
     protected Worker worker;
     protected DrawerLayout drawer;
-    protected static Toolbar toolbar;
     protected ActionBarDrawerToggle toggle;
     protected NavigationView navigationView;
     protected ProgressDialog progressDialog;
@@ -69,16 +69,13 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
             navigationView.setNavigationItemSelectedListener(this);
         }
 
-        //Clase Conexión:
-        connection  = new Connection();
+        // Clase Conexión:
+        connection      = new Connection();
 
-        // ProgressDialog:
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setCancelable(false);
-        progressDialog.setMax(100);
-
+        // Objetos JSON:
         jSONArray       = new JSONArray();
         jsonObject      = new JSONObject();
+
     }
 
 
@@ -144,12 +141,21 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
+    // ProgressDialog de la aplicación al cual le paso el contexto y el mensaje a aparecer en cada caso:
     public void onProgressDialog(Context context, String msg){
         progressDialog = new ProgressDialog(context);
         progressDialog.setMessage(msg);
         progressDialog.setIndeterminate(false);
         progressDialog.setCancelable(false);
+        progressDialog.setMax(100);
         progressDialog.show();
+    }
+
+    // Método con el que paramos el ProgressDialog:
+    public void onStopProgressDialog(){
+        if(progressDialog != null && progressDialog.isShowing()){
+            progressDialog.dismiss();
+        }
     }
 
     @Override

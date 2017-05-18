@@ -1,6 +1,5 @@
 package com.example.raul.oilnote.Activitys;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -152,11 +151,7 @@ public class RegistrationActivity extends BaseActivity {
 
         @Override
         protected void onPreExecute() {
-            progressDialog = new ProgressDialog(RegistrationActivity.this);
-            progressDialog.setMessage("Comprobando...");
-            progressDialog.setIndeterminate(false);
-            progressDialog.setCancelable(true);
-            progressDialog.show();
+            onProgressDialog(RegistrationActivity.this,getResources().getString(R.string.checking));
         }
 
         @Override
@@ -188,9 +183,7 @@ public class RegistrationActivity extends BaseActivity {
         }
 
         protected void onPostExecute(JSONArray json) {
-            if (progressDialog != null && progressDialog.isShowing()) {
-                progressDialog.dismiss();
-            }
+            onStopProgressDialog();
 
             // Si no hay ningun usuario con este tipo lanzo el hilo para registrarlo:
             if (!user_exist && !email_exist) {
@@ -214,17 +207,11 @@ public class RegistrationActivity extends BaseActivity {
     // Hilo encargado de registrar al usuario:
     class RegistrationTask extends AsyncTask<String, String, JSONObject> {
 
-        // Variables:
-        private JSONObject jsonObject = new JSONObject();
         private HashMap<String, String> parametrosPost = new HashMap<>();
 
         @Override
         protected void onPreExecute() {
-            progressDialog = new ProgressDialog(RegistrationActivity.this);
-            progressDialog.setMessage("Registrado usuario...");
-            progressDialog.setIndeterminate(false);
-            progressDialog.setCancelable(true);
-            progressDialog.show();
+            onProgressDialog(RegistrationActivity.this,getResources().getString(R.string.user_register));
         }
 
         @Override
@@ -245,9 +232,7 @@ public class RegistrationActivity extends BaseActivity {
             return null;
         }
         protected void onPostExecute(JSONObject json) {
-            if (progressDialog != null && progressDialog.isShowing()) {
-                progressDialog.dismiss();
-            }
+            onStopProgressDialog();
 
             if (json != null) {
                 try {

@@ -3,6 +3,7 @@ package com.example.raul.oilnote.Activitys;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.example.raul.oilnote.R;
 
@@ -18,11 +19,11 @@ public class ListWorkerActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState, R.layout.activity_list_worker);
 
+        new ListWorkersTask().execute();
     }
 
     class ListWorkersTask extends AsyncTask<Void, Void, JSONArray>{
 
-        private JSONArray jsonArray;
         private HashMap<String, String> parametrosPost = new HashMap<>();
 
         @Override
@@ -37,9 +38,9 @@ public class ListWorkerActivity extends BaseActivity {
             try {
                 // Consulto los trabajadores que tiene el usuario:
                 parametrosPost.put("ins_sql", "select * from workers where user_cod = '" + USER_COD + "'");
-                jsonArray = connection.sendRequest(BASE_URL_READ, parametrosPost);
+                jSONArray = connection.sendRequest(BASE_URL_READ, parametrosPost);
 
-                if (jsonArray != null) {
+                if (jSONArray != null) {
                     return jSONArray;
                 }
 
@@ -54,10 +55,12 @@ public class ListWorkerActivity extends BaseActivity {
         protected void onPostExecute(JSONArray jsonArray) {
             super.onPostExecute(jsonArray);
 
+            onStopProgressDialog();
+
             try {
 
                 if(jsonArray != null){
-
+                    /*Log.e("","");*/
                 }
 
             } catch (Exception e) {
