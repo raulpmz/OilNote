@@ -12,6 +12,7 @@
     <string name="checking">Comprobando datos...</string>
     <string name="user_register">"Registrado usuario..."</string>
     <string name="add_worker">"Añadir trabajador"</string>
+    <string name="add">Añadir</string>
 
     <!--                Login_Activity              -->
     <string name="user">Usuario</string>

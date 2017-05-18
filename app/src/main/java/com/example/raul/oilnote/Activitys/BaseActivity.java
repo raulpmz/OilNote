@@ -75,7 +75,6 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
         // Objetos JSON:
         jSONArray       = new JSONArray();
         jsonObject      = new JSONObject();
-
     }
 
 

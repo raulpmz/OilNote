@@ -12,4 +12,10 @@
         android:title="@string/add_worker"
         android:visible="false"
         android:icon="@drawable/add_user_button_white" />
+    <item
+        android:id="@+id/action_add"
+        android:orderInCategory="101"
+        android:title="@string/add"
+        android:visible="false"
+        android:icon="@drawable/plus" />
 </menu>

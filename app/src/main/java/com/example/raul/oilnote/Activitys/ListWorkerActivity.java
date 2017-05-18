@@ -40,12 +40,10 @@ public class ListWorkerActivity extends BaseActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.toolbar_menu, menu);
 
-        menu.findItem(R.id.action_settings).setVisible(false);
-        menu.findItem(R.id.action_settings).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
         menu.findItem(R.id.action_add_worker).setVisible(true);
         menu.findItem(R.id.action_add_worker).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-        return super.onCreateOptionsMenu(menu);
 
+        return super.onCreateOptionsMenu(menu);
     }
 
     class ListWorkersTask extends AsyncTask<Void, Void, JSONArray>{

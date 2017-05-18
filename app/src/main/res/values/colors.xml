@@ -161,4 +161,5 @@
     <color name="viewfinder_border">#ffafed44</color>
     <color name="AzulCorporativo">#367294</color>
     <color name="VerdeCorporativo">#36947e</color>
+    <color name="Transparent">#00ffffff</color>
 </resources>
