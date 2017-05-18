@@ -123,5 +123,10 @@ public class ListWorkerActivity extends BaseActivity {
         return lw;
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        new ListWorkersTask().execute();
+    }
 
 }

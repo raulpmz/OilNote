@@ -89,9 +89,16 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.action_settings) {
-            Log.e("Pulsado","MenuTool");
-            return true;
+        switch (id){
+
+            case R.id.action_settings:
+                Log.e("Pulsado","MenuTool");
+                break;
+
+            case R.id.action_add_worker:
+                startActivity(new Intent(BaseActivity.this.getBaseContext(),AddWorkerActivity.class));
+                break;
+
         }
 
         return super.onOptionsItemSelected(item);
