@@ -16,6 +16,8 @@ import android.widget.ImageView;
 import static com.example.raul.oilnote.Utils.Codification.decodeBase64;
 
 public class ImageHelper {
+
+    // Redondea las esquinas de la imagen:
     public static Bitmap getRoundedCornerBitmap(Bitmap bitmap, int pixels){
         Bitmap output = Bitmap.createBitmap(bitmap.getWidth(), bitmap
                 .getHeight(), Bitmap.Config.ARGB_8888);
@@ -37,6 +39,7 @@ public class ImageHelper {
         return output;
     }
 
+    // Corta en forma cuadrada a la imagen:
     public static Bitmap cropBitmapToSquare(Bitmap bitmap) {
         int width = bitmap.getWidth();
         int height = bitmap.getHeight();
@@ -52,9 +55,12 @@ public class ImageHelper {
                 bitmap, cropW, cropH, newWidth, newHeight);
     }
 
-    public static void rounderImage(Bitmap bitmap, ImageView imageView){
+    // Decodifica, recorta, redondea y coloca la foto en el ImagenView que se le pasa como parametro:
+    public static void rounderImage(String input, ImageView imageView){
 
-        Bitmap myBitmap = bitmap;
+        // Se decodifica el texto recibido en Base64 para convertirlo en un Bitmap:
+        Bitmap myBitmap = decodeBase64(input);
+
         // Llama al método encargado de cortar en forma cuadrada a la imagen:
         Bitmap croppedImage = ImageHelper.cropBitmapToSquare(myBitmap);
 

@@ -1,8 +1,6 @@
 package com.example.raul.oilnote.Adapters;
 
 import android.content.Context;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +8,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.example.raul.oilnote.Objects.Worker;
 import com.example.raul.oilnote.R;
 import com.example.raul.oilnote.Utils.ImageHelper;
@@ -25,8 +22,8 @@ import static com.example.raul.oilnote.Utils.Codification.decodeBase64;
 
 public class ListWorkerAdapter extends ArrayAdapter<Worker> {
 
-    ImageView avatar;
-    TextView name;
+    private ImageView avatar;
+    private TextView name;
 
     public ListWorkerAdapter(Context context, List<Worker> objects) {
         super(context, 0, objects);
@@ -60,7 +57,7 @@ public class ListWorkerAdapter extends ArrayAdapter<Worker> {
         name.setText(worker.getWorkerName());
 
         // Foto del trabajador:
-        ImageHelper.rounderImage(decodeBase64(worker.getWorkerPhoto()),avatar);
+        ImageHelper.rounderImage(worker.getWorkerPhoto(),avatar);
 
         // Retorna la vista:
         return convertView;
