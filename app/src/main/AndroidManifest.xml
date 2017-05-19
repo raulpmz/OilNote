@@ -42,7 +42,8 @@
         <activity
             android:name=".Activitys.ListWorkerActivity"
             android:label="@string/title_activity_list_worker"
-            android:theme="@style/AppThemeOilNote"></activity>
+            android:theme="@style/AppThemeOilNote" />
+        <activity android:name=".Activitys.InfoWorkerActivity"></activity>
     </application>
 
 </manifest>

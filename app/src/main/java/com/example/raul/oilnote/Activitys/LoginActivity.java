@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -154,21 +155,24 @@ public class LoginActivity extends BaseActivity {
         protected void onPostExecute(JSONArray json) {
             onStopProgressDialog();
             try {
-                if (json != null && json.length() > 0) {
-                    Log.e("Json",""+json);
+                if (json != null) {
+                    if(json.length() > 0){
+                        Log.e("Json",""+json);
 
-                    user.setUserCod(json.getJSONObject(0).getInt("user_cod"));
-                    user.setUserName(json.getJSONObject(0).getString("user_name"));
-                    user.setEmail(json.getJSONObject(0).getString("user_email"));
-                    user.setPassword(json.getJSONObject(0).getString("user_password"));
+                        user.setUserCod(json.getJSONObject(0).getInt("user_cod"));
+                        user.setUserName(json.getJSONObject(0).getString("user_name"));
+                        user.setEmail(json.getJSONObject(0).getString("user_email"));
+                        user.setPassword(json.getJSONObject(0).getString("user_password"));
 
-                    setGoblarVars(user);
+                        setGoblarVars(user);
 
-                    startActivity(new Intent(LoginActivity.this,MainActivity.class));
-                    finish();
-
+                        startActivity(new Intent(LoginActivity.this,MainActivity.class));
+                        finish();
+                    }else{
+                        et_password.setError(getString(R.string.login_fail));
+                    }
                 }else {
-                    et_password.setError(getString(R.string.login_fail));
+                    Snackbar.make(findViewById(R.id.login),getResources().getString(R.string.server_down),Snackbar.LENGTH_LONG).show();
                 }
             } catch (JSONException e) {
                 e.printStackTrace();

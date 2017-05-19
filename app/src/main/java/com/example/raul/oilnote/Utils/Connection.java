@@ -206,4 +206,19 @@ public class Connection {
         return 0;
 
     }
+
+    // Para comprovar si hay acceso a internet:
+    public static Boolean isOnlineNet() {
+        try {
+            Process p = java.lang.Runtime.getRuntime().exec("ping -c 1 www.google.es");
+            int val = p.waitFor();
+            boolean ok = (val == 0);
+            return ok;
+
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

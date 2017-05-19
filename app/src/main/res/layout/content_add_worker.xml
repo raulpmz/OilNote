@@ -16,7 +16,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/border_layout">
+            android:background="@color/GrisNegro">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -26,10 +26,9 @@
                     android:id="@+id/imagen"
                     android:layout_width="match_parent"
                     android:layout_height="205dp"
-                    android:layout_alignParentEnd="true"
                     android:layout_alignParentLeft="true"
-                    android:layout_alignParentRight="true"
                     android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
                     app:srcCompat="@drawable/rounder_user_verde"
                     tools:layout_editor_absoluteX="3dp"
                     tools:layout_editor_absoluteY="3dp" />
@@ -42,7 +41,9 @@
                     android:layout_alignEnd="@+id/imagen"
                     android:layout_alignRight="@+id/imagen"
                     android:background="@color/Transparent"
+                    android:clickable="true"
                     android:elevation="1dp"
+                    android:onClick="onClickOptionCamera"
                     app:srcCompat="@drawable/add_image_verde"
                     tools:layout_editor_absoluteX="256dp"
                     tools:layout_editor_absoluteY="159dp" />
@@ -72,7 +73,7 @@
                     android:paddingLeft="10dp">
 
                     <ImageView
-                        android:id="@+id/imageView2"
+                        android:id="@+id/imageView4"
                         android:layout_width="35dp"
                         android:layout_height="match_parent"
                         app:srcCompat="@drawable/user_verde" />
@@ -90,9 +91,9 @@
                             android:layout_marginRight="10dp"
                             android:layout_weight="1"
                             android:ems="10"
+                            android:hint="@string/_name"
                             android:inputType="textPersonName"
                             android:paddingLeft="5dp"
-                            android:text="Name"
                             android:textColor="@color/VerdeCorporativo" />
 
                         <EditText
@@ -103,9 +104,9 @@
                             android:layout_marginRight="10dp"
                             android:layout_weight="1"
                             android:ems="10"
+                            android:hint="@string/nick"
                             android:inputType="textPersonName"
                             android:paddingLeft="5dp"
-                            android:text="Nick"
                             android:textColor="@color/VerdeCorporativo" />
                     </LinearLayout>
 
@@ -132,16 +133,16 @@
                         app:srcCompat="@drawable/phone_verde" />
 
                     <EditText
-                        android:id="@+id/et_add_worker"
+                        android:id="@+id/et_add_worker_phone"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="10dp"
                         android:layout_weight="1"
                         android:ems="10"
+                        android:hint="@string/phone"
                         android:inputType="textPersonName"
                         android:paddingLeft="5dp"
-                        android:text="Phone"
                         android:textColor="@color/VerdeCorporativo" />
 
                 </LinearLayout>
@@ -151,14 +152,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_margin="7dp"
-                    android:background="@color/Beige" />
+                    android:background="@color/Beige"
+                    android:visibility="invisible" />
 
                 <LinearLayout
                     android:id="@+id/LinearJob"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="horizontal"
-                    android:paddingLeft="10dp">
+                    android:paddingLeft="10dp"
+                    android:visibility="invisible">
 
                     <ImageView
                         android:id="@+id/imageView3"
@@ -181,7 +184,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_margin="7dp"
-                    android:background="@color/Beige" />
+                    android:background="@color/Beige"
+                    android:visibility="invisible" />
             </LinearLayout>
         </ScrollView>
 

@@ -72,4 +72,19 @@ public class ImageHelper {
         // Asigna el mapa de bits resultante a la vista ImageView que lo mostrará:
         imageView.setImageBitmap(roundedCornersImage);
     }
+
+    // Decodifica, recorta, redondea y coloca la foto en el ImagenView que se le pasa como parametro:
+    public static void rounderImage(Bitmap bitmap, ImageView imageView){
+
+        // Llama al método encargado de cortar en forma cuadrada a la imagen:
+        Bitmap croppedImage = ImageHelper.cropBitmapToSquare(bitmap);
+
+        // Llama al método encargado de redondear las esquinas de la imagen previamente cortada.
+        // Recibe como parámetros el mapa de bits y el tamaño de sus lados en pixeles:
+        Bitmap roundedCornersImage = ImageHelper.getRoundedCornerBitmap(
+                croppedImage, 120);
+
+        // Asigna el mapa de bits resultante a la vista ImageView que lo mostrará:
+        imageView.setImageBitmap(roundedCornersImage);
+    }
 }

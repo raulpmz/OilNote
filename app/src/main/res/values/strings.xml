@@ -11,10 +11,22 @@
     <string name="loading">Cargando datos...</string>
     <string name="checking">Comprobando datos...</string>
     <string name="user_register">"Registrado usuario..."</string>
+    <string name="save">Guardando...</string>
+    <string name="options">Opciones</string>
+    <string name="cancel">Cancelar</string>
+    <string name="server_down">El servidor se encuentra en mantenimiento, sentimos las molestias.</string>
+
+    <!--                 ToolbarMenu                -->
+
     <string name="add_worker">"Añadir trabajador"</string>
     <string name="add">Añadir</string>
+    <string name="nick">Apodo</string>
+    <string name="_name">Nombre</string>
+    <string name="phone">Teléfono</string>
+    <string name="discard">Descartar</string>
 
     <!--                Login_Activity              -->
+
     <string name="user">Usuario</string>
     <string name="password">Contraseña</string>
     <string name="btn_enter">Entrar</string>
@@ -26,6 +38,7 @@
     <!--                Main_Activity               -->
 
     <!--            Registration_Activity           -->
+
     <string name="btn_registration">Crear cuenta</string>
     <string name="tv_login">¿Ya eres usuario? Iniciar sesión</string>
     <string name="mail">Correo</string>
@@ -41,9 +54,18 @@
     <string name="successful_registration">Usuario registrado exitosamente</string>
     <string name="error_registration">Fallo en el registro del usuario</string>
 
-    <!--            Registration_Activity           -->
+    <!--                  DrawerMenu                -->
+
     <string name="add_laborer">Añadir trabajador</string>
     <string name="add_worker_day">Añadir jornales</string>
     <string name="title_activity_list_worker">ListWorkerActivity</string>
 
+    <!--               ListWorkerActivity            -->
+
+
+    <!--               AddWorkerActivity             -->
+    <string name="from_camera">Desde cámara</string>
+    <string name="from_galery">Desde galería</string>
+    <string name="permissions_acepted">Permisos aceptados con exito.</string>
+    <string name="permissions_canceled">Permisos aceptados con exito.</string>
 </resources>
