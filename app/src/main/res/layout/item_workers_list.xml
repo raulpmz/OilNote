@@ -10,17 +10,16 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="0.09"
+        android:layout_height="wrap_content"
         android:background="@drawable/border_layout"
         android:orientation="horizontal">
 
-        <com.example.raul.oilnote.Utils.RoundedImageView
+        <ImageView
             android:id="@+id/image_worker"
             android:layout_width="41dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="0.09"
-            app:srcCompat="@drawable/user" />
+            app:srcCompat="@drawable/user_shape" />
 
         <TextView
             android:id="@+id/name_worker"
@@ -29,7 +28,7 @@
             android:layout_weight="1.00"
             android:gravity="center_vertical"
             android:paddingLeft="10dp"
-            android:text="TextView"
+            android:text="Nombre"
             android:textColor="@color/White"
             android:textSize="18sp"
             android:textStyle="bold" />

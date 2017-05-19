@@ -10,8 +10,10 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.raul.oilnote.Objects.Worker;
 import com.example.raul.oilnote.R;
+import com.example.raul.oilnote.Utils.ImageHelper;
 
 import java.util.List;
 
@@ -23,12 +25,17 @@ import static com.example.raul.oilnote.Utils.Codification.decodeBase64;
 
 public class ListWorkerAdapter extends ArrayAdapter<Worker> {
 
+    ImageView avatar;
+    TextView name;
+
     public ListWorkerAdapter(Context context, List<Worker> objects) {
         super(context, 0, objects);
+
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+
         // Obtener inflater.
         LayoutInflater inflater = (LayoutInflater) getContext()
         .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -39,15 +46,21 @@ public class ListWorkerAdapter extends ArrayAdapter<Worker> {
         }
 
         // Referencias UI.
-        ImageView avatar            = (ImageView) convertView.findViewById(R.id.image_worker);
-        TextView name               = (TextView) convertView.findViewById(R.id.name_worker);
+        // TextView:
+        name   = (TextView) convertView.findViewById(R.id.name_worker);
+
+        // ImagenView:
+        avatar = (ImageView) convertView.findViewById(R.id.image_worker);
 
         // Trabajador actual.
         Worker worker = getItem(position);
 
         // Se editan los componentes del LinearLayout:
+        // Nombre del trabajador:
         name.setText(worker.getWorkerName());
-        avatar.setImageBitmap(decodeBase64(worker.getWorkerPhoto()));
+
+        // Foto del trabajador:
+        ImageHelper.rounderImage(decodeBase64(worker.getWorkerPhoto()),avatar);
 
         // Retorna la vista:
         return convertView;

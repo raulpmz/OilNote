@@ -5,7 +5,7 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/GrisNegro</item>
         <item name="colorPrimaryDark">@color/GrisNegro</item>
-        <item name="colorAccent">@color/DarkGreen</item>
+        <item name="colorAccent">@color/VerdeCorporativo</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
