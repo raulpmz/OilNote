@@ -11,17 +11,24 @@
         android:orderInCategory="101"
         android:title="@string/add_worker"
         android:visible="false"
-        android:icon="@drawable/add_user_rounder_verde" />
+        android:icon="@drawable/add_user_button" />
     <item
         android:id="@+id/action_add"
         android:orderInCategory="102"
         android:title="@string/add"
         android:visible="false"
-        android:icon="@drawable/correct_verde" />
+        android:icon="@drawable/rounded_add_button_1" />
+
+    <item
+        android:id="@+id/action_save"
+        android:orderInCategory="103"
+        android:title="@string/_save"
+        android:visible="false" />
+
     <item
         android:id="@+id/action_discard"
-        android:orderInCategory="103"
+        android:orderInCategory="104"
         android:title="@string/discard"
-        android:visible="false"
-        android:icon="@drawable/cancel_verde" />
+        android:visible="false" />
+
 </menu>

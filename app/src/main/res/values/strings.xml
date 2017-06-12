@@ -23,7 +23,8 @@
     <string name="nick">Apodo</string>
     <string name="_name">Nombre</string>
     <string name="phone">Teléfono</string>
-    <string name="discard">Descartar</string>
+    <string name="discard">SALIR</string>
+    <string name="_save">GUARDAR</string>
 
     <!--                Login_Activity              -->
 
@@ -67,5 +68,5 @@
     <string name="from_camera">Desde cámara</string>
     <string name="from_galery">Desde galería</string>
     <string name="permissions_acepted">Permisos aceptados con exito.</string>
-    <string name="permissions_canceled">Permisos aceptados con exito.</string>
+    <string name="permissions_canceled">Permisos denegados con exito.</string>
 </resources>

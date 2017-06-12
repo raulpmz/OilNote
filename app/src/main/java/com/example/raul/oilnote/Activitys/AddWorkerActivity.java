@@ -17,7 +17,6 @@ import android.support.v7.app.AlertDialog;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -57,7 +56,6 @@ public class AddWorkerActivity extends BaseActivity {
 
         // EditText:
         name_worker    = (EditText) findViewById(R.id.et_add_worker_name);
-        nick_worker    = (EditText) findViewById(R.id.et_add_worker_nick);
         phone_worker   = (EditText) findViewById(R.id.et_add_worker_phone);
 
         // ImagenView:
@@ -77,8 +75,8 @@ public class AddWorkerActivity extends BaseActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.toolbar_menu, menu);
 
-        menu.findItem(R.id.action_add).setVisible(true);
-        menu.findItem(R.id.action_add).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        menu.findItem(R.id.action_save).setVisible(true);
+        menu.findItem(R.id.action_save).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         menu.findItem(R.id.action_discard).setVisible(true);
         menu.findItem(R.id.action_discard).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 
@@ -91,7 +89,7 @@ public class AddWorkerActivity extends BaseActivity {
 
         switch (id) {
 
-            case R.id.action_add_worker:
+            case R.id.action_save:
                 new AddWorkerTask().execute();
                 break;
 
@@ -107,7 +105,6 @@ public class AddWorkerActivity extends BaseActivity {
 
         items[0] = getResources().getString(R.string.from_camera);
         items[1] = getResources().getString(R.string.from_galery);
-        items[2] = getResources().getString(R.string.cancel);
 
         alert.setTitle(getResources().getString(R.string.options))
                 .setItems(items, new DialogInterface.OnClickListener() {
@@ -117,19 +114,28 @@ public class AddWorkerActivity extends BaseActivity {
                         // Si la opción es la camara la abrirá:
                         if(pos == 0){
                             // Comprueba si tiene los permisos de cámara activados la aplicación:
-                            isStoragePermissionGranted();
-                            Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
-                            startActivityForResult(intent, ACT_CAMARA);
-
-                            // Si la opción es la galería la abrirá:
+                            if(isPermissionCameraActivated()){
+                                Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
+                                startActivityForResult(intent, ACT_CAMARA);
+                            }
                         }
+                        // Si la opción es la galería la abrirá:
                         if(pos == 1){
-                            Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI);
-                            startActivityForResult(intent, ACT_GALERIA);
+                            if(isPermissionGaleryActivated()){
+                                Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+                                startActivityForResult(intent, ACT_GALERIA);
+                            }
                         }
                     }
                 });
-        alert.setMessage(R.string.cancel);
+        alert.setNegativeButton(getResources().getString(R.string.cancel),
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface alert, int which) {
+                        // TODO Auto-generated method stub
+                        alert.dismiss();
+                    }
+                });
         alert.show();
     }
 
@@ -155,7 +161,7 @@ public class AddWorkerActivity extends BaseActivity {
     }
 
     // Comprueba si tiene los permisos de cámara activados la aplicación:
-    public boolean isStoragePermissionGranted(){
+    public boolean isPermissionCameraActivated(){
         if(Build.VERSION.SDK_INT >= 23){
             if(checkSelfPermission(Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED){
                 return true;
@@ -168,14 +174,29 @@ public class AddWorkerActivity extends BaseActivity {
         }
     }
 
+    public boolean isPermissionGaleryActivated(){
+        if(Build.VERSION.SDK_INT >= 23){
+            if(checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED){
+                return true;
+            }else{
+                ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},1);
+                return false;
+            }
+        }else{
+            return true;
+        }
+    }
+
+
     // Le preguntamos al usuario si desea dar permisos a la aplicación para poder usar la cámara:
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if(grantResults[0] == PackageManager.PERMISSION_GRANTED){
-            Toast.makeText(this, getResources().getString(R.string.permissions_acepted),Toast.LENGTH_LONG).show();
-        }else{
-            Toast.makeText(this, getResources().getString(R.string.permissions_canceled),Toast.LENGTH_LONG).show();
+        if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            Toast.makeText(this, getResources().getString(R.string.permissions_acepted), Toast.LENGTH_LONG).show();
+
+        } else {
+            Toast.makeText(this, getResources().getString(R.string.permissions_canceled), Toast.LENGTH_LONG).show();
             startActivity(new Intent(this, MainActivity.class));
             finish();
         }

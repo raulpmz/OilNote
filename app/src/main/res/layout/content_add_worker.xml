@@ -5,7 +5,6 @@
     android:id="@+id/LinearAddWorker"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/Beige"
     android:orientation="vertical">
 
     <LinearLayout
@@ -20,7 +19,8 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:padding="10dp">
 
                 <ImageView
                     android:id="@+id/imagen"
@@ -29,7 +29,7 @@
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
-                    app:srcCompat="@drawable/rounder_user_verde"
+                    app:srcCompat="@drawable/user_white"
                     tools:layout_editor_absoluteX="3dp"
                     tools:layout_editor_absoluteY="3dp" />
 
@@ -44,7 +44,7 @@
                     android:clickable="true"
                     android:elevation="1dp"
                     android:onClick="onClickOptionCamera"
-                    app:srcCompat="@drawable/add_image_verde"
+                    app:srcCompat="@drawable/camera_white"
                     tools:layout_editor_absoluteX="256dp"
                     tools:layout_editor_absoluteY="159dp" />
             </RelativeLayout>
@@ -55,7 +55,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="10dp"
-            android:background="@drawable/border_layout"
             android:padding="8dp">
 
             <LinearLayout
@@ -76,7 +75,7 @@
                         android:id="@+id/imageView4"
                         android:layout_width="35dp"
                         android:layout_height="match_parent"
-                        app:srcCompat="@drawable/user_verde" />
+                        app:srcCompat="@drawable/user_grisnegro" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -96,18 +95,6 @@
                             android:paddingLeft="5dp"
                             android:textColor="@color/VerdeCorporativo" />
 
-                        <EditText
-                            android:id="@+id/et_add_worker_nick"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:layout_marginRight="10dp"
-                            android:layout_weight="1"
-                            android:ems="10"
-                            android:hint="@string/nick"
-                            android:inputType="textPersonName"
-                            android:paddingLeft="5dp"
-                            android:textColor="@color/VerdeCorporativo" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -117,7 +104,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_margin="7dp"
-                    android:background="@color/Beige" />
+                    android:background="@color/Transparent" />
 
                 <LinearLayout
                     android:id="@+id/LinearPhone"
@@ -130,7 +117,7 @@
                         android:id="@+id/imageView2"
                         android:layout_width="35dp"
                         android:layout_height="match_parent"
-                        app:srcCompat="@drawable/phone_verde" />
+                        app:srcCompat="@drawable/phone_grisnegro" />
 
                     <EditText
                         android:id="@+id/et_add_worker_phone"
@@ -147,45 +134,6 @@
 
                 </LinearLayout>
 
-                <View
-                    android:id="@+id/view3"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_margin="7dp"
-                    android:background="@color/Beige"
-                    android:visibility="invisible" />
-
-                <LinearLayout
-                    android:id="@+id/LinearJob"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:paddingLeft="10dp"
-                    android:visibility="invisible">
-
-                    <ImageView
-                        android:id="@+id/imageView3"
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
-                        app:srcCompat="@drawable/job_verde" />
-
-                    <Spinner
-                        android:id="@+id/spinner"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="10dp"
-                        android:paddingLeft="10dp" />
-
-                </LinearLayout>
-
-                <View
-                    android:id="@+id/view4"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_margin="7dp"
-                    android:background="@color/Beige"
-                    android:visibility="invisible" />
             </LinearLayout>
         </ScrollView>
 

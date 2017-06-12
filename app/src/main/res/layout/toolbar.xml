@@ -6,6 +6,8 @@
     android:layout_height="wrap_content"
     android:background="@color/GrisNegro"
     android:orientation="vertical"
+    android:theme="@style/AppTheme.AppBarOverlay"
+    android:popupTheme="@style/AppTheme.AppBarOverlay"
     app:subtitleTextColor="@android:color/white"
     app:titleTextColor="@android:color/white">
 

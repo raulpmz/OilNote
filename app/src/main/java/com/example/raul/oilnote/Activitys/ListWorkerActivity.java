@@ -109,9 +109,9 @@ public class ListWorkerActivity extends BaseActivity {
 
                 worker.setWorkerCod(jsonArray.getJSONObject(i).getString("worker_cod"));
                 worker.setWorkerName(jsonArray.getJSONObject(i).getString("worker_name"));
-                worker.setWorkerNick(jsonArray.getJSONObject(i).getString("worker_nick"));
+                //worker.setWorkerNick(jsonArray.getJSONObject(i).getString("worker_nick"));
                 worker.setWorkerPhone(jsonArray.getJSONObject(i).getString("worker_phone"));
-                worker.setWorkerJob(jsonArray.getJSONObject(i).getInt("worker_job"));
+                //worker.setWorkerJob(jsonArray.getJSONObject(i).getInt("worker_job"));
                 worker.setWorkerPhoto(jsonArray.getJSONObject(i).getString("worker_photo"));
 
                 lw.add(worker);
