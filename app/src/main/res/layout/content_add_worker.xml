@@ -103,8 +103,10 @@
                     android:id="@+id/view2"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_margin="7dp"
-                    android:background="@color/Transparent" />
+                    android:layout_marginLeft="55dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/GrisOscuro" />
 
                 <LinearLayout
                     android:id="@+id/LinearPhone"
