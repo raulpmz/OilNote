@@ -2,15 +2,19 @@ package com.example.raul.oilnote.Activitys;
 
 
 import android.Manifest;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Rect;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
@@ -25,6 +29,7 @@ import com.example.raul.oilnote.R;
 import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -141,23 +146,86 @@ public class AddWorkerActivity extends BaseActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
         if (requestCode == ACT_GALERIA && resultCode == RESULT_OK) {
             fotoGaleria = data.getData();
-            try {
-                is = getContentResolver().openInputStream(fotoGaleria);
-                bis = new BufferedInputStream(is);
-                bitmap = BitmapFactory.decodeStream(bis);
-                bitmap = bitmap.createScaledBitmap(bitmap, 130, 130, true);
-                rounderImage(bitmap,imagen_worker);
-            } catch (FileNotFoundException e) {
-            }
+            cropCapturedImage(fotoGaleria);
         }
 
         if (requestCode == ACT_CAMARA && resultCode == RESULT_OK) {
+            //bitmap = (Bitmap) data.getExtras().get("data");
+            //rounderImage(bitmap,imagen_worker);
+
+            Bitmap imagen = (Bitmap) data.getExtras().get("data");
+
+            //Este metodo nos retornara la url temporal de la imagen tomada
+            //Uri ulrImagen = getImageUri(this,imagen);
+
+            rounderImage(cropBitmap(imagen, 400,200),imagen_worker);
+
+            //cropCapturedImage(ulrImagen);
+        }
+
+        if(requestCode == 3535 && resultCode == RESULT_OK){
+
+            //Este seria el bitmap de nuestra imagen cortada.
             bitmap = (Bitmap) data.getExtras().get("data");
-            bitmap = bitmap.createScaledBitmap(bitmap, 130, 130, true);
             rounderImage(bitmap,imagen_worker);
         }
+    }
+
+    public Bitmap cropBitmap(Bitmap original, int height, int width) {
+        Bitmap croppedImage = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);
+        Canvas canvas = new Canvas(croppedImage);
+
+        Rect srcRect = new Rect(0, 0, original.getWidth(), original.getHeight());
+        Rect dstRect = new Rect(0, 0, width, height);
+
+        int dx = (srcRect.width() - dstRect.width()) / 2;
+        int dy = (srcRect.height() - dstRect.height()) / 2;
+
+        // If the srcRect is too big, use the center part of it.
+        srcRect.inset(Math.max(0, dx), Math.max(0, dy));
+
+        // If the dstRect is too big, use the center part of it.
+        dstRect.inset(Math.max(0, -dx), Math.max(0, -dy));
+
+        // Draw the cropped bitmap in the center
+        canvas.drawBitmap(original, srcRect, dstRect, null);
+
+        original.recycle();
+
+        return croppedImage;
+    }
+
+    public Uri getImageUri(Context inContext, Bitmap inImage) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
+        return Uri.parse(path);
+    }
+
+    public void cropCapturedImage(Uri urlImagen){
+
+        //inicializamos nuestro intent
+        Intent cropIntent = new Intent("com.android.camera.action.CROP");
+
+        cropIntent.setDataAndType(urlImagen, "image/*");
+
+        //Habilitamos el crop en este intent
+        cropIntent.putExtra("crop", "true");
+
+        cropIntent.putExtra("aspectX", 1);
+        cropIntent.putExtra("aspectY", 1);
+
+        //indicamos los limites de nuestra imagen a cortar
+        cropIntent.putExtra("outputX", 400);
+        cropIntent.putExtra("outputY", 250);
+
+        //True: retornara la imagen como un bitmap, False: retornara la url de la imagen la guardada.
+        cropIntent.putExtra("return-data", true);
+
+        //iniciamos nuestra activity y pasamos un codigo de respuesta.
+        startActivityForResult(cropIntent, 3535);
     }
 
     // Comprueba si tiene los permisos de cámara activados la aplicación:

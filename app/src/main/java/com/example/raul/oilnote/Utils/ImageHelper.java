@@ -67,7 +67,7 @@ public class ImageHelper {
         // Llama al método encargado de redondear las esquinas de la imagen previamente cortada.
         // Recibe como parámetros el mapa de bits y el tamaño de sus lados en pixeles:
         Bitmap roundedCornersImage = ImageHelper.getRoundedCornerBitmap(
-                croppedImage, 120);
+                croppedImage, 300);
 
         // Asigna el mapa de bits resultante a la vista ImageView que lo mostrará:
         imageView.setImageBitmap(roundedCornersImage);
