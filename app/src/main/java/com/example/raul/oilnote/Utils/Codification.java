@@ -12,10 +12,10 @@ import java.io.ByteArrayOutputStream;
 
 public class Codification {
 
-    public static String encodeToBase64(Bitmap image, Bitmap.CompressFormat compressFormat, int quality) {
+    public static String encodeToBase64(Bitmap image, int quality) {
         ByteArrayOutputStream byteArrayOS = new ByteArrayOutputStream();
-        image.compress(compressFormat, quality, byteArrayOS);
-        return Base64.encodeToString(byteArrayOS.toByteArray(), Base64.URL_SAFE);
+        image.compress(Bitmap.CompressFormat.JPEG, quality, byteArrayOS);
+        return Base64.encodeToString(byteArrayOS.toByteArray(), Base64.DEFAULT);
     }
 
     public static Bitmap decodeBase64(String input) {

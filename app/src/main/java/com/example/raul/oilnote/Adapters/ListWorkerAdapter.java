@@ -14,7 +14,6 @@ import com.example.raul.oilnote.Utils.ImageHelper;
 
 import java.util.List;
 
-import static com.example.raul.oilnote.Utils.Codification.decodeBase64;
 
 /**
  * Created by ptmarketing02 on 18/05/2017.
@@ -57,7 +56,11 @@ public class ListWorkerAdapter extends ArrayAdapter<Worker> {
         name.setText(worker.getWorkerName());
 
         // Foto del trabajador:
-        ImageHelper.rounderImage(worker.getWorkerPhoto(),avatar);
+        if(!worker.getWorkerPhoto().equals("") && worker.getWorkerPhoto() != null){
+            ImageHelper.rounderImage(worker.getWorkerPhoto(),avatar);
+        }else {
+            avatar.setImageResource(R.drawable.user);
+        }
 
         // Retorna la vista:
         return convertView;

@@ -1,11 +1,17 @@
 package com.example.raul.oilnote.Activitys;
 
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.raul.oilnote.Adapters.ListWorkerAdapter;
 import com.example.raul.oilnote.Objects.Worker;
@@ -44,6 +50,25 @@ public class ListWorkerActivity extends BaseActivity {
         menu.findItem(R.id.action_add_worker).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 
         return super.onCreateOptionsMenu(menu);
+    }
+
+    // Evento al seleccionar un elemento de la lista:
+    public void onClickList(){
+        listViewWorkers.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                Intent intent = new Intent(ListWorkerActivity.this,InfoWorkerActivity.class);
+
+                intent.putExtra("cod",listWorkers.get(i).getWorkerCod());
+                intent.putExtra("name",listWorkers.get(i).getWorkerName());
+                intent.putExtra("phone",listWorkers.get(i).getWorkerPhone());
+                intent.putExtra("photo",listWorkers.get(i).getWorkerPhoto());
+
+                startActivity(intent);
+            }
+        });
+
     }
 
     class ListWorkersTask extends AsyncTask<Void, Void, JSONArray>{
@@ -87,6 +112,7 @@ public class ListWorkerActivity extends BaseActivity {
                     // Relacionando la lista con el adaptador:
                     listViewWorkers.setAdapter(listWorkerAdapter);
 
+                    onClickList();
 
                 }else{
                     // Poner una lista avisando de que no tiene trabajadores:
@@ -109,13 +135,12 @@ public class ListWorkerActivity extends BaseActivity {
 
                 worker.setWorkerCod(jsonArray.getJSONObject(i).getString("worker_cod"));
                 worker.setWorkerName(jsonArray.getJSONObject(i).getString("worker_name"));
-                //worker.setWorkerNick(jsonArray.getJSONObject(i).getString("worker_nick"));
                 worker.setWorkerPhone(jsonArray.getJSONObject(i).getString("worker_phone"));
-                //worker.setWorkerJob(jsonArray.getJSONObject(i).getInt("worker_job"));
                 worker.setWorkerPhoto(jsonArray.getJSONObject(i).getString("worker_photo"));
 
                 lw.add(worker);
             }
+            listWorkers = lw;
         }
 
         return lw;

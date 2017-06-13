@@ -89,9 +89,11 @@
                             android:layout_marginLeft="5dp"
                             android:layout_marginRight="10dp"
                             android:layout_weight="1"
-                            android:ems="10"
+                            android:autoText="false"
+                            android:ems="12"
                             android:hint="@string/_name"
-                            android:inputType="textPersonName"
+                            android:inputType="textCapWords"
+                            android:maxLength="12"
                             android:paddingLeft="5dp"
                             android:textColor="@color/VerdeCorporativo" />
 
@@ -102,11 +104,11 @@
                 <View
                     android:id="@+id/view2"
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
+                    android:layout_height="3dp"
                     android:layout_marginLeft="55dp"
                     android:layout_marginRight="15dp"
                     android:layout_marginTop="10dp"
-                    android:background="@color/GrisOscuro" />
+                    android:background="@color/Gris" />
 
                 <LinearLayout
                     android:id="@+id/LinearPhone"
@@ -128,9 +130,10 @@
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="10dp"
                         android:layout_weight="1"
-                        android:ems="10"
+                        android:ems="9"
                         android:hint="@string/phone"
-                        android:inputType="textPersonName"
+                        android:inputType="phone"
+                        android:maxLength="9"
                         android:paddingLeft="5dp"
                         android:textColor="@color/VerdeCorporativo" />
 

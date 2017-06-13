@@ -69,4 +69,8 @@
     <string name="from_galery">Desde galería</string>
     <string name="permissions_acepted">Permisos aceptados con exito.</string>
     <string name="permissions_canceled">Permisos denegados con exito.</string>
+    <string name="not_emptry">El nombre no puede estar vacío</string>
+    <string name="name_small">El nombre debe de contener más de 2 letras</string>
+    <string name="successful_add_worker">El trabajador fue añadido con exito</string>
+    <string name="error_add_worker">Error: El trabajador no fue añadido correctamente</string>
 </resources>

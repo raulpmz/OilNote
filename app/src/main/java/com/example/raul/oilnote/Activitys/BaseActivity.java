@@ -113,6 +113,7 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(MenuItem item) {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_menu);
         Intent intent;
+
         // Opciones del drawer:
         switch (item.getItemId()) {
 
