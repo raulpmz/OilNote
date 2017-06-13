@@ -73,4 +73,8 @@
     <string name="name_small">El nombre debe de contener más de 2 letras</string>
     <string name="successful_add_worker">El trabajador fue añadido con exito</string>
     <string name="error_add_worker">Error: El trabajador no fue añadido correctamente</string>
+
+    <!--               InfoWorkerActivity            -->
+    <string name="edit">Editar</string>
+
 </resources>

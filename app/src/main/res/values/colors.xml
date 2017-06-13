@@ -147,8 +147,8 @@
     <color name="text">#ff000000</color>
     <color name="BlueMegasur">#1e8cbe</color>
     <color name="Gris">#e5e5e5</color>
-    <color name="GrisClaro">#f3f3f3</color>
-    <color name="GrisOscuro">#ecedec</color>
+    <color name="GrisClaro">#969696</color>
+    <color name="GrisOscuro">#585858</color>
     <color name="GrisNegro">#323232</color>
     <color name="main_green">#b8cf49</color>
     <color name="main_red">#d55f5b</color>

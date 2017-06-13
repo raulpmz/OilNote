@@ -4,13 +4,18 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="7dp"
-    android:weightSum="1">
+    android:paddingLeft="7dp"
+    android:paddingRight="7dp"
+    android:paddingTop="2.5dp"
+    android:weightSum="1"
+    android:background="@color/Gris">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="76dp"
-        android:orientation="horizontal">
+        android:background="@drawable/customlistminborder"
+        android:orientation="horizontal"
+        android:paddingLeft="5dp">
 
         <ImageView
             android:id="@+id/image_worker"
@@ -36,14 +41,7 @@
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
-            <View
-                android:id="@+id/separator"
-                android:layout_width="match_parent"
-                android:layout_height="5dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="20dp"
-                android:layout_weight="1.00"
-                android:background="@color/Gris" />
+
         </LinearLayout>
 
     </LinearLayout>
