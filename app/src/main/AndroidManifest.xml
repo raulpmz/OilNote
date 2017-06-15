@@ -44,7 +44,10 @@
             android:label="@string/title_activity_list_worker"
             android:theme="@style/AppThemeOilNote" />
         <activity android:name=".Activitys.InfoWorkerActivity" />
-        <activity android:name=".Activitys.EditWorkerActivity"></activity>
+        <activity android:name=".Activitys.EditWorkerActivity" />
+        <activity android:name=".Activitys.ListJornalsActivity" />
+        <activity android:name=".Activitys.ListPlotsActivity" />
+        <activity android:name=".Activitys.ListWeightsActivity"></activity>
     </application>
 
 </manifest>
