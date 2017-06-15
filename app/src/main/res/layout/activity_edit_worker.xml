@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.raul.oilnote.Activitys.AddWorkerActivity"
+    tools:context="com.example.raul.oilnote.Activitys.EditWorkerActivity"
     android:orientation="vertical">
 
         <LinearLayout
@@ -28,7 +28,7 @@
                 android:layout_height="wrap_content" />
 
             <include
-                layout="@layout/content_add_worker" />
+                layout="@layout/content_edit_worker" />
 
         </LinearLayout>
 

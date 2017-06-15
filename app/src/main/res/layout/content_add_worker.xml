@@ -5,8 +5,8 @@
     android:id="@+id/LinearAddWorker"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/Gris">
+    android:background="@color/Gris"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -95,7 +95,7 @@
                             android:ems="12"
                             android:hint="@string/_name"
                             android:inputType="textCapWords"
-                            android:maxLength="12"
+                            android:maxLength="25"
                             android:paddingLeft="5dp"
                             android:textColor="@color/VerdeCorporativo" />
 

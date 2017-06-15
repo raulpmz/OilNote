@@ -6,6 +6,9 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -84,6 +87,38 @@ public class InfoWorkerActivity extends BaseActivity {
         }else {
             imagen_worker.setImageResource(R.drawable.user);
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.toolbar_menu, menu);
+
+        menu.findItem(R.id.action_edit).setVisible(true);
+        menu.findItem(R.id.action_edit).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        switch (id){
+            case R.id.action_edit:
+
+                Intent intent = new Intent(InfoWorkerActivity.this,EditWorkerActivity.class);
+
+                intent.putExtra("cod",cod);
+                intent.putExtra("name",name);
+                intent.putExtra("phone",phone);
+                intent.putExtra("photo",photo);
+
+                startActivity(intent);
+
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

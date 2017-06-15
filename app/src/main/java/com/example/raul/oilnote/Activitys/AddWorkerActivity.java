@@ -44,9 +44,7 @@ public class AddWorkerActivity extends BaseActivity {
     protected static int ACT_CAMARA = 2;
     protected static int ACT_GALERIA = 1;
     protected static Uri fotoGaleria;
-    protected static Bitmap bitmap;
-    protected Bundle bundle;
-
+    protected Bitmap bitmap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +82,6 @@ public class AddWorkerActivity extends BaseActivity {
             // Guardamos el trabajador en nuestra base de datos:
             case R.id.action_save:
                 if(checkData()){
-                    Log.e("Guardar","pulsado");
                     new AddWorkerTask().execute();
                 }
                 break;
@@ -287,7 +284,6 @@ public class AddWorkerActivity extends BaseActivity {
 
             try {
                 parametrosPost.put("ins_sql", "INSERT INTO workers (user_cod, worker_name, worker_phone, worker_photo) VALUES( '"+USER_COD+"','"+name+"','"+phone+"','"+photo+"');");
-                Log.e("ParametrosPost",""+parametrosPost);
                 jsonObject = connection.sendWrite(BASE_URL_WRITE, parametrosPost);
 
                 if (jsonObject != null) {

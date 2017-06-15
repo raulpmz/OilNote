@@ -22,6 +22,7 @@
     <string name="add">Añadir</string>
     <string name="nick">Apodo</string>
     <string name="_name">Nombre</string>
+    <string name="_edit">Editar</string>
     <string name="phone">Teléfono</string>
     <string name="discard">SALIR</string>
     <string name="_save">GUARDAR</string>
@@ -76,5 +77,7 @@
 
     <!--               InfoWorkerActivity            -->
     <string name="edit">Editar</string>
+    <string name="successful_edit_worker">El trabajador fue editado con exito</string>
+    <string name="error_edit_worker">Error: El trabajador no fue editado correctamente</string>
 
 </resources>

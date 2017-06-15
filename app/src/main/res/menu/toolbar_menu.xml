@@ -12,6 +12,7 @@
         android:title="@string/add_worker"
         android:visible="false"
         android:icon="@drawable/add_user_white" />
+
     <item
         android:id="@+id/action_add"
         android:orderInCategory="102"
@@ -29,6 +30,19 @@
         android:id="@+id/action_discard"
         android:orderInCategory="104"
         android:title="@string/discard"
+        android:visible="false" />
+
+    <item
+        android:id="@+id/action_edit"
+        android:icon="@drawable/edit"
+        android:orderInCategory="105"
+        android:title="@string/edit"
+        android:visible="false" />
+
+    <item
+        android:id="@+id/action_save_edit"
+        android:orderInCategory="105"
+        android:title="@string/_save"
         android:visible="false" />
 
 </menu>
