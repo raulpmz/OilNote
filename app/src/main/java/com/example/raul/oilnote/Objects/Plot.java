@@ -11,13 +11,14 @@ public class Plot {
     // Variables:
 
     private String name, note;
-    private int number_plant;
+    private int cod, number_plant;
     private long latitude, longitude;
     private ArrayList delimitation;
 
     //Constructores:
 
-    public Plot(String name, int number_plant, long latitude, long longitude) {
+    public Plot(int cod, String name, int number_plant, long latitude, long longitude) {
+        this.cod            = cod;
         this.name           = name;
         this.number_plant   = number_plant;
         this.latitude       = latitude;
@@ -25,6 +26,7 @@ public class Plot {
     }
 
     public Plot() {
+        this.cod            = 0;
         this.name           = "";
         this.note           = "";
         this.number_plant   = 0;
@@ -33,6 +35,15 @@ public class Plot {
     }
 
     // Getter's & Setter's:
+
+
+    public int getCod() {
+        return cod;
+    }
+
+    public void setCod(int cod) {
+        this.cod = cod;
+    }
 
     public String getName() {
         return name;
