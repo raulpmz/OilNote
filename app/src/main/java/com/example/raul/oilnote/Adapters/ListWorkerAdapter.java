@@ -38,7 +38,7 @@ public class ListWorkerAdapter extends ArrayAdapter<Worker> {
 
         // ¿Existe el view actual?
         if (null == convertView) {
-            convertView = inflater.inflate(R.layout.item_workers_list, parent, false);
+            convertView = inflater.inflate(R.layout.item_list_workers, parent, false);
         }
 
         // Referencias UI.

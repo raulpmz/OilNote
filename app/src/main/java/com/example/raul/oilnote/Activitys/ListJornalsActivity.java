@@ -9,6 +9,6 @@ public class ListJornalsActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list_jornal);
+        setContentView(R.layout.activity_list_jornals);
     }
 }
