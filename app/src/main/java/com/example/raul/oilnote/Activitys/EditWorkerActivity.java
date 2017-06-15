@@ -44,7 +44,6 @@ public class EditWorkerActivity extends BaseActivity {
 
     protected EditText name_worker, phone_worker;
     protected String cod, name, phone, photo;
-    protected ProgressDialog progressDialog;
     protected AlertDialog.Builder alert;
     protected ImageView imagen_worker;
     protected static int ACT_CAMARA2 = 2;
@@ -55,6 +54,7 @@ public class EditWorkerActivity extends BaseActivity {
     protected JSONObject jsonObject;
     protected Toolbar toolbar;
     protected Bundle bundle;
+    protected String photocamera;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -203,12 +203,16 @@ public class EditWorkerActivity extends BaseActivity {
         }
 
         if (requestCode == ACT_CAMARA2 && resultCode == RESULT_OK) {
+
             bitmap = (Bitmap) data.getExtras().get("data");
-            rounderImage(cropBitmap(bitmap, 400,200),imagen_worker);
+            Bitmap bmp = (Bitmap) data.getExtras().get("data");
+            photocamera =  Codification.encodeToBase64(bmp,99);
+            rounderImage(cropBitmap(bmp, 400,200),imagen_worker);
         }
 
         if(requestCode == 3535 && resultCode == RESULT_OK){
             bitmap = (Bitmap) data.getExtras().get("data");
+            photocamera =  Codification.encodeToBase64(bitmap,99);
             rounderImage(bitmap,imagen_worker);
         }
     }
@@ -332,7 +336,7 @@ public class EditWorkerActivity extends BaseActivity {
 
             // Si se ha tomado una foto para el contacto:
             if(bitmap != null){
-                _photo = Codification.encodeToBase64(bitmap,100);
+                _photo = photocamera;
             }else{
                 _photo = photo;
             }

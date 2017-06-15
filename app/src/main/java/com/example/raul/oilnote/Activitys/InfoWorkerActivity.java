@@ -136,12 +136,9 @@ public class InfoWorkerActivity extends BaseActivity {
 
             // Para enviar un mensaje al trabajador:
             case R.id.iv_sms:
-                intent = new Intent(Intent.ACTION_VIEW);
 
-                intent.setData(Uri.parse("tel:" + phone));
-                intent.setType("vnd.android-dir/mms-sms");
-                intent.putExtra("address", phone);
-                intent.putExtra("sms_body", "");
+                intent = new Intent(Intent.ACTION_SENDTO);
+                intent.setData(Uri.parse("smsto:" + phone));
 
                 startActivity(intent);
 

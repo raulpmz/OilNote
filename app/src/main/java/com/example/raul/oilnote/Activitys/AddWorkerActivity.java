@@ -44,6 +44,7 @@ public class AddWorkerActivity extends BaseActivity {
     protected static int ACT_CAMARA = 2;
     protected static int ACT_GALERIA = 1;
     protected static Uri fotoGaleria;
+    protected String fotoCamara;
     protected Bitmap bitmap;
 
     @Override
@@ -152,11 +153,13 @@ public class AddWorkerActivity extends BaseActivity {
 
         if (requestCode == ACT_CAMARA && resultCode == RESULT_OK) {
             bitmap = (Bitmap) data.getExtras().get("data");
+            fotoCamara = Codification.encodeToBase64(bitmap,100);
             rounderImage(cropBitmap(bitmap, 400,200),imagen_worker);
         }
 
         if(requestCode == 3535 && resultCode == RESULT_OK){
             bitmap = (Bitmap) data.getExtras().get("data");
+            fotoCamara = Codification.encodeToBase64(bitmap,100);
             rounderImage(bitmap,imagen_worker);
         }
     }
@@ -273,7 +276,7 @@ public class AddWorkerActivity extends BaseActivity {
 
             // Si se ha tomado una foto para el contacto:
             if(bitmap != null){
-                photo = Codification.encodeToBase64(bitmap,100);
+                photo = fotoCamara;
             }else{
                 photo = "";
             }
@@ -305,7 +308,7 @@ public class AddWorkerActivity extends BaseActivity {
             if (jsonObject != null) {
                 try {
                     if(jsonObject.getInt("added") == 1){
-                        Snackbar.make(findViewById(R.id.LinearAddWorker), getResources().getString(R.string.successful_add_worker), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AddWorkerActivity.this, getResources().getString(R.string.successful_add_worker), Toast.LENGTH_SHORT).show();
                         finish();
                     }else{
                         Snackbar.make(findViewById(R.id.LinearAddWorker), getResources().getString(R.string.error_add_worker), Toast.LENGTH_SHORT).show();
