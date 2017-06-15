@@ -12,19 +12,14 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="76dp"
+        android:layout_height="64dp"
+        android:layout_weight="0.02"
         android:background="@drawable/customlistminborder"
         android:orientation="horizontal"
         android:paddingLeft="5dp">
 
-        <ImageView
-            android:id="@+id/image_jornal"
-            android:layout_width="59dp"
-            android:layout_height="match_parent"
-            app:srcCompat="@drawable/calendar_grisnegro" />
-
-        <LinearLayout
-            android:layout_width="103dp"
+        <RelativeLayout
+            android:layout_width="114dp"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
@@ -34,21 +29,21 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1.00"
                 android:gravity="center_vertical"
-                android:paddingLeft="10dp"
+                android:paddingLeft="20dp"
                 android:text="Fecha"
-                android:textColor="@color/Black"
-                android:textSize="18sp"
+                android:textColor="@color/GrisOscuro"
+                android:textSize="14sp"
                 android:textStyle="bold" />
 
 
-        </LinearLayout>
+        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="0.09"
-            android:orientation="vertical"
-            android:baselineAligned="false">
+            android:baselineAligned="false"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/name_worker"

@@ -1,13 +1,9 @@
 <resources>
     <!--                Base_Activity               -->
+
     <string name="app_name">Oil Note</string>
     <string name="name">OilNote</string>
     <string name="title_activity_main2">Main2Activity</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="action_settings">Opciones</string>
-    <string name="home">Inicio</string>
-    <string name="list_worker">Lista de trabajadores</string>
     <string name="loading">Cargando datos...</string>
     <string name="checking">Comprobando datos...</string>
     <string name="user_register">"Registrado usuario..."</string>
@@ -19,6 +15,7 @@
     <!--                 ToolbarMenu                -->
 
     <string name="add_worker">"Añadir trabajador"</string>
+    <string name="add_jornal">Añadir jornal</string>
     <string name="add">Añadir</string>
     <string name="nick">Apodo</string>
     <string name="_name">Nombre</string>
@@ -61,11 +58,21 @@
     <string name="add_laborer">Añadir trabajador</string>
     <string name="add_worker_day">Añadir jornales</string>
     <string name="title_activity_list_worker">ListWorkerActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_settings">Opciones</string>
+    <string name="home">Inicio</string>
+    <string name="list_worker">Trabajadores</string>
+    <string name="list_jornal">Jornales</string>
+    <string name="list_jornal_missing">Jornales perdidos</string>
+    <string name="list_plot">Parcelas</string>
+    <string name="list_weight">Pesajes</string>
 
     <!--               ListWorkerActivity            -->
 
 
     <!--               AddWorkerActivity             -->
+
     <string name="from_camera">Desde cámara</string>
     <string name="from_galery">Desde galería</string>
     <string name="permissions_acepted">Permisos aceptados con exito.</string>
@@ -76,8 +83,13 @@
     <string name="error_add_worker">Error: El trabajador no fue añadido correctamente</string>
 
     <!--               InfoWorkerActivity            -->
+
     <string name="edit">Editar</string>
     <string name="successful_edit_worker">El trabajador fue editado con exito</string>
     <string name="error_edit_worker">Error: El trabajador no fue editado correctamente</string>
+
+    <!--               ListJornalActivity             -->
+
+    <string name="total_jornal">Nº total de jornales</string>
 
 </resources>

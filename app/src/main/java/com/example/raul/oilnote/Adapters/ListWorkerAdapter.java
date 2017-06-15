@@ -26,13 +26,12 @@ public class ListWorkerAdapter extends ArrayAdapter<Worker> {
 
     public ListWorkerAdapter(Context context, List<Worker> objects) {
         super(context, 0, objects);
-
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        // Obtener inflater.
+        // Obtener inflater.:
         LayoutInflater inflater = (LayoutInflater) getContext()
         .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
@@ -41,14 +40,14 @@ public class ListWorkerAdapter extends ArrayAdapter<Worker> {
             convertView = inflater.inflate(R.layout.item_list_workers, parent, false);
         }
 
-        // Referencias UI.
+        // Referencias UI:
         // TextView:
         name   = (TextView) convertView.findViewById(R.id.name_worker);
 
         // ImagenView:
         avatar = (ImageView) convertView.findViewById(R.id.image_worker);
 
-        // Trabajador actual.
+        // Trabajador actual:
         Worker worker = getItem(position);
 
         // Se editan los componentes del LinearLayout:
