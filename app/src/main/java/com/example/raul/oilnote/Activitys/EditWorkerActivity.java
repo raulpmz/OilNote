@@ -117,7 +117,7 @@ public class EditWorkerActivity extends BaseActivity {
         if(!photo.equals("")){
             ImageHelper.rounderImage(photo,imagen_worker);
         }else {
-            imagen_worker.setImageResource(R.drawable.user);
+            imagen_worker.setImageResource(R.drawable.user_white);
         }
     }
 
@@ -203,7 +203,6 @@ public class EditWorkerActivity extends BaseActivity {
         }
 
         if (requestCode == ACT_CAMARA2 && resultCode == RESULT_OK) {
-
             bitmap = (Bitmap) data.getExtras().get("data");
             Bitmap bmp = (Bitmap) data.getExtras().get("data");
             photocamera =  Codification.encodeToBase64(bmp,99);
@@ -310,7 +309,8 @@ public class EditWorkerActivity extends BaseActivity {
 
     @Override
     public boolean onSupportNavigateUp() {
-        onBackPressed();
+        setResult(RESULT_CANCELED);
+        finish();
         return false;
     }
 
@@ -373,6 +373,17 @@ public class EditWorkerActivity extends BaseActivity {
                 try {
                     if(jsonObject.getInt("added") == 1){
                         Toast.makeText(EditWorkerActivity.this, getResources().getString(R.string.successful_edit_worker), Toast.LENGTH_SHORT).show();
+
+                        String _nameExtra    = _name;
+                        String _phoneExtra   = _phone;
+                        String _photoExtra   = _photo;
+
+                        Intent i = getIntent();
+
+                        i.putExtra("name", _nameExtra);
+                        i.putExtra("phone", _phoneExtra);
+                        i.putExtra("photo", _photoExtra);
+                        setResult(RESULT_OK, i);
                         finish();
                     }else{
                         Snackbar.make(findViewById(R.id.LinearEditWorker), getResources().getString(R.string.error_edit_worker), Toast.LENGTH_SHORT).show();

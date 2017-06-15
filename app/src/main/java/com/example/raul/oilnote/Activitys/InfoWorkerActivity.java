@@ -23,6 +23,7 @@ public class InfoWorkerActivity extends BaseActivity {
     protected TextView name_worker, phone_worker;
     protected String cod, name, phone, photo;
     protected ImageView imagen_worker, call, sms, whatsapp, share, delete;
+    protected final static int EDIT = 0;
     protected LinearLayout linearActions;
     protected Bundle bundle;
 
@@ -113,12 +114,49 @@ public class InfoWorkerActivity extends BaseActivity {
                 intent.putExtra("phone",phone);
                 intent.putExtra("photo",photo);
 
-                startActivity(intent);
+                startActivityForResult(intent, EDIT);
 
                 break;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        // Comprobamos si el resultado de la segunda actividad es "RESULT_CANCELED".
+        if (resultCode == RESULT_CANCELED) {
+
+        } else {
+            // De lo contrario, recogemos el resultado de la segunda actividad.
+            name    = data.getExtras().getString("name");
+            phone   = data.getExtras().getString("phone");
+            photo   = data.getExtras().getString("photo");
+            // Y tratamos el resultado en función de si se lanzó para rellenar el
+            // nombre o el apellido.
+            switch (requestCode) {
+                case EDIT:
+                    name_worker.setText(name);
+
+                    // Teléfono (de tenerlo):
+                    if(!phone.equals("")){
+                        phone_worker.setText(phone);
+                        if(linearActions.getVisibility() == View.GONE)linearActions.setVisibility(View.VISIBLE);
+                    }else{
+                        phone_worker.setText("");
+                        if(linearActions.getVisibility() == View.VISIBLE)linearActions.setVisibility(View.GONE);
+                    }
+
+                    // Foto (de tenerla):
+                    if(!photo.equals("")){
+                        ImageHelper.rounderImage(photo,imagen_worker);
+                    }else {
+                        imagen_worker.setImageResource(R.drawable.user);
+                    }
+                    break;
+            }
+        }
     }
 
     @Override
