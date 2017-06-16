@@ -16,6 +16,8 @@
 
     <string name="add_worker">"Añadir trabajador"</string>
     <string name="add_jornal">Añadir jornal</string>
+    <string name="add_plot">Añadir parcela</string>
+    <string name="add_weigth">Añadir pesaje</string>
     <string name="add">Añadir</string>
     <string name="nick">Apodo</string>
     <string name="_name">Nombre</string>
@@ -67,6 +69,7 @@
     <string name="list_jornal_missing">Jornales perdidos</string>
     <string name="list_plot">Parcelas</string>
     <string name="list_weight">Pesajes</string>
+    <string name="date">Fecha</string>
 
     <!--               ListWorkerActivity            -->
 
@@ -91,5 +94,13 @@
     <!--               ListJornalActivity             -->
 
     <string name="total_jornal">Nº total de jornales</string>
+
+    <!--               ListPlotsActivity             -->
+
+    <string name="total_plot">Nº total de parcelas</string>
+
+    <!--               ListWeigthsActivity             -->
+
+    <string name="total_weigt">Nº total de kg recogidos</string>
 
 </resources>

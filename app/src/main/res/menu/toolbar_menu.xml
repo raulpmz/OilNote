@@ -52,5 +52,19 @@
         android:title="@string/add_jornal"
         android:visible="false" />
 
+    <item
+        android:id="@+id/action_add_plot"
+        android:icon="@drawable/tree_white"
+        android:orderInCategory="107"
+        android:title="@string/add_plot"
+        android:visible="false" />
+
+    <item
+        android:id="@+id/action_add_weigth"
+        android:icon="@drawable/weight_white"
+        android:orderInCategory="108"
+        android:title="@string/add_weigth"
+        android:visible="false" />
+
 
 </menu>

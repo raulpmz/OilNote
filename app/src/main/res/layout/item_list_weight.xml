@@ -25,13 +25,13 @@
 
         <TextView
             android:id="@+id/date_weight"
-            android:layout_width="76dp"
+            android:layout_width="99dp"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
             android:paddingLeft="10dp"
             android:text="Fecha"
-            android:textColor="@color/Black"
-            android:textSize="18sp"
+            android:textColor="@color/GrisOscuro"
+            android:textSize="14sp"
             android:textStyle="bold" />
 
         <TextView

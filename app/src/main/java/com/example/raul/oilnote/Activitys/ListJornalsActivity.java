@@ -33,7 +33,10 @@ public class ListJornalsActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState, R.layout.activity_list_jornals);
 
+        // ListView:
         listViewJornals = (ListView) findViewById(R.id.list_jornal);
+
+        // List:
         listJornals     = new ArrayList<>();
 
         // TextView:

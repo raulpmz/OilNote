@@ -145,10 +145,28 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
                 }
                 break;
 
-            // Botón para acceder a la lista de trabajadores:
+            // Botón para acceder a la lista de jornales:
             case R.id.list_jornals:
                 if(!BaseActivity.this.getClass().equals(ListJornalsActivity.class)){
                     intent = new Intent(this,ListJornalsActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                }
+                break;
+
+            // Botón para acceder a la lista de parcelas:
+            case R.id.list_plots:
+                if(!BaseActivity.this.getClass().equals(ListPlotsActivity.class)){
+                    intent = new Intent(this,ListPlotsActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                }
+                break;
+
+            // Botón para acceder a la lista de pesajes:
+            case R.id.list_weight:
+                if(!BaseActivity.this.getClass().equals(ListWeightsActivity.class)){
+                    intent = new Intent(this,ListWeightsActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
                 }

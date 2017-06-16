@@ -8,60 +8,29 @@ public class Weight {
 
     // Variables:
 
-    private int weight_cod, user_cod , plot_cod ,weight_number;
-    private String weight_date, plot_name;
+    private String weight_date, plot_name, weight_cod, user_cod , plot_cod ,weight_number;
 
     // Constructores:
 
-    public Weight(int weight_cod,int plot_cod, int user_cod, String plot_name, int weight_number) {
-        this.weight_cod     = weight_cod;
-        this.plot_cod       = plot_cod;
-        this.user_cod       = user_cod;
+    public Weight(String weight_date, String plot_name, String weight_cod, String user_cod, String plot_cod, String weight_number) {
+        this.weight_date    = weight_date;
         this.plot_name      = plot_name;
+        this.weight_cod     = weight_cod;
+        this.user_cod       = user_cod;
+        this.plot_cod       = plot_cod;
         this.weight_number  = weight_number;
     }
 
     public Weight() {
-        this.weight_cod     = 0;
-        this.plot_cod       = 0;
-        this.user_cod       = 0;
+        this.weight_date    = "";
         this.plot_name      = "";
-        this.weight_number  = 0;
+        this.weight_cod     = "";
+        this.user_cod       = "";
+        this.plot_cod       = "";
+        this.weight_number  = "";
     }
 
     // Getter's & Setter's:
-
-    public int getWeight_cod() {
-        return weight_cod;
-    }
-
-    public void setWeight_cod(int weight_cod) {
-        this.weight_cod = weight_cod;
-    }
-
-    public int getUser_cod() {
-        return user_cod;
-    }
-
-    public void setUser_cod(int user_cod) {
-        this.user_cod = user_cod;
-    }
-
-    public int getPlot_cod() {
-        return plot_cod;
-    }
-
-    public void setPlot_cod(int plot_cod) {
-        this.plot_cod = plot_cod;
-    }
-
-    public int getWeight_number() {
-        return weight_number;
-    }
-
-    public void setWeight_number(int weight_number) {
-        this.weight_number = weight_number;
-    }
 
     public String getWeight_date() {
         return weight_date;
@@ -77,5 +46,37 @@ public class Weight {
 
     public void setPlot_name(String plot_name) {
         this.plot_name = plot_name;
+    }
+
+    public String getWeight_cod() {
+        return weight_cod;
+    }
+
+    public void setWeight_cod(String weight_cod) {
+        this.weight_cod = weight_cod;
+    }
+
+    public String getUser_cod() {
+        return user_cod;
+    }
+
+    public void setUser_cod(String user_cod) {
+        this.user_cod = user_cod;
+    }
+
+    public String getPlot_cod() {
+        return plot_cod;
+    }
+
+    public void setPlot_cod(String plot_cod) {
+        this.plot_cod = plot_cod;
+    }
+
+    public String getWeight_number() {
+        return weight_number;
+    }
+
+    public void setWeight_number(String weight_number) {
+        this.weight_number = weight_number;
     }
 }

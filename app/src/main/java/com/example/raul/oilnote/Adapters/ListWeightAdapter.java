@@ -43,7 +43,7 @@ public class ListWeightAdapter extends ArrayAdapter<Weight> {
 
         name    = (TextView) convertView.findViewById(R.id.name_plot);
 
-        number  = (TextView)convertView.findViewById(R.id.number_plot);
+        number  = (TextView) convertView.findViewById(R.id.weight_number);
 
         // Pesado actual:
         Weight weight = getItem(position);

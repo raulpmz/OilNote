@@ -10,40 +10,34 @@ public class Plot {
 
     // Variables:
 
-    private String name, note;
-    private int cod, number_plant;
+    private String name, note,cod, number_plant;
     private long latitude, longitude;
     private ArrayList delimitation;
 
     //Constructores:
 
-    public Plot(int cod, String name, int number_plant, long latitude, long longitude) {
-        this.cod            = cod;
+
+    public Plot(String name, String note, String cod, String number_plant, long latitude, long longitude, ArrayList delimitation) {
         this.name           = name;
+        this.note           = note;
+        this.cod            = cod;
         this.number_plant   = number_plant;
         this.latitude       = latitude;
         this.longitude      = longitude;
+        this.delimitation   = delimitation;
     }
 
     public Plot() {
-        this.cod            = 0;
+        this.cod            = "";
         this.name           = "";
+        this.number_plant   = "";
         this.note           = "";
-        this.number_plant   = 0;
         this.latitude       = 0;
         this.longitude      = 0;
     }
 
     // Getter's & Setter's:
 
-
-    public int getCod() {
-        return cod;
-    }
-
-    public void setCod(int cod) {
-        this.cod = cod;
-    }
 
     public String getName() {
         return name;
@@ -53,11 +47,27 @@ public class Plot {
         this.name = name;
     }
 
-    public int getNumber_plant() {
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+
+    public String getCod() {
+        return cod;
+    }
+
+    public void setCod(String cod) {
+        this.cod = cod;
+    }
+
+    public String getNumber_plant() {
         return number_plant;
     }
 
-    public void setNumber_plant(int number_plant) {
+    public void setNumber_plant(String number_plant) {
         this.number_plant = number_plant;
     }
 
@@ -75,14 +85,6 @@ public class Plot {
 
     public void setLongitude(long longitude) {
         this.longitude = longitude;
-    }
-
-    public String getNote() {
-        return note;
-    }
-
-    public void setNote(String note) {
-        this.note = note;
     }
 
     public ArrayList getDelimitation() {
