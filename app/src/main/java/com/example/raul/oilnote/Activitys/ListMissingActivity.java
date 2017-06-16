@@ -34,7 +34,7 @@ public class ListMissingActivity extends BaseActivity {
         super.onCreate(savedInstanceState, R.layout.activity_list_missing);
 
         // ListView:
-        listViewMissing = (ListView) findViewById(R.id.list_missing);
+        listViewMissing = (ListView) findViewById(R.id.list_view_missing);
 
         // List:
         listMissings = new ArrayList<>();
@@ -71,7 +71,7 @@ public class ListMissingActivity extends BaseActivity {
             try {
                 // Consulto los trabajadores que tiene el usuario:
                 parametrosPost.put("ins_sql",   "SELECT missing_cod ,DATE_FORMAT(missing_date, '%d-%m-%Y'), worker_name " +
-                        "FROM missings a " +
+                        "FROM missing a " +
                         "INNER JOIN workers b " +
                         "ON a.worker_cod = b.worker_cod " +
                         "WHERE a.user_cod = '" + USER_COD + "' " +
