@@ -8,15 +8,16 @@ public class Missing {
 
     // Variables:
 
-    private String missing_cod, user_cod, worker_cod, missing_date;
+    private String missing_cod, user_cod, worker_cod, worker_name, missing_date;
 
     // Constructores:
 
 
-    public Missing(String missing_cod, String user_cod, String worker_cod, String missing_date) {
+    public Missing(String missing_cod, String user_cod, String worker_cod, String worker_name, String missing_date) {
         this.missing_cod    = missing_cod;
         this.user_cod       = user_cod;
         this.worker_cod     = worker_cod;
+        this.worker_name    = worker_name;
         this.missing_date   = missing_date;
     }
 
@@ -24,6 +25,7 @@ public class Missing {
         this.missing_cod    = "";
         this.user_cod       = "";
         this.worker_cod     = "";
+        this.worker_name    = "";
         this.missing_date   = "";
     }
 
@@ -51,6 +53,14 @@ public class Missing {
 
     public void setWorker_cod(String worker_cod) {
         this.worker_cod = worker_cod;
+    }
+
+    public String getWorker_name() {
+        return worker_name;
+    }
+
+    public void setWorker_name(String worker_name) {
+        this.worker_name = worker_name;
     }
 
     public String getMissing_date() {

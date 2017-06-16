@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ListLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:baselineAligned="false">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        >
 
         <View
             android:id="@+id/separator1"
@@ -22,40 +22,49 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/GrisNegro"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingLeft="10dp">
 
-            <TextView
-                android:id="@+id/tittle_weigths"
+            <RelativeLayout
+                android:layout_width="114dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/date_jornal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.00"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="20dp"
+                    android:text="Fecha"
+                    android:textColor="@color/Gris"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+
+            </RelativeLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="@string/date"
-                android:textColor="@color/Gris"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:layout_weight="0.09"
+                android:baselineAligned="false"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:text="@string/list_plot"
-                android:textColor="@color/Gris"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/name_worker"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:text="Trabajador"
+                    android:textColor="@color/Gris"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="@string/weight"
-                android:textColor="@color/Gris"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+
+            </LinearLayout>
 
         </LinearLayout>
     </LinearLayout>
@@ -67,7 +76,7 @@
         android:layout_weight="1">
 
         <ListView
-            android:id="@+id/list_view_weigth"
+            android:id="@+id/list_view_missing"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/Gris"
@@ -105,7 +114,7 @@
                     android:layout_weight="1.00"
                     android:gravity="center_vertical"
                     android:paddingLeft="20dp"
-                    android:text="@string/total_weigt"
+                    android:text="@string/total_jornal"
                     android:textColor="@color/Gris"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -121,7 +130,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/total_weights"
+                    android:id="@+id/total_missing"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"

@@ -17,12 +17,6 @@
         android:orientation="horizontal"
         android:paddingLeft="5dp">
 
-        <ImageView
-            android:id="@+id/image_plot"
-            android:layout_width="59dp"
-            android:layout_height="match_parent"
-            app:srcCompat="@drawable/weight_grisnegro" />
-
         <TextView
             android:id="@+id/date_weight"
             android:layout_width="99dp"

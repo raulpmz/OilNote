@@ -74,7 +74,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="200dip"
                         android:layout_marginTop="10dip"
-                        android:background="@color/GrisNegro" />
+                        android:background="@drawable/customlistminborder" />
 
                     <View
                         android:layout_width="match_parent"

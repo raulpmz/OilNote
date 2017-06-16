@@ -70,6 +70,7 @@
     <string name="list_plot">Parcelas</string>
     <string name="list_weight">Pesajes</string>
     <string name="date">Fecha</string>
+    <string name="weight">Peso</string>
 
     <!--               ListWorkerActivity            -->
 

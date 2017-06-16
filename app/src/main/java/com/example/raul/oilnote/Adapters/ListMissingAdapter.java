@@ -8,20 +8,20 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.example.raul.oilnote.Objects.Jornal;
-import com.example.raul.oilnote.Objects.Weight;
+import com.example.raul.oilnote.Objects.Missing;
 import com.example.raul.oilnote.R;
 
 import java.util.List;
 
 /**
- * Created by Raul on 15/06/2017.
+ * Created by Raul on 16/06/2017.
  */
 
-public class ListWeightAdapter extends ArrayAdapter<Weight> {
+public class ListMissingAdapter extends ArrayAdapter<Missing> {
 
-    private TextView date, name, number;
+    private TextView name, date;
 
-    public ListWeightAdapter(Context context, List<Weight> objects) {
+    public ListMissingAdapter(Context context, List<Missing> objects) {
         super(context, 0, objects);
     }
 
@@ -34,29 +34,24 @@ public class ListWeightAdapter extends ArrayAdapter<Weight> {
 
         // ¿Existe el view actual?
         if (null == convertView) {
-            convertView = inflater.inflate(R.layout.item_list_weight, parent, false);
+            convertView = inflater.inflate(R.layout.item_list_missings, parent, false);
         }
 
         // Referencias UI:
         // TextView's:
-        date    = (TextView) convertView.findViewById(R.id.date_weight);
+        name = (TextView) convertView.findViewById(R.id.name_worker);
 
-        name    = (TextView) convertView.findViewById(R.id.name_plot);
+        date = (TextView) convertView.findViewById(R.id.date_jornal);
 
-        number  = (TextView) convertView.findViewById(R.id.weight_number);
-
-        // Pesado actual:
-        Weight weight = getItem(position);
+        // Jornal actual:
+        Missing missing = getItem(position);
 
         // Se editan los componentes del LinearLayout:
-        // Fecha del pesado:
-        date.setText(weight.getWeight_date());
+        // Fecha del jornal:
+        date.setText(missing.getMissing_date());
 
-        // Nombre de la parcela:
-        name.setText(weight.getPlot_name());
-
-        // Número de kilogamos pesados:
-        number.setText(weight.getWeight_number() + " Kg");
+        // Nombre del trabajador:
+        name.setText(missing.getWorker_name());
 
         // Retorna la vista:
         return convertView;

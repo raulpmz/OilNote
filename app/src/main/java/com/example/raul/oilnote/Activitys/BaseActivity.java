@@ -171,6 +171,15 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
                     startActivity(intent);
                 }
                 break;
+
+            // Botón para acceder a la lista de faltas:
+            case R.id.list_missing:
+                if(!BaseActivity.this.getClass().equals(ListMissingActivity.class)){
+                    intent = new Intent(this,ListMissingActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                }
+                break;
         }
 
         drawer.closeDrawer(GravityCompat.START);
