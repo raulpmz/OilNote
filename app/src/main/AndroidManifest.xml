@@ -48,7 +48,8 @@
         <activity android:name=".Activitys.ListJornalsActivity" />
         <activity android:name=".Activitys.ListPlotsActivity" />
         <activity android:name=".Activitys.ListWeightsActivity" />
-        <activity android:name=".Activitys.ListMissingActivity"></activity>
+        <activity android:name=".Activitys.ListMissingActivity" />
+        <activity android:name=".Activitys.AddJornalActivity"></activity>
     </application>
 
 </manifest>

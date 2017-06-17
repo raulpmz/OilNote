@@ -7,220 +7,220 @@
     android:background="@color/Gris"
     android:orientation="vertical">
 
+<LinearLayout
+android:id="@+id/LinearInfoWorker"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:layout_margin="5dp"
+android:orientation="vertical">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/customlistminborder"
+    android:orientation="vertical">
+
     <LinearLayout
-        android:id="@+id/LinearInfoWorker"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="5dp"
+        android:layout_weight="1"
         android:orientation="vertical">
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="3dip"
+            android:layout_weight="1"
+            android:background="@color/GrisClaro" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/customlistminborder"
-            android:orientation="vertical">
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imagen"
+                android:layout_width="match_parent"
+                android:layout_height="205dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_weight="1"
+                android:padding="20dp"
+                app:srcCompat="@drawable/user"
+                tools:layout_editor_absoluteX="3dp"
+                tools:layout_editor_absoluteY="3dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingLeft="5dp"
+                android:paddingTop="20dp">
 
-                <View
-                    android:id="@+id/view"
+                <TextView
+                    android:id="@+id/tv_info_worker_name"
                     android:layout_width="match_parent"
-                    android:layout_height="3dip"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/imagen"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
                     android:layout_weight="1"
-                    android:background="@color/GrisClaro" />
+                    android:ems="10"
+                    android:gravity="bottom"
+                    android:inputType="textPersonName"
+                    android:text="@string/_name"
+                    android:textColor="@color/GrisNegro"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
 
                 <LinearLayout
+                    android:id="@+id/LinearPhone"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:id="@+id/imagen"
-                        android:layout_width="match_parent"
-                        android:layout_height="205dp"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentTop="true"
-                        android:layout_weight="1"
-                        android:padding="20dp"
-                        app:srcCompat="@drawable/user"
-                        tools:layout_editor_absoluteX="3dp"
-                        tools:layout_editor_absoluteY="3dp" />
+                    android:orientation="vertical">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:orientation="vertical"
-                        android:paddingLeft="5dp"
-                        android:paddingTop="20dp">
+                        android:paddingTop="10dp">
 
                         <TextView
-                            android:id="@+id/tv_info_worker_name"
+                            android:id="@+id/tv_info_worker_phone"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_alignBottom="@+id/imagen"
-                            android:layout_alignParentLeft="true"
-                            android:layout_alignParentStart="true"
-                            android:layout_weight="1"
                             android:ems="10"
-                            android:gravity="bottom"
+                            android:gravity="center_vertical"
                             android:inputType="textPersonName"
-                            android:text="@string/_name"
+                            android:paddingTop="10dp"
+                            android:text="@string/phone"
                             android:textColor="@color/GrisNegro"
                             android:textSize="22sp"
-                            android:textStyle="bold" />
-
-                        <LinearLayout
-                            android:id="@+id/LinearPhone"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:orientation="vertical"
-                                android:paddingTop="10dp">
-
-                                <TextView
-                                    android:id="@+id/tv_info_worker_phone"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:ems="10"
-                                    android:gravity="center_vertical"
-                                    android:inputType="textPersonName"
-                                    android:paddingTop="10dp"
-                                    android:text="@string/phone"
-                                    android:textColor="@color/GrisNegro"
-                                    android:textSize="22sp"
-                                    android:textStyle="italic" />
-
-                            </LinearLayout>
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="left|center"
-                            android:orientation="vertical"
-                            android:visibility="gone">
-
-                            <LinearLayout
-                                android:id="@+id/btn_google_play"
-                                android:layout_width="121dp"
-                                android:layout_height="40dp"
-                                android:layout_margin="3dip"
-                                android:background="@drawable/button_gris"
-                                android:clickable="true"
-                                android:focusable="true"
-                                android:gravity="center"
-                                android:orientation="horizontal"
-                                android:padding="5dip"
-                                android:textColor="@color/Black">
-
-                                <ImageView
-                                    android:id="@+id/imageView3"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:src="@drawable/ic_action_edit" />
-
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="5dp"
-                                    android:text="@string/edit"
-                                    android:textColor="@color/Black"
-                                    android:textSize="12sp" />
-                            </LinearLayout>
-
-                        </LinearLayout>
+                            android:textStyle="italic" />
 
                     </LinearLayout>
+
                 </LinearLayout>
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/LinearActions"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:background="@drawable/customlistminborder"
-            android:orientation="vertical">
-
-            <View
-                android:id="@+id/separator2"
-                android:layout_width="match_parent"
-                android:layout_height="3dip"
-                android:background="@color/GrisClaro" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="10dip">
-
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:padding="5dp">
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="left|center"
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
-                    <ImageView
-                        android:id="@+id/iv_call"
-                        android:layout_width="match_parent"
-                        android:layout_height="33dp"
-                        android:layout_weight="1"
-                        app:srcCompat="@drawable/phone_grisclaro" />
+                    <LinearLayout
+                        android:id="@+id/btn_google_play"
+                        android:layout_width="121dp"
+                        android:layout_height="40dp"
+                        android:layout_margin="3dip"
+                        android:background="@drawable/button_gris"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:padding="5dip"
+                        android:textColor="@color/Black">
 
-                    <ImageView
-                        android:id="@+id/iv_sms"
-                        android:layout_width="match_parent"
-                        android:layout_height="33dp"
-                        android:layout_weight="1"
-                        app:srcCompat="@drawable/sms_grisclaro" />
+                        <ImageView
+                            android:id="@+id/imageView3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_action_edit" />
 
-                    <ImageView
-                        android:id="@+id/iv_whatsapp"
-                        android:layout_width="match_parent"
-                        android:layout_height="33dp"
-                        android:layout_weight="1"
-                        app:srcCompat="@drawable/whatsapp_grisnegro" />
-
-                    <ImageView
-                        android:id="@+id/iv_share"
-                        android:layout_width="match_parent"
-                        android:layout_height="33dp"
-                        android:layout_weight="1"
-                        app:srcCompat="@drawable/share_grisclaro" />
-
-                    <ImageView
-                        android:id="@+id/iv_delete"
-                        android:layout_width="match_parent"
-                        android:layout_height="33dp"
-                        android:layout_weight="1"
-                        app:srcCompat="@drawable/delete_grisclaro" />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:text="@string/edit"
+                            android:textColor="@color/Black"
+                            android:textSize="12sp" />
+                    </LinearLayout>
 
                 </LinearLayout>
 
             </LinearLayout>
-
-
         </LinearLayout>
 
     </LinearLayout>
 
 </LinearLayout>
+
+<LinearLayout
+    android:id="@+id/LinearActions"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="5dp"
+    android:background="@drawable/customlistminborder"
+    android:orientation="vertical">
+
+    <View
+        android:id="@+id/separator2"
+        android:layout_width="match_parent"
+        android:layout_height="3dip"
+        android:background="@color/GrisClaro" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dip">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:padding="5dp">
+
+            <ImageView
+                android:id="@+id/iv_call"
+                android:layout_width="match_parent"
+                android:layout_height="33dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/phone_grisclaro" />
+
+            <ImageView
+                android:id="@+id/iv_sms"
+                android:layout_width="match_parent"
+                android:layout_height="33dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/sms_grisclaro" />
+
+            <ImageView
+                android:id="@+id/iv_whatsapp"
+                android:layout_width="match_parent"
+                android:layout_height="33dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/whatsapp_grisnegro" />
+
+            <ImageView
+                android:id="@+id/iv_share"
+                android:layout_width="match_parent"
+                android:layout_height="33dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/share_grisclaro" />
+
+            <ImageView
+                android:id="@+id/iv_delete"
+                android:layout_width="match_parent"
+                android:layout_height="33dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/delete_grisclaro" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</LinearLayout>
+
+</LinearLayout>
+
+    </LinearLayout>

@@ -23,6 +23,7 @@
     <string name="_name">Nombre</string>
     <string name="_edit">Editar</string>
     <string name="phone">Teléfono</string>
+    <string name="acept">Aceptar</string>
     <string name="discard">SALIR</string>
     <string name="_save">GUARDAR</string>
 
@@ -103,5 +104,14 @@
     <!--               ListWeigthsActivity             -->
 
     <string name="total_weigt">Nº total de kg recogidos</string>
+
+    <!--               AddJornalActivity             -->
+
+    <string name="rb_assist">Ha asistido</string>
+    <string name="rb_missing">Ha faltado</string>
+    <string name="select_worker">Seleccione Trabajador</string>
+    <string name="select_day">Seleccione Día</string>
+    <string name="select_assormiss">Seleccione Asistencia o Falta</string>
+
 
 </resources>

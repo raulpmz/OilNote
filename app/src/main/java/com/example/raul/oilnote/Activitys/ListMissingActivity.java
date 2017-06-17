@@ -40,7 +40,7 @@ public class ListMissingActivity extends BaseActivity {
         listMissings = new ArrayList<>();
 
         // TextView:
-        total           = (TextView) findViewById(R.id.total_jornal);
+        total           = (TextView) findViewById(R.id.total_missing);
 
         new ListMissingsTask().execute();
     }
