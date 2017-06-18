@@ -18,6 +18,7 @@
     <string name="add_jornal">Añadir jornal</string>
     <string name="add_plot">Añadir parcela</string>
     <string name="add_weigth">Añadir pesaje</string>
+    <string name="add_remove">Eliminar</string>
     <string name="add">Añadir</string>
     <string name="nick">Apodo</string>
     <string name="_name">Nombre</string>
@@ -92,6 +93,10 @@
     <string name="edit">Editar</string>
     <string name="successful_edit_worker">El trabajador fue editado con exito</string>
     <string name="error_edit_worker">Error: El trabajador no fue editado correctamente</string>
+    <string name="successful_remove_worker">El trabajador fue elimidado con exito</string>
+    <string name="error_remove_worker">El trabajador fue no elimidado con exito</string>
+    <string name="are_sure">¿Está seguro de que desea borrar a este trabajador?</string>
+    <string name="attention">Atención</string>
 
     <!--               ListJornalActivity             -->
 
@@ -112,6 +117,14 @@
     <string name="select_worker">Seleccione Trabajador</string>
     <string name="select_day">Seleccione Día</string>
     <string name="select_assormiss">Seleccione Asistencia o Falta</string>
+    <string name="successful_add_jornal">El jornal fue añadido con exito</string>
+    <string name="successful_add_miss">La falta fue añadida con exito</string>
+    <string name="error_add_jornal">Error al añadir el jornal</string>
+    <string name="error_add_miss">Error al añadir la falta</string>
 
+    <!--               AddJornalActivity             -->
+
+    <string name="name_plot">Nombre de la parcela</string>
+    <string name="numbrer_plot">Número de olivas</string>
 
 </resources>

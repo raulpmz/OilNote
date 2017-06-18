@@ -204,6 +204,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
+                                    android:checked="true"
                                     android:text="@string/rb_assist" />
 
                                 <RadioButton
@@ -211,6 +212,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
+                                    android:checked="false"
                                     android:text="@string/rb_missing" />
                             </RadioGroup>
 
@@ -254,6 +256,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:background="@drawable/button_border_gris_default"
+                                android:onClick="buttonSave"
                                 android:text="@string/acept" />
                         </LinearLayout>
 

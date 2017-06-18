@@ -1,10 +1,12 @@
 package com.example.raul.oilnote.Activitys;
 
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,6 +21,7 @@ import com.example.raul.oilnote.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,9 +31,10 @@ import static com.example.raul.oilnote.Utils.GlobalVars.*;
 
 public class ListWorkerActivity extends BaseActivity {
 
-    protected ListView listViewWorkers;
     protected ListWorkerAdapter listWorkerAdapter;
+    protected ListView listViewWorkers;
     protected List<Worker> listWorkers;
+    protected AlertDialog.Builder alert2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +42,10 @@ public class ListWorkerActivity extends BaseActivity {
 
         listViewWorkers = (ListView) findViewById(R.id.list_worker);
         listWorkers     = new ArrayList<>();
+
+        // Dialogos para los mensajes de información:
+        alert           = new AlertDialog.Builder(this);
+        alert2          = new AlertDialog.Builder(this);
 
         new ListWorkersTask().execute();
     }
@@ -69,6 +77,64 @@ public class ListWorkerActivity extends BaseActivity {
             }
         });
 
+        listViewWorkers.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, final int i, long l) {
+                final CharSequence[] items = new CharSequence[2];
+
+                items[0] = getResources().getString(R.string.edit);
+                items[1] = getResources().getString(R.string.add_remove);
+
+                alert.setTitle(getResources().getString(R.string.options))
+                        .setItems(items, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int pos) {
+
+                                // Si la opción es la camara la abrirá:
+                                if(pos == 0){
+
+                                    Intent intent = new Intent(ListWorkerActivity.this,InfoWorkerActivity.class);
+
+                                    intent.putExtra("cod",listWorkers.get(i).getWorkerCod());
+                                    intent.putExtra("name",listWorkers.get(i).getWorkerName());
+                                    intent.putExtra("phone",listWorkers.get(i).getWorkerPhone());
+                                    intent.putExtra("photo",listWorkers.get(i).getWorkerPhoto());
+
+                                    startActivity(intent);
+                                }
+                                // Si la opción es la galería la abrirá:
+                                if(pos == 1){
+                                    dialog.dismiss();
+                                    alert2.setTitle(R.string.attention);
+                                    alert2.setMessage(R.string.are_sure);
+                                    alert2.setPositiveButton(R.string.add_remove, new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            new RemoveWorkerTask(listWorkers.get(i).getWorkerCod()).execute();
+                                        }
+                                    });
+                                    alert2.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.dismiss();
+                                        }
+                                    });
+                                    alert2.show();
+                                }
+                            }
+                        });
+                alert.setNegativeButton(getResources().getString(R.string.cancel),
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface alert, int which) {
+                                // TODO Auto-generated method stub
+                                alert.dismiss();
+                            }
+                        });
+                alert.show();
+                return false;
+            }
+        });
     }
 
     class ListWorkersTask extends AsyncTask<Void, Void, JSONArray>{
@@ -144,6 +210,64 @@ public class ListWorkerActivity extends BaseActivity {
         }
 
         return lw;
+    }
+
+    // Hilo para borrar el trabajador:
+    class RemoveWorkerTask extends AsyncTask<Void,Void,JSONObject> {
+
+        private String cod;
+        private HashMap<String, String> parametrosPost = new HashMap<>();
+
+        public RemoveWorkerTask(String cod) {
+            this.cod = cod;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            onProgressDialog(ListWorkerActivity.this, getResources().getString(R.string.save));
+        }
+
+        @Override
+        protected JSONObject doInBackground(Void... params) {
+
+            try {
+                parametrosPost.put("ins_sql",   "DELETE FROM workers " +
+                        "WHERE user_cod = "+ USER_COD +" " +
+                        "AND worker_cod = "+ cod);
+                jsonObject = connection.sendWrite(BASE_URL_WRITE, parametrosPost);
+
+                if (jsonObject != null) {
+                    return jsonObject;
+                }
+
+            } catch (JSONException e) {
+                e.getMessage();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(JSONObject jsonObject) {
+            super.onPostExecute(jsonObject);
+
+            onStopProgressDialog();
+
+            if (jsonObject != null) {
+                try {
+                    if(jsonObject.getInt("added") == 1){
+                        Snackbar.make(findViewById(R.id.ListLayout), getResources().getString(R.string.successful_remove_worker), Toast.LENGTH_SHORT).show();
+                        new ListWorkersTask().execute();
+                    }else{
+                        Snackbar.make(findViewById(R.id.ListLayout), getResources().getString(R.string.error_remove_worker), Toast.LENGTH_SHORT).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }else{
+                Snackbar.make(findViewById(R.id.ListLayout), getResources().getString(R.string.server_down), Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
     @Override

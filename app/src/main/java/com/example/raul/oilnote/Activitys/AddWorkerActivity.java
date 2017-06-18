@@ -16,6 +16,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -40,16 +41,18 @@ import static com.example.raul.oilnote.Utils.ImageHelper.rounderImage;
 public class AddWorkerActivity extends BaseActivity {
 
     protected EditText name_worker, phone_worker;
-    protected ImageView imagen_worker;
-    protected static int ACT_CAMARA = 2;
     protected static int ACT_GALERIA = 1;
+    protected static int ACT_CAMARA = 2;
+    protected ImageView imagen_worker;
     protected static Uri fotoGaleria;
     protected String fotoCamara;
+    protected Toolbar toolbar;
     protected Bitmap bitmap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState,R.layout.activity_add_worker);
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_add_worker);
 
         // EditText:
         name_worker    = (EditText) findViewById(R.id.et_add_worker_name);
@@ -58,7 +61,18 @@ public class AddWorkerActivity extends BaseActivity {
         // ImagenView:
         imagen_worker  = (ImageView) findViewById(R.id.imagen);
 
-        // Dialogos para los mensajes de información.
+        // Toolbar:
+        toolbar         = (Toolbar) findViewById(R.id.toolbar);
+
+        if(toolbar != null){
+            toolbar.setTitle(R.string.name);
+            setSupportActionBar(toolbar);
+        }
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        // Dialogos para los mensajes de información:
         alert = new AlertDialog.Builder(this);
     }
 
@@ -68,8 +82,6 @@ public class AddWorkerActivity extends BaseActivity {
 
         menu.findItem(R.id.action_save).setVisible(true);
         menu.findItem(R.id.action_save).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-        menu.findItem(R.id.action_discard).setVisible(true);
-        menu.findItem(R.id.action_discard).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -286,7 +298,8 @@ public class AddWorkerActivity extends BaseActivity {
         protected JSONObject doInBackground(Void... params) {
 
             try {
-                parametrosPost.put("ins_sql", "INSERT INTO workers (user_cod, worker_name, worker_phone, worker_photo) VALUES( '"+USER_COD+"','"+name+"','"+phone+"','"+photo+"');");
+                parametrosPost.put("ins_sql",   "INSERT INTO workers (user_cod, worker_name, worker_phone, worker_photo) " +
+                                                "VALUES( '"+USER_COD+"','"+name+"','"+phone+"','"+photo+"');");
                 jsonObject = connection.sendWrite(BASE_URL_WRITE, parametrosPost);
 
                 if (jsonObject != null) {
@@ -322,5 +335,10 @@ public class AddWorkerActivity extends BaseActivity {
         }
     }
 
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return false;
+    }
 
 }

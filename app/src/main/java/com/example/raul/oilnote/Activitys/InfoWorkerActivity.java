@@ -1,9 +1,12 @@
 package com.example.raul.oilnote.Activitys;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
@@ -18,13 +21,22 @@ import android.widget.Toast;
 import com.example.raul.oilnote.R;
 import com.example.raul.oilnote.Utils.ImageHelper;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+
+import static com.example.raul.oilnote.Utils.GlobalVars.BASE_URL_WRITE;
+import static com.example.raul.oilnote.Utils.GlobalVars.USER_COD;
+
 public class InfoWorkerActivity extends BaseActivity {
 
+    protected ImageView imagen_worker, call, sms, whatsapp, share, delete;
     protected TextView name_worker, phone_worker;
     protected String cod, name, phone, photo;
-    protected ImageView imagen_worker, call, sms, whatsapp, share, delete;
-    protected final static int EDIT = 0;
     protected LinearLayout linearActions;
+    protected AlertDialog.Builder alert;
+    protected final static int EDIT = 0;
     protected Bundle bundle;
 
     @Override
@@ -33,6 +45,10 @@ public class InfoWorkerActivity extends BaseActivity {
 
         // Bundle:
         bundle          = getIntent().getExtras();
+
+        // AlertDialog:
+        alert = new AlertDialog.Builder(InfoWorkerActivity.this);
+        alert.setCancelable(false);
 
         // String:
         cod             = bundle.getString("cod");
@@ -96,6 +112,7 @@ public class InfoWorkerActivity extends BaseActivity {
 
         menu.findItem(R.id.action_edit).setVisible(true);
         menu.findItem(R.id.action_edit).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        menu.findItem(R.id.action_remove).setVisible(true);
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -105,6 +122,8 @@ public class InfoWorkerActivity extends BaseActivity {
         int id = item.getItemId();
 
         switch (id){
+
+            // Opción para editar al trabajador:
             case R.id.action_edit:
 
                 Intent intent = new Intent(InfoWorkerActivity.this,EditWorkerActivity.class);
@@ -117,10 +136,97 @@ public class InfoWorkerActivity extends BaseActivity {
                 startActivityForResult(intent, EDIT);
 
                 break;
+
+            // Opción para borrar al trabajador:
+            case R.id.action_remove:
+
+                alert.setTitle(R.string.attention);
+                alert.setMessage(R.string.are_sure);
+                alert.setPositiveButton(R.string.add_remove, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        new RemoveWorkerTask().execute();
+                    }
+                });
+                alert.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+                alert.show();
+
+                break;
         }
 
         return super.onOptionsItemSelected(item);
     }
+    @Override
+    public void onClick(View v) {
+        super.onClick(v);
+        Intent intent;
+
+        switch (v.getId()){
+
+            // Para llamar al trabajador:
+            case R.id.iv_call:
+                startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phone)));
+                break;
+
+            // Para enviar un mensaje al trabajador:
+            case R.id.iv_sms:
+
+                intent = new Intent(Intent.ACTION_SENDTO);
+                intent.setData(Uri.parse("smsto:" + phone));
+
+                startActivity(intent);
+
+                break;
+
+            // Para enviar un whatsapp al trabajador:
+            case R.id.iv_whatsapp:
+                PackageManager pm = getPackageManager();
+
+                try {
+                    intent = new Intent(Intent.ACTION_SEND);
+                    intent.setType("text/plain");
+                    PackageInfo info = pm.getPackageInfo("com.whatsapp", PackageManager.GET_META_DATA);
+                    intent.setPackage("com.whatsapp");
+                    intent.putExtra(Intent.EXTRA_TEXT, "");
+                    startActivity(Intent.createChooser(intent, "Enviar mensaje a:"));
+
+                } catch (PackageManager.NameNotFoundException e) {
+                    Snackbar.make(findViewById(R.id.LinearInfoWorker), "WhatsApp no esta instalado!", Toast.LENGTH_SHORT).show();
+                }
+
+                break;
+
+            case R.id.iv_share:
+
+                break;
+
+            // Opción para borrar al trabajador:
+            case R.id.iv_delete:
+
+                alert.setTitle(R.string.attention);
+                alert.setMessage(R.string.are_sure);
+                alert.setPositiveButton(R.string.add_remove, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        new RemoveWorkerTask().execute();
+                    }
+                });
+                alert.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+                alert.show();
+
+                break;
+
+        }
+    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -159,54 +265,57 @@ public class InfoWorkerActivity extends BaseActivity {
         }
     }
 
-    @Override
-    public void onClick(View v) {
-        super.onClick(v);
-        Intent intent;
+    // Hilo para borrar el trabajador:
+    class RemoveWorkerTask extends AsyncTask<Void,Void,JSONObject> {
 
-        switch (v.getId()){
+        private HashMap<String, String> parametrosPost = new HashMap<>();
 
-            // Para llamar al trabajador:
-            case R.id.iv_call:
-                startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phone)));
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            onProgressDialog(InfoWorkerActivity.this, getResources().getString(R.string.save));
+        }
 
-                break;
+        @Override
+        protected JSONObject doInBackground(Void... params) {
 
-            // Para enviar un mensaje al trabajador:
-            case R.id.iv_sms:
+            try {
+                parametrosPost.put("ins_sql",   "DELETE FROM workers " +
+                                                "WHERE user_cod = "+ USER_COD +" " +
+                                                "AND worker_cod = "+ cod);
+                jsonObject = connection.sendWrite(BASE_URL_WRITE, parametrosPost);
 
-                intent = new Intent(Intent.ACTION_SENDTO);
-                intent.setData(Uri.parse("smsto:" + phone));
-
-                startActivity(intent);
-
-                break;
-
-            // Para enviar un whatsapp al trabajador:
-            case R.id.iv_whatsapp:
-                PackageManager pm = getPackageManager();
-
-                try {
-                    intent = new Intent(Intent.ACTION_SEND);
-                    intent.setType("text/plain");
-                    PackageInfo info = pm.getPackageInfo("com.whatsapp", PackageManager.GET_META_DATA);
-                    intent.setPackage("com.whatsapp");
-                    intent.putExtra(Intent.EXTRA_TEXT, "");
-                    startActivity(Intent.createChooser(intent, "Enviar mensaje a:"));
-
-                } catch (PackageManager.NameNotFoundException e) {
-                    Snackbar.make(findViewById(R.id.LinearInfoWorker), "WhatsApp no esta instalado!", Toast.LENGTH_SHORT).show();
+                if (jsonObject != null) {
+                    return jsonObject;
                 }
 
-                break;
+            } catch (JSONException e) {
+                e.getMessage();
+            }
+            return null;
+        }
 
-            case R.id.iv_share:
+        @Override
+        protected void onPostExecute(JSONObject jsonObject) {
+            super.onPostExecute(jsonObject);
 
-                break;
-            case R.id.iv_delete:
+            onStopProgressDialog();
 
-                break;
-
+            if (jsonObject != null) {
+                try {
+                    if(jsonObject.getInt("added") == 1){
+                        Toast.makeText(InfoWorkerActivity.this, getResources().getString(R.string.successful_remove_worker), Toast.LENGTH_SHORT).show();
+                        finish();
+                    }else{
+                        Snackbar.make(findViewById(R.id.LinearInfoWorker), getResources().getString(R.string.error_remove_worker), Toast.LENGTH_SHORT).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }else{
+                Snackbar.make(findViewById(R.id.LinearInfoWorker), getResources().getString(R.string.server_down), Toast.LENGTH_SHORT).show();
+            }
         }
     }
+
 }

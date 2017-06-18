@@ -22,13 +22,15 @@
 
     <item
         android:id="@+id/action_save"
-        android:orderInCategory="103"
+        android:orderInCategory="104"
+        android:icon="@drawable/save_white"
         android:title="@string/_save"
         android:visible="false" />
 
     <item
         android:id="@+id/action_discard"
-        android:orderInCategory="104"
+        android:orderInCategory="103"
+        android:icon="@drawable/logout_white"
         android:title="@string/discard"
         android:visible="false" />
 
@@ -42,6 +44,7 @@
     <item
         android:id="@+id/action_save_edit"
         android:orderInCategory="106"
+        android:icon="@drawable/save_white"
         android:title="@string/_save"
         android:visible="false" />
 
@@ -64,6 +67,13 @@
         android:icon="@drawable/weight_white"
         android:orderInCategory="108"
         android:title="@string/add_weigth"
+        android:visible="false" />
+
+    <item
+        android:id="@+id/action_remove"
+        android:icon="@drawable/ic_action_delete"
+        android:orderInCategory="107"
+        android:title="@string/add_remove"
         android:visible="false" />
 
 
