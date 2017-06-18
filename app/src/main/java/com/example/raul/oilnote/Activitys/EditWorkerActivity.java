@@ -346,7 +346,9 @@ public class EditWorkerActivity extends BaseActivity {
         protected JSONObject doInBackground(Void... params) {
 
             try {
-                parametrosPost.put("ins_sql", "UPDATE workers SET worker_name = '"+ _name +"', worker_phone = '"+ _phone +"', worker_photo = '"+ _photo +"' WHERE worker_cod = "+ cod +";");
+                parametrosPost.put("ins_sql",   "UPDATE workers " +
+                                                "SET worker_name = '"+ _name +"', worker_phone = '"+ _phone +"', worker_photo = '"+ _photo +"' " +
+                                                "WHERE worker_cod = "+ cod +";");
                 jsonObject = connection.sendWrite(BASE_URL_WRITE, parametrosPost);
                 Log.e("parametrosPost",""+parametrosPost);
                 //UPDATE

@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,6 +19,7 @@ import com.example.raul.oilnote.Adapters.InfoPlotAdapter;
 import com.example.raul.oilnote.Adapters.ListWeightAdapter;
 import com.example.raul.oilnote.Objects.Weight;
 import com.example.raul.oilnote.R;
+import com.example.raul.oilnote.Utils.ImageHelper;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -133,6 +135,27 @@ public class InfoPlotActivity extends BaseActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        // Comprobamos si el resultado de la segunda actividad es "RESULT_CANCELED".
+        if (resultCode == RESULT_CANCELED) {
+
+        } else {
+            // De lo contrario, recogemos el resultado de la segunda actividad.
+            name     = data.getExtras().getString("name");
+            number   = data.getExtras().getString("number");
+
+            // Y rellenamos los TextView con la nueva información:
+            switch (requestCode) {
+                case EDIT:
+                    name_plot.setText(name);
+                    number_plant.setText(number);
+                    break;
+            }
+        }
     }
 
     // Hilo para borrar la parcela:

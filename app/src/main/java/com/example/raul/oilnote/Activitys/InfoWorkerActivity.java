@@ -240,8 +240,8 @@ public class InfoWorkerActivity extends BaseActivity {
             name    = data.getExtras().getString("name");
             phone   = data.getExtras().getString("phone");
             photo   = data.getExtras().getString("photo");
-            // Y tratamos el resultado en función de si se lanzó para rellenar el
-            // nombre o el apellido.
+
+            // Y rellenamos los TextView con la nueva información:
             switch (requestCode) {
                 case EDIT:
                     name_worker.setText(name);

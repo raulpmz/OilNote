@@ -125,7 +125,7 @@
     <string name="error_add_jornal">Error al añadir el jornal</string>
     <string name="error_add_miss">Error al añadir la falta</string>
 
-    <!--               AddJornalActivity             -->
+    <!--               AddPlotActivity             -->
 
     <string name="name_plot">Nombre de la parcela</string>
     <string name="number_plot">Número de olivas</string>
@@ -133,4 +133,10 @@
     <string name="plot_exist">Esta parcela ya exite</string>
     <string name="successful_add_plot">La parcela ha sido añadida correctamente</string>
     <string name="error_add_plot">La parcela no ha sido añadida correctamente</string>
+
+    <!--                EditPlotActivity             -->
+
+    <string name="successful_edit_plot">La parcela ha sido editada correctamente</string>
+    <string name="error_edit_plot">La parcela no ha sido editada correctamente</string>
+
 </resources>
