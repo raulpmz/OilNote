@@ -124,7 +124,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/numbrer_plot"
+                    android:text="@string/number_plot"
                     android:textAlignment="center"
                     android:textColor="@color/Gris"
                     android:textSize="18sp"
@@ -152,7 +152,7 @@
                         android:layout_marginRight="10dp"
                         android:layout_weight="1"
                         android:ems="9"
-                        android:hint="@string/numbrer_plot"
+                        android:hint="@string/number_plot"
                         android:inputType="number"
                         android:maxLength="9"
                         android:paddingLeft="5dp"
@@ -198,8 +198,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:background="@drawable/button_border_gris_default"
-                        android:onClick="buttonSave"
-                        android:text="@string/acept" />
+                        android:onClick="buttonAddPlot"
+                        android:text="@string/add" />
                 </LinearLayout>
 
             </LinearLayout>

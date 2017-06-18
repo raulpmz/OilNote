@@ -90,7 +90,7 @@ public class ListWorkerActivity extends BaseActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int pos) {
 
-                                // Si la opción es la camara la abrirá:
+                                // Si la opción es editar:
                                 if(pos == 0){
 
                                     Intent intent = new Intent(ListWorkerActivity.this,InfoWorkerActivity.class);
@@ -102,11 +102,11 @@ public class ListWorkerActivity extends BaseActivity {
 
                                     startActivity(intent);
                                 }
-                                // Si la opción es la galería la abrirá:
+                                // Si la opción es la eliminar:
                                 if(pos == 1){
                                     dialog.dismiss();
                                     alert2.setTitle(R.string.attention);
-                                    alert2.setMessage(R.string.are_sure);
+                                    alert2.setMessage(R.string.are_sure_worker);
                                     alert2.setPositiveButton(R.string.add_remove, new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {

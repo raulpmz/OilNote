@@ -189,6 +189,15 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
                     startActivity(intent);
                 }
                 break;
+
+            // Botón para acceder a la actividad para añadir jornales:
+            case R.id.add_plot:
+                if(!BaseActivity.this.getClass().equals(AddPlotActivity.class)){
+                    intent = new Intent(this,AddPlotActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                }
+                break;
         }
 
         drawer.closeDrawer(GravityCompat.START);

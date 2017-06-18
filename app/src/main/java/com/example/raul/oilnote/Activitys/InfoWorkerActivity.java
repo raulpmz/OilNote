@@ -141,7 +141,7 @@ public class InfoWorkerActivity extends BaseActivity {
             case R.id.action_remove:
 
                 alert.setTitle(R.string.attention);
-                alert.setMessage(R.string.are_sure);
+                alert.setMessage(R.string.are_sure_worker);
                 alert.setPositiveButton(R.string.add_remove, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -160,6 +160,7 @@ public class InfoWorkerActivity extends BaseActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
     @Override
     public void onClick(View v) {
         super.onClick(v);
@@ -208,7 +209,7 @@ public class InfoWorkerActivity extends BaseActivity {
             case R.id.iv_delete:
 
                 alert.setTitle(R.string.attention);
-                alert.setMessage(R.string.are_sure);
+                alert.setMessage(R.string.are_sure_worker);
                 alert.setPositiveButton(R.string.add_remove, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -264,6 +265,8 @@ public class InfoWorkerActivity extends BaseActivity {
             }
         }
     }
+
+
 
     // Hilo para borrar el trabajador:
     class RemoveWorkerTask extends AsyncTask<Void,Void,JSONObject> {

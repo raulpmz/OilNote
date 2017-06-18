@@ -95,7 +95,7 @@
     <string name="error_edit_worker">Error: El trabajador no fue editado correctamente</string>
     <string name="successful_remove_worker">El trabajador fue elimidado con exito</string>
     <string name="error_remove_worker">El trabajador fue no elimidado con exito</string>
-    <string name="are_sure">¿Está seguro de que desea borrar a este trabajador?</string>
+    <string name="are_sure_worker">¿Está seguro de que desea borrar a este trabajador?</string>
     <string name="attention">Atención</string>
 
     <!--               ListJornalActivity             -->
@@ -105,6 +105,9 @@
     <!--               ListPlotsActivity             -->
 
     <string name="total_plot">Nº total de parcelas</string>
+    <string name="successful_remove_plot">La parcela fue elimidada con exito</string>
+    <string name="error_remove_plot">La parcela no fue elimidada con exito</string>
+    <string name="are_sure_plant">¿Está seguro de que desea borrar esta parcela?</string>
 
     <!--               ListWeigthsActivity             -->
 
@@ -125,6 +128,9 @@
     <!--               AddJornalActivity             -->
 
     <string name="name_plot">Nombre de la parcela</string>
-    <string name="numbrer_plot">Número de olivas</string>
-
+    <string name="number_plot">Número de olivas</string>
+    <string name="weigths">Pesajes</string>
+    <string name="plot_exist">Esta parcela ya exite</string>
+    <string name="successful_add_plot">La parcela ha sido añadida correctamente</string>
+    <string name="error_add_plot">La parcela no ha sido añadida correctamente</string>
 </resources>
