@@ -1,5 +1,6 @@
 package com.example.raul.oilnote.Activitys;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
@@ -45,7 +46,7 @@ public class ListMissingActivity extends BaseActivity {
         new ListMissingsTask().execute();
     }
 
-    /*@Override
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.toolbar_menu, menu);
 
@@ -53,7 +54,22 @@ public class ListMissingActivity extends BaseActivity {
         menu.findItem(R.id.action_add_jornal).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 
         return super.onCreateOptionsMenu(menu);
-    }*/
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        switch (id){
+
+            case R.id.action_add_jornal:
+                startActivity(new Intent(ListMissingActivity.this,AddJornalActivity.class));
+                break;
+
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 
     class ListMissingsTask extends AsyncTask<Void, Void, JSONArray> {
 

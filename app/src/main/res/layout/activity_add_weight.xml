@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/Gris"
-    android:orientation="vertical">
+    tools:context="com.example.raul.oilnote.Activitys.AddWeightActivity">
+
+    <include
+        layout="@layout/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -17,7 +22,17 @@
             android:orientation="vertical">
 
             <LinearLayout
-                android:id="@+id/LinearAddJornal"
+                android:id="@+id/layout_focus"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:focusable="true"
+                android:focusableInTouchMode="true">
+
+                <requestFocus />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/LinearAddWeight"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
@@ -63,7 +78,7 @@
                             android:orientation="vertical">
 
                             <CalendarView
-                                android:id="@+id/calendar_add_jornal"
+                                android:id="@+id/calendar_add_weight"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1" />
@@ -120,7 +135,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="@string/select_worker"
+                            android:text="@string/select_plot"
                             android:textAlignment="center"
                             android:textColor="@color/Gris"
                             android:textSize="18sp"
@@ -141,7 +156,7 @@
                             android:padding="5dp">
 
                             <Spinner
-                                android:id="@+id/sp_add_jornal"
+                                android:id="@+id/sp_add_weight"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -173,11 +188,12 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="@string/select_assormiss"
+                            android:text="@string/kg"
                             android:textAlignment="center"
                             android:textColor="@color/Gris"
                             android:textSize="18sp"
                             android:textStyle="bold" />
+
                     </LinearLayout>
 
                     <LinearLayout
@@ -193,28 +209,20 @@
                             android:orientation="horizontal"
                             android:padding="5dp">
 
-                            <RadioGroup
-                                android:id="@+id/rb_group"
-                                android:layout_width="match_parent"
+                            <EditText
+                                android:id="@+id/et_add_number_weight"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:gravity="center">
+                                android:layout_marginLeft="5dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_weight="1"
+                                android:ems="9"
+                                android:hint="@string/weigth"
+                                android:inputType="number"
+                                android:maxLength="9"
+                                android:paddingLeft="5dp"
+                                android:textColor="@color/VerdeCorporativo" />
 
-                                <RadioButton
-                                    android:id="@+id/rb_add_jornal_asist"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:checked="true"
-                                    android:text="@string/rb_assist" />
-
-                                <RadioButton
-                                    android:id="@+id/rb_add_jornal_miss"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:checked="false"
-                                    android:text="@string/rb_missing" />
-                            </RadioGroup>
 
                         </LinearLayout>
 
@@ -251,13 +259,13 @@
                             android:padding="5dp">
 
                             <Button
-                                android:id="@+id/b_add_jornal"
+                                android:id="@+id/b_add_weigth"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:background="@drawable/button_border_gris_default"
-                                android:onClick="buttonSave"
-                                android:text="@string/acept" />
+                                android:onClick="addWeight"
+                                android:text="@string/add" />
                         </LinearLayout>
 
                     </LinearLayout>

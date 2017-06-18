@@ -1,7 +1,9 @@
 package com.example.raul.oilnote.Activitys;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
@@ -57,6 +59,21 @@ public class ListWeightsActivity extends BaseActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        switch (id){
+
+            case R.id.action_add_weigth:
+                startActivity(new Intent(ListWeightsActivity.this,AddWeightActivity.class));
+                break;
+
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
     // Metodo para calcular el total de los kilogramos:
     public String calculateTotalWeigth(List<Weight> listWeight){
         List<Weight> list = listWeight;
@@ -87,13 +104,11 @@ public class ListWeightsActivity extends BaseActivity {
             try {
                 // Consulto los trabajadores que tiene el usuario:
                 parametrosPost.put("ins_sql",   "SELECT weight_cod ,DATE_FORMAT(weight_date, '%d-%m-%Y'), plot_name, weight_number " +
-                                                "FROM weights a " +
-                                                "INNER JOIN plots b " +
-                                                "        ON a.plot_cod = b.plot_cod " +
-                                                "WHERE a.user_cod = '" + USER_COD + "'");
+                                                "FROM weights " +
+                                                "WHERE user_cod = '" + USER_COD + "'");
 
+                Log.e("parametrosPost",""+parametrosPost);
                 jSONArray = connection.sendRequest(BASE_URL_READ, parametrosPost);
-
                 if (jSONArray != null) {
                     return jSONArray;
                 }

@@ -55,6 +55,21 @@ public class ListJornalsActivity extends BaseActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        switch (id){
+
+            case R.id.action_add_jornal:
+                startActivity(new Intent(ListJornalsActivity.this,AddJornalActivity.class));
+                break;
+
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
     class ListJornalsTask extends AsyncTask<Void, Void, JSONArray> {
 
         private HashMap<String, String> parametrosPost = new HashMap<>();

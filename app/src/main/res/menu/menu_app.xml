@@ -20,6 +20,12 @@
             android:id="@+id/add_plot"
             android:icon="@drawable/tree_white"
             android:title="@string/add_plot" />
+
+        <item
+            android:id="@+id/add_weight"
+            android:icon="@drawable/weight_white"
+            android:title="@string/add_weigth" />
+
         <item
             android:id="@+id/nav_slideshow"
             android:icon="@drawable/ic_menu_slideshow"

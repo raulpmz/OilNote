@@ -139,4 +139,12 @@
     <string name="successful_edit_plot">La parcela ha sido editada correctamente</string>
     <string name="error_edit_plot">La parcela no ha sido editada correctamente</string>
 
+    <!--               AddWeightActivity             -->
+
+    <string name="select_plot">Seleccione Parcela</string>
+    <string name="kg">Indique el peso</string>
+    <string name="weigth">Peso (kg)</string>
+    <string name="successful_add_weight">El pesaje fue añadido con exito</string>
+    <string name="error_add_weight">Error al añadir el pesaje</string>
+
 </resources>

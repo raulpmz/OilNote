@@ -69,6 +69,21 @@ public class ListPlotsActivity extends BaseActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        switch (id){
+
+            case R.id.action_add_plot:
+                startActivity(new Intent(ListPlotsActivity.this,AddPlotActivity.class));
+                break;
+
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
     // Evento al seleccionar un elemento de la lista:
     public void onClickList(){
         listViewPlots.setOnItemClickListener(new AdapterView.OnItemClickListener() {

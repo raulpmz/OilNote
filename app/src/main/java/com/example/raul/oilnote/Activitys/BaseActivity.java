@@ -96,9 +96,9 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
                 Log.e("Pulsado","MenuTool");
                 break;
 
-            case R.id.action_add_worker:
+           /* case R.id.action_add_worker:
                 startActivity(new Intent(BaseActivity.this.getBaseContext(),AddWorkerActivity.class));
-                break;
+                break;*/
 
         }
 
@@ -194,6 +194,15 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
             case R.id.add_plot:
                 if(!BaseActivity.this.getClass().equals(AddPlotActivity.class)){
                     intent = new Intent(this,AddPlotActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                }
+                break;
+
+            // Botón para acceder a la actividad para añadir jornales:
+            case R.id.add_weight:
+                if(!BaseActivity.this.getClass().equals(AddWeightActivity.class)){
+                    intent = new Intent(this,AddWeightActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
                 }
