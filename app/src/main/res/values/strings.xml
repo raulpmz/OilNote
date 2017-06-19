@@ -10,6 +10,7 @@
     <string name="save">Guardando...</string>
     <string name="options">Opciones</string>
     <string name="cancel">Cancelar</string>
+    <string name="remove">Eliminando...</string>
     <string name="server_down">El servidor se encuentra en mantenimiento, sentimos las molestias.</string>
 
     <!--                 ToolbarMenu                -->

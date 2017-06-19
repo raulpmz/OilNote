@@ -233,7 +233,7 @@ public class AddJornalActivity extends BaseActivity {
         @Override
         protected JSONArray doInBackground(Void... params) {
             try {
-                // Consulto los trabajadores tienen anotados ya el jornal esed día:
+                // Consulto los trabajadores tienen anotados ya el jornal eses día:
                 parametrosPost.put("ins_sql",   "SELECT a.worker_cod, b.worker_name " +
                                                 "FROM jornals a " +
                                                 "INNER JOIN workers b " +
