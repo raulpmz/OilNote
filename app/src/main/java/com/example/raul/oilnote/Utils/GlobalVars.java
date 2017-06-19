@@ -21,5 +21,14 @@ public class GlobalVars {
     public static String USER_EMAIL             = "";
     public static String USER_PASSWORD          = "";
 
+    // MAIL APP:
+
+    public static String MAIL_APP               = "oilnoteapp@gmail.com";
+    public static String MAIL_PASS              = "proyectonote";
+    public static String SUBJETC                = "Oil Note le da la BIENVENIDA!!";
+    public static String CONTENT                = "Nos complace darle la bienvenida a esta aplación. " +
+                                                  "Le mandamos este correo para mostrarle los datos con" +
+                                                  "los que se ha registrado. ";
+
 
 }

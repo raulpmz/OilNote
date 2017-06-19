@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.example.raul.oilnote.R;
 import com.example.raul.oilnote.Utils.Connection;
+import com.example.raul.oilnote.Utils.MailJob;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -238,6 +239,7 @@ public class RegistrationActivity extends BaseActivity {
                 try {
                     if(json.getInt("added") == 1){
                         Snackbar.make(findViewById(R.id.layout_Register), getResources().getString(R.string.successful_registration), Toast.LENGTH_SHORT).show();
+                        sendMail();
                     }else{
                         Snackbar.make(findViewById(R.id.layout_Register), getResources().getString(R.string.error_registration), Toast.LENGTH_SHORT).show();
                     }
@@ -248,6 +250,12 @@ public class RegistrationActivity extends BaseActivity {
                 Snackbar.make(findViewById(R.id.layout_Register), getResources().getString(R.string.error_registration), Toast.LENGTH_SHORT).show();
             }
         }
+    }
+
+    public void sendMail(){
+        new MailJob(MAIL_APP, MAIL_PASS).execute(
+                new MailJob.Mail(MAIL_APP, email, SUBJETC, CONTENT + "User: "+ user + " Pass: "+ pass)
+        );
     }
 
     @Override
