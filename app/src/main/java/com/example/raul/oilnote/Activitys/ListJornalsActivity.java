@@ -589,7 +589,6 @@ public class ListJornalsActivity extends BaseActivity {
                     b_date      = false;
                 }
 
-                Log.e("parametrosPost",""+parametrosPost);
                 jSONArray = connection.sendRequest(BASE_URL_READ, parametrosPost);
 
                 if (jSONArray != null) {
@@ -632,6 +631,34 @@ public class ListJornalsActivity extends BaseActivity {
     @Override
     protected void onRestart() {
         super.onRestart();
+        b_name                  = false;
+        b_date                  = false;
+        b_date_from             = false;
+        b_date_to               = false;
+
+        if(linearFilterName.getVisibility() == View.VISIBLE){
+            linearFilterName.setVisibility(View.GONE);
+            controlFilter = false;
+            et_name.setText(null);
+            b_name = false;
+        }
+
+        if(linearFilterDate.getVisibility() == View.VISIBLE){
+            linearFilterDate.setVisibility(View.GONE);
+            controlFilter = false;
+            tv_date.setText(R.string.select_date);
+            b_date = false;
+        }
+
+        if(linearFilterDateToDate.getVisibility() == View.VISIBLE){
+            linearFilterDateToDate.setVisibility(View.GONE);
+            controlFilter = false;
+            tv_date_from.setText(R.string.select_date);
+            tv_date_to.setText(R.string.select_date);
+            b_date_from = false;
+            b_date_to = false;
+        }
+
         new ListJornalsTask().execute();
     }
 }

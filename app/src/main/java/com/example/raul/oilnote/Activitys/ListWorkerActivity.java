@@ -7,11 +7,15 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -32,22 +36,43 @@ import static com.example.raul.oilnote.Utils.GlobalVars.*;
 public class ListWorkerActivity extends BaseActivity {
 
     protected ListWorkerAdapter listWorkerAdapter;
+    protected Boolean controlFilter, b_name;
+    protected LinearLayout linearFilterName;
+    protected AlertDialog.Builder alert2;
     protected ListView listViewWorkers;
     protected List<Worker> listWorkers;
-    protected AlertDialog.Builder alert2;
+    protected EditText et_name;
+    protected String name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState, R.layout.activity_list_worker);
 
-        listViewWorkers = (ListView) findViewById(R.id.list_worker);
-        listWorkers     = new ArrayList<>();
+        // ListView:
+        listViewWorkers         = (ListView) findViewById(R.id.list_worker);
+
+        // List trabajadores:
+        listWorkers             = new ArrayList<>();
 
         // Dialogos para los mensajes de información:
-        alert           = new AlertDialog.Builder(this);
-        alert2          = new AlertDialog.Builder(this);
+        alert                   = new AlertDialog.Builder(this);
+        alert2                  = new AlertDialog.Builder(this);
 
-        new ListWorkersTask().execute();
+        // EditText:
+        et_name                 = (EditText) findViewById(R.id.et_filter_name);
+
+        // LinearLayout:
+        linearFilterName        = (LinearLayout) findViewById(R.id.LinearFilterName);
+
+        // Boleano  control de filtros:
+        controlFilter           = false;
+        b_name                  = false;
+
+        // Evento para recoger los caracteres del EditText:
+        onKeyListener();
+
+        //Hilo para obtener los trabajadores:
+        new ListWorkersTask(name).execute();
     }
 
     @Override
@@ -56,6 +81,8 @@ public class ListWorkerActivity extends BaseActivity {
 
         menu.findItem(R.id.action_add_worker).setVisible(true);
         menu.findItem(R.id.action_add_worker).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        menu.findItem(R.id.action_filter).setVisible(true);
+        menu.findItem(R.id.action_filter).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -65,10 +92,15 @@ public class ListWorkerActivity extends BaseActivity {
         int id = item.getItemId();
 
         switch (id){
-
+            // En el caso de elegir la opción para añadir trabajador:
             case R.id.action_add_worker:
                 startActivity(new Intent(ListWorkerActivity.this,AddWorkerActivity.class));
                 break;
+            // En el caso de elegir la opción de filtros:
+            case R.id.action_filter:
+                actionFilters();
+                break;
+
 
         }
 
@@ -155,6 +187,11 @@ public class ListWorkerActivity extends BaseActivity {
     class ListWorkersTask extends AsyncTask<Void, Void, JSONArray>{
 
         private HashMap<String, String> parametrosPost = new HashMap<>();
+        private String name;
+
+        public ListWorkersTask(String name) {
+            this.name = name;
+        }
 
         @Override
         protected void onPreExecute() {
@@ -164,10 +201,23 @@ public class ListWorkerActivity extends BaseActivity {
 
         @Override
         protected JSONArray doInBackground(Void... params) {
-
+            // Consulto los trabajadores que tiene el usuario:
             try {
-                // Consulto los trabajadores que tiene el usuario:
-                parametrosPost.put("ins_sql", "SELECT * FROM workers WHERE user_cod = '" + USER_COD + "' ORDER BY worker_name");
+                if(b_name){
+                    parametrosPost.put("ins_sql",   "SELECT * " +
+                                                    "FROM workers " +
+                                                    "WHERE user_cod = '" + USER_COD + "' " +
+                                                    "AND worker_name " +
+                                                    "LIKE '%"+ name +"%' "+
+                                                    "ORDER BY worker_name");
+                    b_name = false;
+                }else{
+                    parametrosPost.put("ins_sql",   "SELECT * " +
+                                                    "FROM workers " +
+                                                    "WHERE user_cod = '" + USER_COD + "' " +
+                                                    "ORDER BY worker_name");
+                }
+                Log.e("parametrosPost",""+parametrosPost);
                 jSONArray = connection.sendRequest(BASE_URL_READ, parametrosPost);
                 if (jSONArray != null) {
                     return jSONArray;
@@ -272,7 +322,7 @@ public class ListWorkerActivity extends BaseActivity {
                 try {
                     if(jsonObject.getInt("added") == 1){
                         Snackbar.make(findViewById(R.id.ListLayout), getResources().getString(R.string.successful_remove_worker), Toast.LENGTH_SHORT).show();
-                        new ListWorkersTask().execute();
+                        new ListWorkersTask(name).execute();
                     }else{
                         Snackbar.make(findViewById(R.id.ListLayout), getResources().getString(R.string.error_remove_worker), Toast.LENGTH_SHORT).show();
                     }
@@ -285,10 +335,58 @@ public class ListWorkerActivity extends BaseActivity {
         }
     }
 
+    /**
+     *      Filtros:
+     */
+
+    public void actionFilters(){
+        if (controlFilter){
+            if(linearFilterName.getVisibility() == View.VISIBLE){
+                linearFilterName.setVisibility(View.GONE);
+                controlFilter = false;
+                et_name.setText(null);
+                b_name = false;
+            }
+        }else{
+            if(linearFilterName.getVisibility() == View.GONE){
+                linearFilterName.setVisibility(View.VISIBLE);
+                controlFilter = true;
+                et_name.setText(null);
+                b_name = false;
+            }
+        }
+    }
+
+    public void onKeyListener(){
+        et_name.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // Obtengo los caracteres del EditTect:
+                name = et_name.getText().toString();
+                b_name = true;
+                // Ejecutar el hilo para obtener el filtrado por nombre:
+                new ListWorkersTask(name).execute();
+
+            }
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                                          int after) {
+                // TODO Auto-generated method stub
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+                // TODO Auto-generated method stub
+
+            }
+        });
+    }
+
+
     @Override
     protected void onRestart() {
         super.onRestart();
-        new ListWorkersTask().execute();
+        b_name = false;
+        new ListWorkersTask(name).execute();
     }
 
 }
