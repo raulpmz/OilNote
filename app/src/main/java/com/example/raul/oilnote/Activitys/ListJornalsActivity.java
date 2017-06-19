@@ -103,10 +103,10 @@ public class ListJornalsActivity extends BaseActivity {
         listViewJornals.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, final int i, long l) {
-                final CharSequence[] items = new CharSequence[2];
+                final CharSequence[] items = new CharSequence[1];
 
                 //items[0] = getResources().getString(R.string.edit);
-                items[1] = getResources().getString(R.string.add_remove);
+                items[0] = getResources().getString(R.string.add_remove);
 
                 alert.setTitle(getResources().getString(R.string.options))
                         .setItems(items, new DialogInterface.OnClickListener() {
@@ -125,7 +125,7 @@ public class ListJornalsActivity extends BaseActivity {
                                     startActivity(intent);
                                 }*/
                                 // Si la opción es eliminar:
-                                if(pos == 1){
+                                if(pos == 0){
                                     dialog.dismiss();
                                     alert2.setTitle(R.string.attention);
                                     alert2.setMessage(R.string.are_sure_plant);
@@ -175,10 +175,8 @@ public class ListJornalsActivity extends BaseActivity {
             try {
                 // Consulto los trabajadores que tiene el usuario:
                 parametrosPost.put("ins_sql",   "SELECT jornal_cod ,DATE_FORMAT(jornal_date, '%d-%m-%Y'), worker_name " +
-                                                "FROM jornals a " +
-                                                "INNER JOIN workers b " +
-                                                    "ON a.worker_cod = b.worker_cod " +
-                                                "WHERE a.user_cod = '" + USER_COD + "' " +
+                                                "FROM jornals  " +
+                                                "WHERE user_cod = '" + USER_COD + "' " +
                                                 "ORDER BY jornal_date DESC");
 
                 jSONArray = connection.sendRequest(BASE_URL_READ, parametrosPost);
@@ -201,7 +199,6 @@ public class ListJornalsActivity extends BaseActivity {
 
             try {
                 if(jsonArray != null){
-                    System.out.println("Cod_jornal: "+mapJornalsList(jsonArray).get(0).getJornal_date());
                     // Inicializo el adaptador:
                     listJornalAdapter = new ListJornalAdapter(ListJornalsActivity.this, mapJornalsList(jsonArray));
                     // Relacionando la lista con el adaptador:
@@ -209,7 +206,7 @@ public class ListJornalsActivity extends BaseActivity {
 
                     total.setText(""+listJornals.size());
 
-                    //onClickList();
+                    onClickList();
 
                 }else{
                     // Poner una lista avisando de que no tiene jornales:
@@ -287,10 +284,10 @@ public class ListJornalsActivity extends BaseActivity {
             if (jsonObject != null) {
                 try {
                     if(jsonObject.getInt("added") == 1){
-                        Snackbar.make(findViewById(R.id.ListLayout), getResources().getString(R.string.successful_remove_plot), Toast.LENGTH_SHORT).show();
+                        Snackbar.make(findViewById(R.id.ListLayout), getResources().getString(R.string.successful_remove_jornal), Toast.LENGTH_SHORT).show();
                         new ListJornalsTask().execute();
                     }else{
-                        Snackbar.make(findViewById(R.id.ListLayout), getResources().getString(R.string.error_remove_plot), Toast.LENGTH_SHORT).show();
+                        Snackbar.make(findViewById(R.id.ListLayout), getResources().getString(R.string.error_remove_jornal), Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

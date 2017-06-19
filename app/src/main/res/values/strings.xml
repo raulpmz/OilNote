@@ -103,6 +103,16 @@
     <!--               ListJornalActivity             -->
 
     <string name="total_jornal">Nº total de jornales</string>
+    <string name="successful_remove_jornal">El jornal fue elimidado con exito</string>
+    <string name="error_remove_jornal">El jornal no fue elimidado con exito</string>
+    <string name="are_sure_jornal">¿Está seguro de que desea borrar este jornal?</string>
+
+    <!--               ListMissingActivity             -->
+
+    <string name="total_missing">Nº total de faltas</string>
+    <string name="successful_remove_missing">La falta fue elimidada con exito</string>
+    <string name="error_remove_missing">La falta no fue elimidada con exito</string>
+    <string name="are_sure_missing">¿Está seguro de que desea borrar esta falta?</string>
 
     <!--               ListPlotsActivity             -->
 

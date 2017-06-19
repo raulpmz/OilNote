@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/ListLayout"
+    android:id="@+id/LinearMissingLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:baselineAligned="false">
+    android:baselineAligned="false"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:orientation="vertical"
-        >
+        android:orientation="vertical">
 
         <View
             android:id="@+id/separator1"
@@ -72,8 +71,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:orientation="vertical">
 
         <ListView
             android:id="@+id/list_view_missing"
@@ -114,7 +113,7 @@
                     android:layout_weight="1.00"
                     android:gravity="center_vertical"
                     android:paddingLeft="20dp"
-                    android:text="@string/total_jornal"
+                    android:text="@string/total_missing"
                     android:textColor="@color/Gris"
                     android:textSize="18sp"
                     android:textStyle="bold" />

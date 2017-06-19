@@ -3,6 +3,7 @@ package com.example.raul.oilnote.Activitys;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.CalendarView;
@@ -35,7 +36,7 @@ public class AddJornalActivity extends BaseActivity {
     protected CalendarView calendar;
     protected TextView tv_date;
     protected Spinner spinner;
-    protected String date, worker_cod;
+    protected String date, worker_cod, name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,7 +91,8 @@ public class AddJornalActivity extends BaseActivity {
 
     // Acción del botón guardar:
     public void buttonSave(View v){
-        worker_cod = lw.get(spinner.getSelectedItemPosition()).getWorkerCod();
+        worker_cod  = lw.get(spinner.getSelectedItemPosition()).getWorkerCod();
+        name        = spinner.getSelectedItem().toString();
 
         if(rb_assist.isChecked()){
             new AddJornalWorkersTask().execute();
@@ -233,13 +235,11 @@ public class AddJornalActivity extends BaseActivity {
         @Override
         protected JSONArray doInBackground(Void... params) {
             try {
-                // Consulto los trabajadores tienen anotados ya el jornal eses día:
-                parametrosPost.put("ins_sql",   "SELECT a.worker_cod, b.worker_name " +
-                                                "FROM jornals a " +
-                                                "INNER JOIN workers b " +
-                                                "ON a.worker_cod = b.worker_cod " +
+                // Consulto los trabajadores tienen anotados ya el jornal ese día:
+                parametrosPost.put("ins_sql",   "SELECT worker_cod, worker_name " +
+                                                "FROM jornals  " +
                                                 "WHERE jornal_date = '"+ date +"' " +
-                                                "AND a.user_cod = '" + USER_COD + "' ORDER BY worker_name");
+                                                "AND user_cod = '" + USER_COD + "' ORDER BY worker_name");
                 jSONArray = connection.sendRequest(BASE_URL_READ, parametrosPost);
                 if (jSONArray != null) {
                     return jSONArray;
@@ -283,13 +283,11 @@ public class AddJornalActivity extends BaseActivity {
         protected JSONArray doInBackground(Void... params) {
             try {
                 // Consulto los trabajadores que tienen una falta ese día:
-                parametrosPost.put("ins_sql",   "SELECT a.worker_cod, b.worker_name " +
-                        "FROM missing a " +
-                        "INNER JOIN workers b " +
-                        "ON a.worker_cod = b.worker_cod " +
-                        "WHERE missing_date = '"+ date +"' " +
-                        "AND a.user_cod = '" + USER_COD + "' " +
-                        "ORDER BY worker_name");
+                parametrosPost.put("ins_sql",   "SELECT worker_cod, worker_name " +
+                                                "FROM missings " +
+                                                "WHERE missing_date = '"+ date +"' " +
+                                                "AND user_cod = '" + USER_COD + "' " +
+                                                "ORDER BY worker_name");
                 jSONArray = connection.sendRequest(BASE_URL_READ, parametrosPost);
                 if (jSONArray != null) {
                     return jSONArray;
@@ -335,10 +333,9 @@ public class AddJornalActivity extends BaseActivity {
         protected JSONObject doInBackground(Void... params) {
 
             try {
-                parametrosPost.put("ins_sql",   "INSERT INTO jornals (user_cod , worker_cod, jornal_date) " +
-                                                "VALUES ("+ USER_COD +","+ worker_cod +",'"+ date +"')");
+                parametrosPost.put("ins_sql",   "INSERT INTO jornals (user_cod , worker_cod, worker_name, jornal_date) " +
+                                                "VALUES ("+ USER_COD +","+ worker_cod +",'"+ name +"', '"+ date +"');");
                 jsonObject = connection.sendWrite(BASE_URL_WRITE, parametrosPost);
-
                 if (jsonObject != null) {
                     return jsonObject;
                 }
@@ -388,8 +385,9 @@ public class AddJornalActivity extends BaseActivity {
         protected JSONObject doInBackground(Void... params) {
 
             try {
-                parametrosPost.put("ins_sql",   "INSERT INTO missing (user_cod , worker_cod, missing_date) " +
-                                                "VALUES ("+ USER_COD +","+ worker_cod +",'"+ date +"')");
+                parametrosPost.put("ins_sql",   "INSERT INTO missings (user_cod , worker_cod, worker_name, missing_date) " +
+                                                "VALUES ("+ USER_COD +","+ worker_cod +",'"+ name +"','"+ date +"')");
+                Log.e("parametrosPost",""+parametrosPost);
                 jsonObject = connection.sendWrite(BASE_URL_WRITE, parametrosPost);
 
                 if (jsonObject != null) {
