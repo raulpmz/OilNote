@@ -1,15 +1,25 @@
 package com.example.raul.oilnote.Activitys;
 
+import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.BoolRes;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,6 +33,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
@@ -32,31 +43,67 @@ import static com.example.raul.oilnote.Utils.GlobalVars.USER_COD;
 
 public class ListJornalsActivity extends BaseActivity {
 
+    protected LinearLayout linearFilterName, linearFilterDate, linearFilterDateToDate;
+    protected Boolean controlFilter, b_name, b_date, b_date_from, b_date_to;
+    protected DatePickerDialog.OnDateSetListener mDateFromSetListener;
+    protected DatePickerDialog.OnDateSetListener mDateToSetListener;
+    protected DatePickerDialog.OnDateSetListener mDateSetListener;
+    protected TextView total, tv_date, tv_date_from, tv_date_to;
     protected ListJornalAdapter listJornalAdapter;
+    protected String name, date, date_from, date_to;
     protected AlertDialog.Builder alert2;
     protected ListView listViewJornals;
     protected List<Jornal> listJornals;
-    protected TextView total;
+    protected int year, month, day;
+    protected EditText et_name;
+    protected Calendar cal;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState, R.layout.activity_list_jornals);
 
         // ListView:
-        listViewJornals = (ListView) findViewById(R.id.list_jornal);
+        listViewJornals         = (ListView) findViewById(R.id.list_jornal);
 
         // List:
-        listJornals     = new ArrayList<>();
+        listJornals             = new ArrayList<>();
+
+        // LinearLayout:
+        linearFilterName        = (LinearLayout) findViewById(R.id.LinearFilterName);
+        linearFilterDate        = (LinearLayout) findViewById(R.id.LinearFilterDate);
+        linearFilterDateToDate  = (LinearLayout) findViewById(R.id.LinearFilterDateFromTo);
 
         // TextView:
-        total           = (TextView) findViewById(R.id.total_jornal);
+        total                   = (TextView) findViewById(R.id.total_jornal);
+        tv_date                 = (TextView) findViewById(R.id.tv_filter_date);
+        tv_date_from            = (TextView) findViewById(R.id.tv_filter_date_from);
+        tv_date_to              = (TextView) findViewById(R.id.tv_filter_date_to);
 
-        // Hilo para mostar la lista de jornales
-        new ListJornalsTask().execute();
+        // EditText:
+        et_name                 = (EditText) findViewById(R.id.et_filter_name);
+
+        // Boleano:
+        controlFilter           = false;
+        b_name                  = false;
+        b_date                  = false;
+        b_date_from             = false;
+        b_date_to               = false;
 
         // Dialogos para los mensajes de información:
-        alert           = new AlertDialog.Builder(this);
-        alert2          = new AlertDialog.Builder(this);
+        alert                   = new AlertDialog.Builder(this);
+        alert2                  = new AlertDialog.Builder(this);
+
+        // Hilo para mostar la lista de jornales:
+        new ListJornalsTask().execute();
+
+        // Evento para recoger los caracteres del EditText:
+        onKeyListener();
+
+        // Selector de fecha:
+        mDateSetListener();
+        mDateFromSetListener();
+        mDateToSetListener();
     }
 
     @Override
@@ -65,6 +112,8 @@ public class ListJornalsActivity extends BaseActivity {
 
         menu.findItem(R.id.action_add_jornal).setVisible(true);
         menu.findItem(R.id.action_add_jornal).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        menu.findItem(R.id.action_filter).setVisible(true);
+        menu.findItem(R.id.action_filter).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -75,8 +124,13 @@ public class ListJornalsActivity extends BaseActivity {
 
         switch (id){
 
+            // En el caso de elegir la opción de añadir jornal:
             case R.id.action_add_jornal:
                 startActivity(new Intent(ListJornalsActivity.this,AddJornalActivity.class));
+                break;
+            // En el caso de elegir la opción de filtros:
+            case R.id.action_filter:
+                actionFilters();
                 break;
 
         }
@@ -86,45 +140,18 @@ public class ListJornalsActivity extends BaseActivity {
 
     // Evento al seleccionar un elemento de la lista:
     public void onClickList(){
-        /*listViewPlots.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-                Intent intent = new Intent(ListPlotsActivity.this,InfoPlotActivity.class);
-
-                intent.putExtra("cod",listPlots.get(i).getCod());
-                intent.putExtra("name",listPlots.get(i).getName());
-                intent.putExtra("number_plant",listPlots.get(i).getNumber_plant());
-
-                startActivity(intent);
-            }
-        });*/
 
         listViewJornals.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, final int i, long l) {
                 final CharSequence[] items = new CharSequence[1];
 
-                //items[0] = getResources().getString(R.string.edit);
                 items[0] = getResources().getString(R.string.add_remove);
 
                 alert.setTitle(getResources().getString(R.string.options))
                         .setItems(items, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int pos) {
-
-                                // Si la opción es editar:
-                                /*if(pos == 0){
-
-                                    Intent intent = new Intent(ListPlotsActivity.this,InfoPlotActivity.class);
-
-                                    intent.putExtra("cod",listJornals.get(i).getJornal_cod());
-                                    intent.putExtra("name",listJornals.get(i).get());
-                                    intent.putExtra("number_plant",listJornals.get(i).getNumber_plant());
-
-                                    startActivity(intent);
-                                }*/
-                                // Si la opción es eliminar:
                                 if(pos == 0){
                                     dialog.dismiss();
                                     alert2.setTitle(R.string.attention);
@@ -297,6 +324,310 @@ public class ListJornalsActivity extends BaseActivity {
             }
         }
     }
+
+    /**
+     *      Filtros:
+     */
+
+    public void actionFilters(){
+        if (controlFilter){
+
+            if(linearFilterName.getVisibility() == View.VISIBLE){
+                linearFilterName.setVisibility(View.GONE);
+                controlFilter = false;
+                et_name.setText(null);
+                b_name = false;
+            }
+
+            if(linearFilterDate.getVisibility() == View.VISIBLE){
+                linearFilterDate.setVisibility(View.GONE);
+                controlFilter = false;
+                tv_date.setText(R.string.select_date);
+                b_date = false;
+            }
+
+            if(linearFilterDateToDate.getVisibility() == View.VISIBLE){
+                linearFilterDateToDate.setVisibility(View.GONE);
+                controlFilter = false;
+                tv_date_from.setText(R.string.select_date);
+                tv_date_to.setText(R.string.select_date);
+                b_date_from = false;
+                b_date_to = false;
+            }
+
+        }else{
+            final CharSequence[] items = new CharSequence[3];
+
+            items[0] = getResources().getString(R.string.for_name);
+            items[1] = getResources().getString(R.string.for_date);
+            items[2] = getResources().getString(R.string.date_to_date);
+
+            alert.setTitle(getResources().getString(R.string.filter))
+                    .setItems(items, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int pos) {
+
+                            // Si la opción es nombre:
+                            if(pos == 0){
+                                controlFilter = true;
+
+                                if(linearFilterName.getVisibility() == View.GONE){
+                                    linearFilterName.setVisibility(View.VISIBLE);
+                                    et_name.setText(null);
+                                    b_name = false;
+                                }
+
+                            }
+                            // Si la opción es fecha:
+                            if(pos == 1){
+                                controlFilter = true;
+
+                                if(linearFilterDate.getVisibility() == View.GONE){
+                                    linearFilterDate.setVisibility(View.VISIBLE);
+                                    tv_date.setText(R.string.select_date);
+                                    b_date = false;
+                                }
+                            }
+                            // Si la opción es de fecha a fecha:
+                            if(pos == 2){
+                                controlFilter = true;
+
+
+                                if(linearFilterDateToDate.getVisibility() == View.GONE){
+                                    linearFilterDateToDate.setVisibility(View.VISIBLE);
+                                    tv_date_from.setText(R.string.select_date);
+                                    tv_date_to.setText(R.string.select_date);
+                                    b_date_from = false;
+                                    b_date_to = false;
+                                }
+                            }
+                        }
+                    });
+            alert.setNegativeButton(getResources().getString(R.string.cancel),
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface alert, int which) {
+                            // TODO Auto-generated method stub
+                            alert.dismiss();
+                        }
+                    });
+            alert.show();
+        }
+    }
+
+    public void onKeyListener(){
+        et_name.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // Obtengo los caracteres del EditTect:
+                name = et_name.getText().toString();
+                b_name = true;
+                // Ejecutar el hilo para obtener el filtrado por nombre:
+                new ListFilterJornalsTask(name, date, date_from, date_to).execute();
+
+            }
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                                          int after) {
+                // TODO Auto-generated method stub
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+                // TODO Auto-generated method stub
+
+            }
+        });
+    }
+
+    public void setCalendar(){
+        cal     = Calendar.getInstance();
+        year    = cal.get(Calendar.YEAR);
+        month   = cal.get(Calendar.MONTH);
+        day     = cal.get(Calendar.DAY_OF_MONTH);
+    }
+
+    public void buttonDate(View v){
+        setCalendar();
+        DatePickerDialog dialog = new DatePickerDialog(
+                this,
+                android.R.style.Theme_Holo_Light_Dialog_MinWidth,
+                mDateSetListener,
+                year,month,day);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.show();
+    }
+
+    public void buttonDateFrom(View v){
+        setCalendar();
+        DatePickerDialog dialog = new DatePickerDialog(
+                this,
+                android.R.style.Theme_Holo_Light_Dialog_MinWidth,
+                mDateFromSetListener,
+                year,month,day);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.show();
+    }
+
+    public void buttonDateTo(View v){
+        setCalendar();
+        DatePickerDialog dialog = new DatePickerDialog(
+                this,
+                android.R.style.Theme_Holo_Light_Dialog_MinWidth,
+                mDateToSetListener,
+                year,month,day);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.show();
+    }
+
+    public void mDateSetListener(){
+        mDateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                month = month + 1;
+                date = year + "-" + month + "-" + day;
+                tv_date.setText(day + "-" + month + "-" + year);
+                b_date = true;
+
+                // Ejecutar el hilo para obtener el filtrado por fecha:
+                new ListFilterJornalsTask(name, date, date_from, date_to).execute();
+            }
+        };
+    }
+
+    public void mDateFromSetListener(){
+        mDateFromSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                month = month + 1;
+                date_from = year + "-" + month + "-" + day;
+                tv_date_from.setText(day + "-" + month + "-" + year);
+                b_date_from = true;
+
+                // Ejecutar el hilo si las dos fechas están insertadas:
+                if(b_date_from && b_date_to){
+                    new ListFilterJornalsTask(name, date, date_from, date_to).execute();
+                }
+            }
+        };
+    }
+
+    public void mDateToSetListener(){
+        mDateToSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                month = month + 1;
+                date_to = year + "-" + month + "-" + day;
+                tv_date_to.setText(day + "-" + month + "-" + year);
+                b_date_to = true;
+
+                // Ejecutar el hilo si las dos fechas están insertadas:
+                if(b_date_from && b_date_to){
+                    new ListFilterJornalsTask(name, date, date_from, date_to).execute();
+                }
+            }
+        };
+    }
+
+    class ListFilterJornalsTask extends AsyncTask<Void, Void, JSONArray> {
+
+        private HashMap<String, String> parametrosPost = new HashMap<>();
+        private String name, date, date_from, date_to;
+
+        public ListFilterJornalsTask(String name, String date, String date_from, String date_to) {
+            this.name = name;
+            this.date = date;
+            this.date_from = date_from;
+            this.date_to = date_to;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            onProgressDialog(ListJornalsActivity.this,getString(R.string.loading));
+        }
+
+        @Override
+        protected JSONArray doInBackground(Void... params) {
+
+            try {
+                // Consulto los trabajadores que tiene el usuario:
+                if(b_name){
+                    parametrosPost.put("ins_sql",   "SELECT jornal_cod ,DATE_FORMAT(jornal_date, '%d-%m-%Y'), worker_name " +
+                                                    "FROM jornals  " +
+                                                    "WHERE user_cod = '" + USER_COD + "' " +
+                                                    "AND worker_name "+
+                                                    "LIKE '%"+ name +"%' "+
+                                                    "ORDER BY jornal_date DESC");
+                    b_name = false;
+                }
+                else if(b_date){
+                    parametrosPost.put("ins_sql",   "SELECT jornal_cod ,DATE_FORMAT(jornal_date, '%d-%m-%Y'), worker_name " +
+                                                    "FROM jornals  " +
+                                                    "WHERE user_cod = '" + USER_COD + "' " +
+                                                    "AND jornal_date = '"+ date +"' "+
+                                                    "ORDER BY jornal_date DESC");
+                    b_date = false;
+                }
+                else if(b_date_from && b_date_to){
+                    parametrosPost.put("ins_sql",   "SELECT jornal_cod ,DATE_FORMAT(jornal_date, '%d-%m-%Y'), worker_name " +
+                                                    "FROM jornals  " +
+                                                    "WHERE user_cod = '" + USER_COD + "' " +
+                                                    "AND jornal_date " +
+                                                    "BETWEEN '"+ date_from +"' AND '"+ date_to +"' " +
+                                                    "ORDER BY jornal_date DESC");
+                    b_date_from = false;
+                    b_date_to   = false;
+                }
+                else{
+                    parametrosPost.put("ins_sql",   "SELECT jornal_cod ,DATE_FORMAT(jornal_date, '%d-%m-%Y'), worker_name " +
+                                                    "FROM jornals  " +
+                                                    "WHERE user_cod = '" + USER_COD + "' " +
+                                                    "ORDER BY jornal_date DESC");
+                    b_date_from = false;
+                    b_date_to   = false;
+                    b_name      = false;
+                    b_date      = false;
+                }
+
+                Log.e("parametrosPost",""+parametrosPost);
+                jSONArray = connection.sendRequest(BASE_URL_READ, parametrosPost);
+
+                if (jSONArray != null) {
+                    return jSONArray;
+                }
+            } catch (Exception e) {
+                e.getMessage();
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(JSONArray jsonArray) {
+            super.onPostExecute(jsonArray);
+
+            onStopProgressDialog();
+
+            try {
+                if(jsonArray != null){
+                    // Inicializo el adaptador:
+                    listJornalAdapter = new ListJornalAdapter(ListJornalsActivity.this, mapJornalsList(jsonArray));
+                    // Relacionando la lista con el adaptador:
+                    listViewJornals.setAdapter(listJornalAdapter);
+
+                    total.setText(""+listJornals.size());
+
+                    onClickList();
+
+                }else{
+                    // Poner una lista avisando de que no tiene jornales:
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 
     @Override
     protected void onRestart() {

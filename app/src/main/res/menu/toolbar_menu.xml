@@ -76,5 +76,12 @@
         android:title="@string/add_remove"
         android:visible="false" />
 
+    <item
+        android:id="@+id/action_filter"
+        android:icon="@drawable/filter_white"
+        android:orderInCategory="107"
+        android:title="@string/filter"
+        android:visible="false" />
+
 
 </menu>

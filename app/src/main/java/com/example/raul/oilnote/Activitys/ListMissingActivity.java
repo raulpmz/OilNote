@@ -87,26 +87,12 @@ public class ListMissingActivity extends BaseActivity {
 
     // Evento al seleccionar un elemento de la lista:
     public void onClickList(){
-        /*listViewPlots.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-                Intent intent = new Intent(ListPlotsActivity.this,InfoPlotActivity.class);
-
-                intent.putExtra("cod",listPlots.get(i).getCod());
-                intent.putExtra("name",listPlots.get(i).getName());
-                intent.putExtra("number_plant",listPlots.get(i).getNumber_plant());
-
-                startActivity(intent);
-            }
-        });*/
 
         listViewMissing.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, final int i, long l) {
                 final CharSequence[] items = new CharSequence[1];
 
-                //items[0] = getResources().getString(R.string.edit);
                 items[0] = getResources().getString(R.string.add_remove);
 
                 alert.setTitle(getResources().getString(R.string.options))
@@ -114,17 +100,6 @@ public class ListMissingActivity extends BaseActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int pos) {
 
-                                // Si la opción es editar:
-                                /*if(pos == 0){
-
-                                    Intent intent = new Intent(ListPlotsActivity.this,InfoPlotActivity.class);
-
-                                    intent.putExtra("cod",listJornals.get(i).getJornal_cod());
-                                    intent.putExtra("name",listJornals.get(i).get());
-                                    intent.putExtra("number_plant",listJornals.get(i).getNumber_plant());
-
-                                    startActivity(intent);
-                                }*/
                                 // Si la opción es eliminar:
                                 if(pos == 0){
                                     dialog.dismiss();
@@ -202,12 +177,13 @@ public class ListMissingActivity extends BaseActivity {
                 if(jsonArray != null){
                     // Inicializo el adaptador:
                     listMissingAdapter = new ListJornalAdapter(ListMissingActivity.this, mapJornalsList(jsonArray));
+
                     // Relacionando la lista con el adaptador:
                     listViewMissing.setAdapter(listMissingAdapter);
 
                     total.setText(""+ listMissings.size());
 
-                    //onClickList();
+                    onClickList();
 
                 }else{
                     // Poner una lista avisando de que no tiene jornales:

@@ -29,6 +29,15 @@
     <string name="discard">SALIR</string>
     <string name="_save">GUARDAR</string>
 
+    <!--                   Filters                   -->
+    <string name="filter">Filtros</string>
+    <string name="for_name">Por nombre</string>
+    <string name="for_date">Por fecha</string>
+    <string name="date_from">Desde la fecha</string>
+    <string name="date_to">Hasta la fecha</string>
+    <string name="date_to_date">De fecha a fecha</string>
+    <string name="select_date">Selecciona una fecha</string>
+
     <!--                Login_Activity              -->
 
     <string name="user">Usuario</string>
@@ -77,6 +86,7 @@
 
     <!--               ListWorkerActivity            -->
 
+    <string name="worker">"Trabajador"</string>
     <string name="successful_remove_worker">El trabajador fue elimidado con exito</string>
     <string name="error_remove_worker">El trabajador fue no elimidado con exito</string>
     <string name="are_sure_worker">¿Está seguro de que desea borrar a este trabajador?</string>
