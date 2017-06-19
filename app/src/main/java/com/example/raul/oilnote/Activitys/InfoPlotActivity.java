@@ -234,7 +234,7 @@ public class InfoPlotActivity extends BaseActivity {
                 // Consulto los trabajadores que tiene el usuario:
                 parametrosPost.put("ins_sql",   "SELECT DATE_FORMAT(weight_date, '%d-%m-%Y'), weight_number " +
                                                 "FROM weights " +
-                                                "WHERE plot_cod = '"+ cod +"' " +
+                                                "WHERE plot_name = '"+ name +"' " +
                                                 "AND user_cod = '" + USER_COD +"' "+
                                                 "ORDER BY weight_date");
                 Log.e("parametrosPost",""+parametrosPost);

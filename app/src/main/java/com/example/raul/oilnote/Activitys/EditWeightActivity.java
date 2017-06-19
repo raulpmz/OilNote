@@ -2,11 +2,13 @@ package com.example.raul.oilnote.Activitys;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.CalendarView;
@@ -32,9 +34,9 @@ import static com.example.raul.oilnote.Utils.GlobalVars.BASE_URL_READ;
 import static com.example.raul.oilnote.Utils.GlobalVars.BASE_URL_WRITE;
 import static com.example.raul.oilnote.Utils.GlobalVars.USER_COD;
 
-public class AddWeightActivity extends AppCompatActivity {
+public class EditWeightActivity extends AppCompatActivity {
 
-    protected String date, plot_name, number_weight;
+    protected String cod, date, date2, name, number;
     protected ProgressDialog progressDialog;
     protected EditText et_nweight;
     protected SimpleDateFormat ss1, ss2;
@@ -46,26 +48,36 @@ public class AddWeightActivity extends AppCompatActivity {
     protected TextView tv_date;
     protected Toolbar toolbar;
     protected Spinner spinner;
+    protected Bundle bundle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_weight);
+        setContentView(R.layout.activity_edit_weight);
+
+        // Bundle:
+        bundle          = getIntent().getExtras();
+
+        // String:
+        cod             = bundle.getString("cod");
+        date            = bundle.getString("date");
+        name            = bundle.getString("name");
+        number          = bundle.getString("number");
 
         // CalendarView:
-        calendar        = (CalendarView) findViewById(R.id.calendar_add_weight);
+        calendar        = (CalendarView) findViewById(R.id.calendar_edit_weight);
 
         // TextView:
         tv_date         = (TextView) findViewById(R.id.tv_day);
 
         // Spinner:
-        spinner         = (Spinner) findViewById(R.id.sp_add_weight);
+        spinner         = (Spinner) findViewById(R.id.sp_edit_weight);
 
         // List:
         listPlots       = new ArrayList<>();
 
         // EditText:
-        et_nweight      = (EditText) findViewById(R.id.et_add_number_weight);
+        et_nweight      = (EditText) findViewById(R.id.et_edit_number_weight);
 
         // Toolbar:
         toolbar         = (Toolbar) findViewById(R.id.toolbar);
@@ -86,7 +98,8 @@ public class AddWeightActivity extends AppCompatActivity {
         tv_date.setText(ss1.format(calendar.getDate()));
 
         // Guardamos en una variable tipo string la fecha para realizar la consulta sql:
-        date = ss2.format(calendar.getDate());
+        date            = ss2.format(calendar.getDate());
+        date2           = ss1.format(calendar.getDate());
 
         // Clase Conexión:
         connection      = new Connection();
@@ -94,6 +107,9 @@ public class AddWeightActivity extends AppCompatActivity {
         // Objetos JSON:
         jSONArray       = new JSONArray();
         jsonObject      = new JSONObject();
+
+        // Relleno el EditText con la información que le paso de la actividad anterior:
+        et_nweight.setText(number);
 
         // Evento al cabiar el día seleccionado:
         getCalendarOnDateChangeListener();
@@ -108,25 +124,26 @@ public class AddWeightActivity extends AppCompatActivity {
             @Override
             public void onSelectedDayChange(CalendarView calendarView, int i, int i1, int i2) {
                 int mes = i1+1;
-                tv_date.setText(i2 + "-" + mes + "-" + i);
+                date2 = i2 + "-" + mes + "-" + i;
+                tv_date.setText(date2);
                 date = i + "-" + mes + "-" + i2;
             }
         });
     }
 
     // Botón para añadir el pesaje:
-    public void addWeight(View w){
+    public void editWeight(View w){
         // Guardo los valores en las variables:
-        plot_name       = spinner.getSelectedItem().toString();
-        number_weight   = et_nweight.getText().toString();
+        name    = spinner.getSelectedItem().toString();
+        number  = et_nweight.getText().toString();
 
         // Compruebo que el EditText del peso no esta vacío:
         if(et_nweight.length() > 0){
 
             // Ejecutamos el hilo para registrar el peso en la base de datos:
-            new AddWeightTask().execute();
+            new EditWeightTask().execute();
 
-        // De estar vacío mostramos un mensaje de error al usuario:
+            // De estar vacío mostramos un mensaje de error al usuario:
         }else{
             et_nweight.setError(getString(R.string.emptry_camp));
             et_nweight.requestFocus();
@@ -175,7 +192,7 @@ public class AddWeightActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            onProgressDialog(AddWeightActivity.this,getString(R.string.loading));
+            onProgressDialog(EditWeightActivity.this,getString(R.string.loading));
         }
 
         @Override
@@ -221,24 +238,27 @@ public class AddWeightActivity extends AppCompatActivity {
         }
     }
 
-    // Hilo para guardar el pesaje en la base de datos:
-    class AddWeightTask extends AsyncTask<Void,Void,JSONObject>{
+    // Hilo para editar el pesaje de la base de datos:
+    class EditWeightTask extends AsyncTask<Void,Void,JSONObject>{
 
         private HashMap<String, String> parametrosPost = new HashMap<>();
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            onProgressDialog(AddWeightActivity.this, getResources().getString(R.string.save));
+            onProgressDialog(EditWeightActivity.this, getResources().getString(R.string.save));
         }
 
         @Override
         protected JSONObject doInBackground(Void... params) {
 
             try {
-                parametrosPost.put("ins_sql",   "INSERT INTO weights(user_cod, plot_name, weight_date, weight_number) " +
-                                                "VALUES('"+ USER_COD +"','"+ plot_name +"','"+ date +"','"+ number_weight +"')");
+                parametrosPost.put("ins_sql",   "UPDATE weights " +
+                                                "SET plot_name = '"+ name +"', weight_date = '"+ date +"', weight_number = '"+ number +"' " +
+                                                "WHERE user_cod = "+ USER_COD +" " +
+                                                "AND weight_cod = "+ cod +";");
                 jsonObject = connection.sendWrite(BASE_URL_WRITE, parametrosPost);
+
 
                 if (jsonObject != null) {
                     return jsonObject;
@@ -259,16 +279,26 @@ public class AddWeightActivity extends AppCompatActivity {
             if (jsonObject != null) {
                 try {
                     if(jsonObject.getInt("added") == 1){
-                        Snackbar.make(findViewById(R.id.LinearAddWeight), getResources().getString(R.string.successful_add_weight), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(EditWeightActivity.this, getResources().getString(R.string.successful_edit_weight), Toast.LENGTH_SHORT).show();
+
+                        Intent i = getIntent();
+
+                        i.putExtra("date",date2);
+                        i.putExtra("name",name);
+                        i.putExtra("number",number);
+
+                        setResult(RESULT_OK, i);
+
+                        finish();
                     }else{
-                        Snackbar.make(findViewById(R.id.LinearAddWeight), getResources().getString(R.string.error_add_weight), Toast.LENGTH_SHORT).show();
+                        Snackbar.make(findViewById(R.id.LinearEditWeight), getResources().getString(R.string.error_edit_weight), Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
                 et_nweight.setText(null);
             }else{
-                Snackbar.make(findViewById(R.id.LinearAddWeight), getResources().getString(R.string.server_down), Toast.LENGTH_SHORT).show();
+                Snackbar.make(findViewById(R.id.LinearEditWeight), getResources().getString(R.string.server_down), Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -291,9 +321,8 @@ public class AddWeightActivity extends AppCompatActivity {
 
     @Override
     public boolean onSupportNavigateUp() {
+        setResult(RESULT_CANCELED);
         finish();
         return false;
     }
-
-
 }

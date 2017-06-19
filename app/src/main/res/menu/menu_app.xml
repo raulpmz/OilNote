@@ -23,7 +23,7 @@
 
         <item
             android:id="@+id/add_weight"
-            android:icon="@drawable/weight_white"
+            android:icon="@drawable/weight_grisnegro"
             android:title="@string/add_weigth" />
 
         <item

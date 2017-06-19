@@ -76,6 +76,10 @@
 
     <!--               ListWorkerActivity            -->
 
+    <string name="successful_remove_worker">El trabajador fue elimidado con exito</string>
+    <string name="error_remove_worker">El trabajador fue no elimidado con exito</string>
+    <string name="are_sure_worker">¿Está seguro de que desea borrar a este trabajador?</string>
+
 
     <!--               AddWorkerActivity             -->
 
@@ -93,9 +97,6 @@
     <string name="edit">Editar</string>
     <string name="successful_edit_worker">El trabajador fue editado con exito</string>
     <string name="error_edit_worker">Error: El trabajador no fue editado correctamente</string>
-    <string name="successful_remove_worker">El trabajador fue elimidado con exito</string>
-    <string name="error_remove_worker">El trabajador fue no elimidado con exito</string>
-    <string name="are_sure_worker">¿Está seguro de que desea borrar a este trabajador?</string>
     <string name="attention">Atención</string>
 
     <!--               ListJornalActivity             -->
@@ -112,6 +113,9 @@
     <!--               ListWeigthsActivity             -->
 
     <string name="total_weigt">Nº total de kg recogidos</string>
+    <string name="successful_remove_weight">El pesaje fue elimidado con exito</string>
+    <string name="error_remove_weight">El pesaje no fue elimidado con exito</string>
+    <string name="are_sure_weight">¿Está seguro de que desea borrar este pesaje?</string>
 
     <!--               AddJornalActivity             -->
 
@@ -146,5 +150,10 @@
     <string name="weigth">Peso (kg)</string>
     <string name="successful_add_weight">El pesaje fue añadido con exito</string>
     <string name="error_add_weight">Error al añadir el pesaje</string>
+
+    <!--                WeightPlotActivity             -->
+
+    <string name="successful_edit_weight">El pesaje ha sido editado correctamente</string>
+    <string name="error_edit_weight">El pesaje no ha sido editado correctamente</string>
 
 </resources>

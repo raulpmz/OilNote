@@ -129,12 +129,12 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
 
             // Botón para añadir trabajador:
             case R.id.add_worker:
-            if(!BaseActivity.this.getClass().equals(AddWorkerActivity.class)){
-                intent = new Intent(this,AddWorkerActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-            }
-            break;
+                if(!BaseActivity.this.getClass().equals(AddWorkerActivity.class)){
+                    intent = new Intent(this,AddWorkerActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                }
+                break;
 
             // Botón para acceder a la lista de trabajadores:
             case R.id.list_worker:
