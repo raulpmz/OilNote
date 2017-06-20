@@ -11,133 +11,261 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="5dp"
         android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/GrisNegro">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="10dp">
-
-                <ImageView
-                    android:id="@+id/imagen"
-                    android:layout_width="match_parent"
-                    android:layout_height="205dp"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
-                    app:srcCompat="@drawable/user_white"
-                    tools:layout_editor_absoluteX="3dp"
-                    tools:layout_editor_absoluteY="3dp" />
-
-                <ImageView
-                    android:id="@+id/imageButton"
-                    android:layout_width="50dp"
-                    android:layout_height="40dp"
-                    android:layout_alignBottom="@+id/imagen"
-                    android:layout_alignEnd="@+id/imagen"
-                    android:layout_alignRight="@+id/imagen"
-                    android:background="@color/Transparent"
-                    android:clickable="true"
-                    android:elevation="1dp"
-                    android:onClick="onClickOptionCamera"
-                    app:srcCompat="@drawable/camera_white"
-                    tools:layout_editor_absoluteX="256dp"
-                    tools:layout_editor_absoluteY="159dp" />
-            </RelativeLayout>
-
-        </LinearLayout>
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@color/Gris">
 
             <LinearLayout
                 android:id="@+id/LinearScroll"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/customlistminborder"
-                android:orientation="vertical"
-                android:padding="8dp">
+                android:background="@color/Gris"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/LinearPhoto"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/GrisNegro"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="@color/GrisNegro"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/textView6"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/worker"
+                            android:textAlignment="center"
+                            android:textColor="@color/Gris"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <View
+                        android:id="@+id/view6"
+                        android:layout_width="match_parent"
+                        android:layout_height="3dp"
+                        android:layout_weight="1"
+                        android:background="@color/GrisClaro" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="10dp">
+
+                        <ImageView
+                            android:id="@+id/imagen"
+                            android:layout_width="match_parent"
+                            android:layout_height="205dp"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            app:srcCompat="@drawable/user_white"
+                            tools:layout_editor_absoluteX="3dp"
+                            tools:layout_editor_absoluteY="3dp" />
+
+                        <ImageView
+                            android:id="@+id/imageButton"
+                            android:layout_width="50dp"
+                            android:layout_height="40dp"
+                            android:layout_alignBottom="@+id/imagen"
+                            android:layout_alignEnd="@+id/imagen"
+                            android:layout_alignRight="@+id/imagen"
+                            android:background="@color/Transparent"
+                            android:clickable="true"
+                            android:elevation="1dp"
+                            android:onClick="onClickOptionCamera"
+                            app:srcCompat="@drawable/camera_white"
+                            tools:layout_editor_absoluteX="256dp"
+                            tools:layout_editor_absoluteY="159dp" />
+                    </RelativeLayout>
+
+                </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/LinearName"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:paddingLeft="10dp">
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/customlistminborder"
+                    android:orientation="vertical">
 
-                    <ImageView
-                        android:id="@+id/imageView4"
-                        android:layout_width="35dp"
-                        android:layout_height="match_parent"
-                        app:srcCompat="@drawable/user_grisnegro" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="@color/GrisNegro"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/textView8"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/_name"
+                            android:textAlignment="center"
+                            android:textColor="@color/Gris"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:padding="10dip">
 
-                        <EditText
-                            android:id="@+id/et_add_worker_name"
+
+                        <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:layout_marginRight="10dp"
-                            android:layout_weight="1"
-                            android:autoText="false"
-                            android:ems="12"
-                            android:hint="@string/_name"
-                            android:inputType="textCapWords"
-                            android:maxLength="25"
-                            android:paddingLeft="5dp"
-                            android:textColor="@color/VerdeCorporativo" />
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+                            android:padding="5dp">
+
+                            <ImageView
+                                android:id="@+id/imageView5"
+                                android:layout_width="33dp"
+                                android:layout_height="match_parent"
+                                app:srcCompat="@drawable/user_grisnegro" />
+
+                            <EditText
+                                android:id="@+id/et_add_worker_name"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_weight="1"
+                                android:autoText="false"
+                                android:ems="12"
+                                android:hint="@string/_name"
+                                android:inputType="textCapWords"
+                                android:maxLength="25"
+                                android:paddingLeft="5dp"
+                                android:textColor="@color/VerdeCorporativo" />
+
+                        </LinearLayout>
 
                     </LinearLayout>
 
-                </LinearLayout>
 
-                <View
-                    android:id="@+id/view2"
-                    android:layout_width="match_parent"
-                    android:layout_height="3dp"
-                    android:layout_marginLeft="55dp"
-                    android:layout_marginRight="15dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@color/Gris" />
+                </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/LinearPhone"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:paddingLeft="10dp">
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/customlistminborder"
+                    android:orientation="vertical">
 
-                    <ImageView
-                        android:id="@+id/imageView2"
-                        android:layout_width="35dp"
-                        android:layout_height="match_parent"
-                        app:srcCompat="@drawable/phone_grisnegro" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="@color/GrisNegro"
+                        android:gravity="center"
+                        android:orientation="horizontal">
 
-                    <EditText
-                        android:id="@+id/et_add_worker_phone"
-                        android:layout_width="wrap_content"
+                        <TextView
+                            android:id="@+id/textView7"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/phone"
+                            android:textAlignment="center"
+                            android:textColor="@color/Gris"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_weight="1"
-                        android:ems="9"
-                        android:hint="@string/phone"
-                        android:inputType="phone"
-                        android:maxLength="9"
-                        android:paddingLeft="5dp"
-                        android:textColor="@color/VerdeCorporativo" />
+                        android:orientation="vertical"
+                        android:padding="10dip">
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+                            android:padding="5dp">
+
+                            <ImageView
+                                android:id="@+id/imageView2"
+                                android:layout_width="32dp"
+                                android:layout_height="match_parent"
+                                app:srcCompat="@drawable/phone_grisnegro" />
+
+                            <EditText
+                                android:id="@+id/et_add_worker_phone"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_weight="1"
+                                android:ems="9"
+                                android:hint="@string/phone"
+                                android:inputType="phone"
+                                android:maxLength="9"
+                                android:paddingLeft="5dp"
+                                android:textColor="@color/VerdeCorporativo" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/LinearButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/customlistminborder"
+                    android:orientation="vertical">
+
+                    <View
+                        android:id="@+id/separator2"
+                        android:layout_width="match_parent"
+                        android:layout_height="3dip"
+                        android:background="@color/GrisClaro" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="10dip">
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+                            android:padding="5dp">
+
+                            <Button
+                                android:id="@+id/b_add_worker"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:background="@drawable/button_gris"
+                                android:onClick="buttonAdd"
+                                android:text="@string/add" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
 
                 </LinearLayout>
 

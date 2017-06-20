@@ -146,6 +146,12 @@ public class EditWorkerActivity extends BaseActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    public void buttonEdit(View v){
+        if(checkData()){
+            new EditWorkerTask().execute();
+        }
+    }
+
     public boolean checkData(){
         if(name_worker.length() <= 2){
             name_worker.setError(getResources().getString(R.string.name_small));

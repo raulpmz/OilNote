@@ -2,6 +2,8 @@ package com.example.raul.oilnote.Activitys;
 
 
 import android.Manifest;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -16,6 +18,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -27,7 +30,9 @@ import android.widget.Toast;
 
 import com.example.raul.oilnote.R;
 import com.example.raul.oilnote.Utils.Codification;
+import com.example.raul.oilnote.Utils.Connection;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -38,13 +43,17 @@ import static com.example.raul.oilnote.Utils.GlobalVars.USER_COD;
 import static com.example.raul.oilnote.Utils.ImageHelper.rounderImage;
 
 
-public class AddWorkerActivity extends BaseActivity {
+public class AddWorkerActivity extends AppCompatActivity {
 
     protected EditText name_worker, phone_worker;
+    protected ProgressDialog progressDialog;
     protected static int ACT_GALERIA = 1;
+    protected AlertDialog.Builder alert;
     protected static int ACT_CAMARA = 2;
     protected ImageView imagen_worker;
     protected static Uri fotoGaleria;
+    protected JSONObject jsonObject;
+    protected Connection connection;
     protected String fotoCamara;
     protected Toolbar toolbar;
     protected Bitmap bitmap;
@@ -74,6 +83,12 @@ public class AddWorkerActivity extends BaseActivity {
 
         // Dialogos para los mensajes de información:
         alert = new AlertDialog.Builder(this);
+
+        // Clase Conexión:
+        connection      = new Connection();
+
+        // Objetos JSON:
+        jsonObject      = new JSONObject();
     }
 
     @Override
@@ -105,6 +120,10 @@ public class AddWorkerActivity extends BaseActivity {
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void buttonAdd(View v){
+        new AddWorkerTask().execute();
     }
 
     public boolean checkData(){
@@ -332,6 +351,22 @@ public class AddWorkerActivity extends BaseActivity {
             }else{
                 Snackbar.make(findViewById(R.id.LinearAddWorker), getResources().getString(R.string.error_add_worker), Toast.LENGTH_SHORT).show();
             }
+        }
+    }
+
+    public void onProgressDialog(Context context, String msg){
+        progressDialog = new ProgressDialog(context);
+        progressDialog.setMessage(msg);
+        progressDialog.setIndeterminate(false);
+        progressDialog.setCancelable(false);
+        progressDialog.setMax(100);
+        progressDialog.show();
+    }
+
+    // Método con el que paramos el ProgressDialog:
+    public void onStopProgressDialog(){
+        if(progressDialog != null && progressDialog.isShowing()){
+            progressDialog.dismiss();
         }
     }
 

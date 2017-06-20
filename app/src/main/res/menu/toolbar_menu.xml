@@ -79,7 +79,7 @@
     <item
         android:id="@+id/action_filter"
         android:icon="@drawable/filter_white"
-        android:orderInCategory="107"
+        android:orderInCategory="99"
         android:title="@string/filter"
         android:visible="false" />
 

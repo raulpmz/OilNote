@@ -381,7 +381,6 @@ public class ListWorkerActivity extends BaseActivity {
         });
     }
 
-
     @Override
     protected void onRestart() {
         super.onRestart();
