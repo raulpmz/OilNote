@@ -631,6 +631,7 @@ public class ListJornalsActivity extends BaseActivity {
     @Override
     protected void onRestart() {
         super.onRestart();
+
         b_name                  = false;
         b_date                  = false;
         b_date_from             = false;
