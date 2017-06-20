@@ -1,42 +1,64 @@
 package com.example.raul.oilnote.Activitys;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.graphics.PointF;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
-import android.util.Log;
+import android.support.v4.content.ContextCompat;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.raul.oilnote.Adapters.ListJornalWorkerAdapter;
+import com.example.raul.oilnote.Objects.Jornal;
 import com.example.raul.oilnote.R;
 import com.example.raul.oilnote.Utils.ImageHelper;
+import com.hookedonplay.decoviewlib.DecoView;
+import com.hookedonplay.decoviewlib.charts.EdgeDetail;
+import com.hookedonplay.decoviewlib.charts.SeriesItem;
+import com.hookedonplay.decoviewlib.charts.SeriesLabel;
+import com.hookedonplay.decoviewlib.events.DecoEvent;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
+import static com.example.raul.oilnote.Utils.ExpandListView.setListViewHeightBasedOnChildren;
+import static com.example.raul.oilnote.Utils.GlobalVars.BASE_URL_READ;
 import static com.example.raul.oilnote.Utils.GlobalVars.BASE_URL_WRITE;
 import static com.example.raul.oilnote.Utils.GlobalVars.USER_COD;
 
 public class InfoWorkerActivity extends BaseActivity {
 
+    protected TextView name_worker, phone_worker, tv_jornal, tv_miss, tvPorciento, tv_total_jornal;
     protected ImageView imagen_worker, call, sms, whatsapp, share, delete;
-    protected TextView name_worker, phone_worker;
+    protected int jornal, miss, total, half, animation, series1Index;
+    protected List<Jornal> listMissings, listJornals;
+    protected ListJornalWorkerAdapter listJornalAdapter;
     protected String cod, name, phone, photo;
     protected LinearLayout linearActions;
     protected AlertDialog.Builder alert;
+    protected ListView listViewJornals;
     protected final static int EDIT = 0;
+    protected DecoView arcView;
     protected Bundle bundle;
 
     @Override
@@ -50,6 +72,9 @@ public class InfoWorkerActivity extends BaseActivity {
         alert = new AlertDialog.Builder(InfoWorkerActivity.this);
         alert.setCancelable(false);
 
+        // ListView:
+        listViewJornals         = (ListView) findViewById(R.id.list_jornal);
+
         // String:
         cod             = bundle.getString("cod");
         name            = bundle.getString("name");
@@ -59,6 +84,10 @@ public class InfoWorkerActivity extends BaseActivity {
         // TextView:
         name_worker     = (TextView) findViewById(R.id.tv_info_worker_name);
         phone_worker    = (TextView) findViewById(R.id.tv_info_worker_phone);
+        tvPorciento     = (TextView) findViewById(R.id.tv_porciento);
+        tv_jornal       = (TextView) findViewById(R.id.tv_jornal);
+        tv_miss         = (TextView) findViewById(R.id.tv_miss);
+        tv_total_jornal = (TextView) findViewById(R.id.total_jornal);
 
         // ImagenView:
         imagen_worker   = (ImageView) findViewById(R.id.imagen);
@@ -66,12 +95,23 @@ public class InfoWorkerActivity extends BaseActivity {
         // LinearLayout:
         linearActions   = (LinearLayout) findViewById(R.id.LinearActions);
 
+        // List:
+
+        listMissings    = new ArrayList();
+        listJornals     = new ArrayList();
+
         // ImagenView:
         call            = (ImageView) findViewById(R.id.iv_call);
         sms             = (ImageView) findViewById(R.id.iv_sms);
         whatsapp        = (ImageView) findViewById(R.id.iv_whatsapp);
         share           = (ImageView) findViewById(R.id.iv_share);
         delete          = (ImageView) findViewById(R.id.iv_delete);
+
+        // Int:
+        series1Index    = 0;
+
+        // DecoView (Grafica):
+        arcView         = (DecoView)findViewById(R.id.dynamicArcView);
 
         // Instancia de los elementos para el onClick:
         call            .setOnClickListener(this);
@@ -82,6 +122,8 @@ public class InfoWorkerActivity extends BaseActivity {
 
         // Rellenar campos de la actividad:
         loadDataWorker();
+
+        new CheckJornalMissTask().execute();
     }
 
     // Relleno los campos con los datos del trabajador:
@@ -266,8 +308,6 @@ public class InfoWorkerActivity extends BaseActivity {
         }
     }
 
-
-
     // Hilo para borrar el trabajador:
     class RemoveWorkerTask extends AsyncTask<Void,Void,JSONObject> {
 
@@ -319,6 +359,197 @@ public class InfoWorkerActivity extends BaseActivity {
                 Snackbar.make(findViewById(R.id.LinearInfoWorker), getResources().getString(R.string.server_down), Toast.LENGTH_SHORT).show();
             }
         }
+    }
+
+    // Hilo que comprueba las faltas y asistencias del trabajador:
+    class CheckJornalMissTask extends AsyncTask<String, String, JSONArray> {
+
+        // Variables:
+        private JSONArray jsonArrayJornal   = new JSONArray();
+        private JSONArray jsonArrayMiss     = new JSONArray();
+        private HashMap<String, String> parametrosPost = new HashMap<>();
+
+        @Override
+        protected void onPreExecute() {
+            onProgressDialog(InfoWorkerActivity.this,getResources().getString(R.string.checking));
+        }
+
+        @Override
+        protected JSONArray doInBackground(String... params) {
+
+            try {
+                // Consulto los jornales del trabajador:
+                parametrosPost.put("ins_sql",   "SELECT jornal_cod ,DATE_FORMAT(jornal_date, '%d-%m-%Y'), worker_name " +
+                                                "FROM jornals  " +
+                                                "WHERE user_cod = '" + USER_COD + "' " +
+                                                "AND worker_name =  '"+ name +"'" +
+                                                "ORDER BY jornal_date DESC");
+                jsonArrayJornal = connection.sendRequest(BASE_URL_READ, parametrosPost);
+
+                // Consulto las faltas del trabajador:
+                parametrosPost.put("ins_sql",   "SELECT missing_cod ,DATE_FORMAT(missing_date, '%d-%m-%Y'), worker_name " +
+                                                "FROM missings  " +
+                                                "WHERE user_cod = '" + USER_COD + "' " +
+                                                "AND worker_name =  '"+ name +"'" +
+                                                "ORDER BY missing_date DESC");
+                jsonArrayMiss = connection.sendRequest(BASE_URL_READ, parametrosPost);
+
+                if (jsonArrayJornal != null) {
+                    return jSONArray;
+                }
+
+                if (jsonArrayMiss != null) {
+                    return jSONArray;
+                }
+            } catch (Exception e) {
+                e.getMessage();
+            }
+
+            return null;
+        }
+
+        protected void onPostExecute(JSONArray json) {
+            onStopProgressDialog();
+
+            try {
+                if (jsonArrayJornal != null){
+                    mapJornalsList(jsonArrayJornal);
+                    jornal = listJornals.size();
+                    total += jornal;
+
+                    // Inicializo el adaptador:
+                    listJornalAdapter = new ListJornalWorkerAdapter(InfoWorkerActivity.this, listJornals);
+                    // Relacionando la lista con el adaptador:
+                    listViewJornals.setAdapter(listJornalAdapter);
+
+                    // Expando el ListView:
+                    setListViewHeightBasedOnChildren(listViewJornals);
+
+                    // Jornales totales:
+                    tv_total_jornal.setText(""+ listJornals.size());
+
+                }else{
+                    jornal = 0;
+                    total += jornal;
+                }
+
+                tv_jornal.setText(tv_jornal.getText() +": "+ listJornals.size());
+
+                if(jsonArrayMiss != null){
+                    mapMissingsList(jsonArrayMiss);
+                    miss = listMissings.size();
+                    total += miss;
+
+                }else{
+                    miss = 0;
+                    total += miss;
+                }
+
+                tv_miss.setText(tv_miss.getText() +": "+ listMissings.size());
+
+                if (listJornals.size() == 0 && listMissings.size() == 0){
+                    half = 0;
+                    total = 0;
+                }else{
+                    half = (jornal * 100) / total;
+                    animation =  (75 * half) / 100;
+                }
+
+
+                setGraphyc(half, animation);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    // Mapeo los dato del JSONArray que recivo en una lista de trabajadores para montar el adaptador:
+    public void mapJornalsList(JSONArray jsonArray) throws JSONException {
+
+        if(jsonArray != null){
+            for(int i = 0; i < jsonArray.length() ; i++ ){
+
+                Jornal jornal = new Jornal();
+
+                jornal.setJornal_cod(jsonArray.getJSONObject(i).getString("jornal_cod"));
+                jornal.setWorker_name(jsonArray.getJSONObject(i).getString("worker_name"));
+                jornal.setJornal_date(jsonArray.getJSONObject(i).getString("DATE_FORMAT(jornal_date, '%d-%m-%Y')"));
+
+                listJornals.add(jornal);
+            }
+        }
+    }
+
+    // Mapeo los dato del JSONArray que recivo en una lista de trabajadores para montar el adaptador:
+    public void mapMissingsList(JSONArray jsonArray) throws JSONException {
+
+        if(jsonArray != null){
+            for(int i = 0; i < jsonArray.length() ; i++ ){
+
+                Jornal jornal = new Jornal();
+
+                jornal.setJornal_cod(jsonArray.getJSONObject(i).getString("missing_cod"));
+                jornal.setWorker_name(jsonArray.getJSONObject(i).getString("worker_name"));
+                jornal.setJornal_date(jsonArray.getJSONObject(i).getString("DATE_FORMAT(missing_date, '%d-%m-%Y')"));
+
+                listMissings.add(jornal);
+            }
+        }
+    }
+
+    /**
+     *      Grafica:
+     */
+
+    // Método para configurar la gráfica, su animación y los valores de esta:
+    public void setGraphyc(int half, int animation){
+        final SeriesItem seriesItem1 = new SeriesItem.Builder(ContextCompat.getColor(this, R.color.GrisNegro))
+                .setRange(0, 100, 0)
+                .setInitialVisibility(false)
+                .setLineWidth(60f)
+                .addEdgeDetail(new EdgeDetail(EdgeDetail.EdgeType.EDGE_OUTER, Color.parseColor("#22000000"), 0.4f))
+                .setSeriesLabel(new SeriesLabel.Builder("Asistencia %.0f%%").build())
+                .setInterpolator(new DecelerateInterpolator())
+                .setShowPointWhenEmpty(true)
+                .setCapRounded(true)
+                .setInset(new PointF(20f, 20f))
+                .setDrawAsPoint(false)
+                .setSpinClockwise(true)
+                .setSpinDuration(6000)
+                .setChartStyle(SeriesItem.ChartStyle.STYLE_DONUT)
+                .build();
+
+        series1Index = arcView.addSeries(seriesItem1);
+
+        // Animación:
+        arcView.addEvent(
+                new DecoEvent.Builder(DecoEvent.EventType.EVENT_SHOW, true)
+                        .setDelay(1000)
+                        .setDuration(2000)
+                        .build()
+        );
+
+        // Configuramos 2 animaciones para mostrar el resultado en dos tiempos:
+        arcView.addEvent(new DecoEvent.Builder(animation).setIndex(series1Index).setDelay(3500).build());
+        arcView.addEvent(new DecoEvent.Builder(half).setIndex(series1Index).setDelay(6750).build());
+
+        // Le pasamos los valores a la gráfica:
+        seriesItem1.addArcSeriesItemListener(new SeriesItem.SeriesItemListener() {
+            @SuppressLint("DefaultLocale")
+            @Override
+            public void onSeriesItemAnimationProgress(float percentComplete, float currentPosition) {
+                // Obtenemos el porcentaje a mostrar:
+                float percentFilled = ((currentPosition - seriesItem1.getMinValue()) / (seriesItem1.getMaxValue() - seriesItem1.getMinValue()));
+                // Se lo pasamos al TextView:
+                tvPorciento.setText(String.format("%.0f%%", percentFilled * 100f));
+            }
+
+            @Override
+            public void onSeriesItemDisplayProgress(float percentComplete) {
+
+            }
+        });
     }
 
 }

@@ -108,7 +108,9 @@
     <string name="edit">Editar</string>
     <string name="successful_edit_worker">El trabajador fue editado con exito</string>
     <string name="error_edit_worker">Error: El trabajador no fue editado correctamente</string>
+    <string name="info_worker">Información del Trabajador</string>
     <string name="attention">Atención</string>
+    <string name="missis">Faltas y Asistencias</string>
 
     <!--               ListJornalActivity             -->
 
@@ -149,6 +151,8 @@
     <string name="successful_add_miss">La falta fue añadida con exito</string>
     <string name="error_add_jornal">Error al añadir el jornal</string>
     <string name="error_add_miss">Error al añadir la falta</string>
+    <string name="assist">Asistencias</string>
+    <string name="miss">Faltas</string>
 
     <!--               AddPlotActivity             -->
 

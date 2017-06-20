@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="7dp"
+    android:paddingRight="7dp"
+    android:paddingTop="2.5dp"
+    android:weightSum="1"
+    android:background="@color/Gris">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:layout_weight="0.02"
+        android:background="@drawable/customlistminborder"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/date_jornal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="Fecha"
+            android:textAlignment="center"
+            android:textColor="@color/GrisOscuro"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+</LinearLayout>

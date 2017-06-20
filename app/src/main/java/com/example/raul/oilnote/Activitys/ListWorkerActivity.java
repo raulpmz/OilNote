@@ -217,7 +217,6 @@ public class ListWorkerActivity extends BaseActivity {
                                                     "WHERE user_cod = '" + USER_COD + "' " +
                                                     "ORDER BY worker_name");
                 }
-                Log.e("parametrosPost",""+parametrosPost);
                 jSONArray = connection.sendRequest(BASE_URL_READ, parametrosPost);
                 if (jSONArray != null) {
                     return jSONArray;
@@ -237,7 +236,6 @@ public class ListWorkerActivity extends BaseActivity {
 
             try {
                 if(jsonArray != null){
-                    System.out.println("Foto encode: "+mapWorkersList(jsonArray).get(0).getWorkerPhoto());
                     // Inicializo el adaptador:
                     listWorkerAdapter = new ListWorkerAdapter(ListWorkerActivity.this, mapWorkersList(jsonArray));
                     // Relacionando la lista con el adaptador:
@@ -380,6 +378,7 @@ public class ListWorkerActivity extends BaseActivity {
             }
         });
     }
+
 
     @Override
     protected void onRestart() {
