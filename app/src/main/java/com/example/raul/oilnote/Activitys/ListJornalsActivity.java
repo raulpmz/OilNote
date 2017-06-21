@@ -49,13 +49,13 @@ public class ListJornalsActivity extends BaseActivity {
     protected DatePickerDialog.OnDateSetListener mDateToSetListener;
     protected DatePickerDialog.OnDateSetListener mDateSetListener;
     protected TextView total, tv_date, tv_date_from, tv_date_to;
+    protected int year, month, day, compare_from, compare_to;
+    protected String name, date, salary, date_from, date_to;
     protected ListJornalAdapter listJornalAdapter;
-    protected String name, date, date_from, date_to;
+    protected EditText et_name;
     protected AlertDialog.Builder alert2;
     protected ListView listViewJornals;
     protected List<Jornal> listJornals;
-    protected int year, month, day, compare_from, compare_to;
-    protected EditText et_name;
     protected Calendar cal;
 
 
@@ -201,7 +201,7 @@ public class ListJornalsActivity extends BaseActivity {
 
             try {
                 // Consulto los trabajadores que tiene el usuario:
-                parametrosPost.put("ins_sql",   "SELECT jornal_cod ,DATE_FORMAT(jornal_date, '%d-%m-%Y'), worker_name " +
+                parametrosPost.put("ins_sql",   "SELECT jornal_cod ,DATE_FORMAT(jornal_date, '%d-%m-%Y'), worker_name, jornal_salary " +
                                                 "FROM jornals  " +
                                                 "WHERE user_cod = '" + USER_COD + "' " +
                                                 "ORDER BY jornal_date DESC");
@@ -254,9 +254,10 @@ public class ListJornalsActivity extends BaseActivity {
 
                 Jornal jornal = new Jornal();
 
-                jornal.setJornal_cod(jsonArray.getJSONObject(i).getString("jornal_cod"));
-                jornal.setWorker_name(jsonArray.getJSONObject(i).getString("worker_name"));
                 jornal.setJornal_date(jsonArray.getJSONObject(i).getString("DATE_FORMAT(jornal_date, '%d-%m-%Y')"));
+                jornal.setJornal_salary(jsonArray.getJSONObject(i).getString("jornal_salary"));
+                jornal.setWorker_name(jsonArray.getJSONObject(i).getString("worker_name"));
+                jornal.setJornal_cod(jsonArray.getJSONObject(i).getString("jornal_cod"));
 
                 lj.add(jornal);
             }
@@ -554,7 +555,7 @@ public class ListJornalsActivity extends BaseActivity {
             try {
                 // Consulto los trabajadores que tiene el usuario:
                 if(b_name){
-                    parametrosPost.put("ins_sql",   "SELECT jornal_cod ,DATE_FORMAT(jornal_date, '%d-%m-%Y'), worker_name " +
+                    parametrosPost.put("ins_sql",   "SELECT jornal_cod ,DATE_FORMAT(jornal_date, '%d-%m-%Y'), worker_name, jornal_salary " +
                                                     "FROM jornals  " +
                                                     "WHERE user_cod = '" + USER_COD + "' " +
                                                     "AND worker_name "+
@@ -563,7 +564,7 @@ public class ListJornalsActivity extends BaseActivity {
                     b_name = false;
                 }
                 else if(b_date){
-                    parametrosPost.put("ins_sql",   "SELECT jornal_cod ,DATE_FORMAT(jornal_date, '%d-%m-%Y'), worker_name " +
+                    parametrosPost.put("ins_sql",   "SELECT jornal_cod ,DATE_FORMAT(jornal_date, '%d-%m-%Y'), worker_name, jornal_salary " +
                                                     "FROM jornals  " +
                                                     "WHERE user_cod = '" + USER_COD + "' " +
                                                     "AND jornal_date = '"+ date +"' "+
@@ -573,14 +574,14 @@ public class ListJornalsActivity extends BaseActivity {
                 else if(b_date_from && b_date_to){
 
                     if(compare_from < compare_to){
-                        parametrosPost.put("ins_sql",   "SELECT jornal_cod ,DATE_FORMAT(jornal_date, '%d-%m-%Y'), worker_name " +
+                        parametrosPost.put("ins_sql",   "SELECT jornal_cod ,DATE_FORMAT(jornal_date, '%d-%m-%Y'), worker_name, jornal_salary " +
                                 "FROM jornals  " +
                                 "WHERE user_cod = '" + USER_COD + "' " +
                                 "AND jornal_date " +
                                 "BETWEEN '"+ date_from +"' AND '"+ date_to +"' " +
                                 "ORDER BY jornal_date DESC");
                     }else {
-                        parametrosPost.put("ins_sql",   "SELECT jornal_cod ,DATE_FORMAT(jornal_date, '%d-%m-%Y'), worker_name " +
+                        parametrosPost.put("ins_sql",   "SELECT jornal_cod ,DATE_FORMAT(jornal_date, '%d-%m-%Y'), worker_name, jornal_salary " +
                                 "FROM jornals  " +
                                 "WHERE user_cod = '" + USER_COD + "' " +
                                 "AND jornal_date " +
@@ -590,7 +591,7 @@ public class ListJornalsActivity extends BaseActivity {
 
                 }
                 else{
-                    parametrosPost.put("ins_sql",   "SELECT jornal_cod ,DATE_FORMAT(jornal_date, '%d-%m-%Y'), worker_name " +
+                    parametrosPost.put("ins_sql",   "SELECT jornal_cod ,DATE_FORMAT(jornal_date, '%d-%m-%Y'), worker_name, jornal_salary " +
                                                     "FROM jornals  " +
                                                     "WHERE user_cod = '" + USER_COD + "' " +
                                                     "ORDER BY jornal_date DESC");

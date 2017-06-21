@@ -18,7 +18,7 @@ import java.util.List;
 
 public class InfoPlotAdapter extends ArrayAdapter<Weight> {
 
-    private TextView date, number;
+    private TextView date, number, efficiency;
 
     public InfoPlotAdapter(Context context, List<Weight> objects) {
         super(context, 0, objects);
@@ -38,9 +38,11 @@ public class InfoPlotAdapter extends ArrayAdapter<Weight> {
 
         // Referencias UI:
         // TextView's:
-        date    = (TextView) convertView.findViewById(R.id.date_weight);
+        date        = (TextView) convertView.findViewById(R.id.date_weight);
 
-        number  = (TextView) convertView.findViewById(R.id.weight_number);
+        number      = (TextView) convertView.findViewById(R.id.weight_number);
+
+        efficiency  = (TextView) convertView.findViewById(R.id.efficiency);
 
         // Pesado actual:
         Weight weight = getItem(position);
@@ -51,6 +53,10 @@ public class InfoPlotAdapter extends ArrayAdapter<Weight> {
 
         // Número de kilogamos pesados:
         number.setText(weight.getWeight_number() + " Kg");
+
+        if(!weight.getWeight_efficiency().equals("") && !weight.getWeight_efficiency().equals(null)){
+            efficiency.setText(weight.getWeight_efficiency() + " %");
+        }
 
         // Retorna la vista:
         return convertView;

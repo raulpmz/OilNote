@@ -18,7 +18,7 @@ import java.util.List;
 
 public class ListJornalAdapter extends ArrayAdapter<Jornal> {
 
-    private TextView name, date;
+    private TextView name, date, salary;
 
     public ListJornalAdapter(Context context, List<Jornal> objects) {
         super(context, 0, objects);
@@ -38,9 +38,11 @@ public class ListJornalAdapter extends ArrayAdapter<Jornal> {
 
         // Referencias UI:
         // TextView's:
-        name = (TextView) convertView.findViewById(R.id.name_worker);
+        name    = (TextView) convertView.findViewById(R.id.name_worker);
 
-        date = (TextView) convertView.findViewById(R.id.date_jornal);
+        date    = (TextView) convertView.findViewById(R.id.date_jornal);
+
+        salary  = (TextView) convertView.findViewById(R.id.salary);
 
         // Jornal actual:
         Jornal jornal = getItem(position);
@@ -51,6 +53,11 @@ public class ListJornalAdapter extends ArrayAdapter<Jornal> {
 
         // Nombre del trabajador:
         name.setText(jornal.getWorker_name());
+
+        //Salario del trabajador:
+        if(!jornal.getJornal_salary().equals("") && !jornal.getJornal_salary().equals(null)){
+            salary.setText(jornal.getJornal_salary() + " €");
+        }
 
         // Retorna la vista:
         return convertView;

@@ -38,12 +38,12 @@ public class InfoPlotActivity extends BaseActivity {
 
     protected TextView name_plot, number_plant;
     protected InfoPlotAdapter infoPlotAdapter;
+    protected TextView total, efficiency;
     protected final static int EDIT = 0;
     protected AlertDialog.Builder alert;
     protected String cod, name, number;
     protected ListView listViewWeigths;
     protected List<Weight> listWeight;
-    protected TextView total;
     protected Bundle bundle;
 
     @Override
@@ -56,6 +56,8 @@ public class InfoPlotActivity extends BaseActivity {
         // TextView:
         name_plot       = (TextView) findViewById(R.id.tv_name_plot);
         number_plant    = (TextView) findViewById(R.id.tv_number_plant);
+        total           = (TextView) findViewById(R.id.tv_total_weight);
+        efficiency      = (TextView) findViewById(R.id.tv_efficiency);
 
         // String:
         cod             = bundle.getString("cod");
@@ -67,9 +69,6 @@ public class InfoPlotActivity extends BaseActivity {
 
         // List:
         listWeight      = new ArrayList<>();
-
-        // TextView:
-        total           = (TextView) findViewById(R.id.tv_total_weight);
 
         // AlertDialog:
         alert = new AlertDialog.Builder(InfoPlotActivity.this);
@@ -232,7 +231,7 @@ public class InfoPlotActivity extends BaseActivity {
 
             try {
                 // Consulto los trabajadores que tiene el usuario:
-                parametrosPost.put("ins_sql",   "SELECT DATE_FORMAT(weight_date, '%d-%m-%Y'), weight_number " +
+                parametrosPost.put("ins_sql",   "SELECT DATE_FORMAT(weight_date, '%d-%m-%Y'), weight_number, weight_efficiency " +
                                                 "FROM weights " +
                                                 "WHERE plot_name = '"+ name +"' " +
                                                 "AND user_cod = '" + USER_COD +"' "+
@@ -268,8 +267,10 @@ public class InfoPlotActivity extends BaseActivity {
                     setListViewHeightBasedOnChildren(listViewWeigths);
 
                     // Pongo el total de los kg recogidos en esa parcela:
-                    total.setText("Total recogidos " + calculateTotalWeigth(listWeight) + " kg");
+                    total.setText(getResources().getString(R.string.total_weight) + calculateTotalWeigth(listWeight) + " kg");
 
+                    // Pongo el rendimiento medio de la parcela:
+                    efficiency.setText(getResources().getString(R.string.half_efficiency) + calculateTotalEfficiency(listWeight));
                 }else{
                     // Poner una lista avisando de que no tiene jornales:
                 }
@@ -292,6 +293,21 @@ public class InfoPlotActivity extends BaseActivity {
         return "" + cont;
     }
 
+    public String calculateTotalEfficiency(List<Weight> listWeight){
+        List<Weight> list = listWeight;
+        double kg, cont = 0, media = 0;
+
+        for(int i = 0; i < list.size() ; i++ ){
+            if(!list.get(i).getWeight_efficiency().equals("")) {
+                kg = Double.parseDouble(list.get(i).getWeight_efficiency());
+                cont += kg;
+                media++;
+            }
+        }
+
+        return (cont / media) + " %";
+    }
+
     // Mapeo los dato del JSONArray que recivo en una lista de trabajadores para montar el adaptador:
     public List<Weight> mapWeigthsList(JSONArray jsonArray) throws JSONException {
 
@@ -304,6 +320,7 @@ public class InfoPlotActivity extends BaseActivity {
 
                 weight.setWeight_date(jsonArray.getJSONObject(i).getString("DATE_FORMAT(weight_date, '%d-%m-%Y')"));
                 weight.setWeight_number(jsonArray.getJSONObject(i).getString("weight_number"));
+                weight.setWeight_efficiency(jsonArray.getJSONObject(i).getString("weight_efficiency"));
 
                 lw.add(weight);
             }

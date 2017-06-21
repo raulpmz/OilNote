@@ -29,6 +29,17 @@
             android:textSize="14sp"
             android:textStyle="bold" />
 
+        <TextView
+            android:id="@+id/salary"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:textAlignment="center"
+            android:textColor="@color/GrisOscuro"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
     </LinearLayout>
 
 </LinearLayout>

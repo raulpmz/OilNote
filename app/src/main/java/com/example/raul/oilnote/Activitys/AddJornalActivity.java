@@ -5,8 +5,11 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CalendarView;
+import android.widget.CompoundButton;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -32,11 +35,12 @@ public class AddJornalActivity extends BaseActivity {
 
     protected List<Worker> listWorkers, listJW, lw;
     protected RadioButton rb_assist, rb_miss;
+    protected String date, worker_cod, name;
+    protected LinearLayout linearSalary;
     protected SimpleDateFormat ss1, ss2;
     protected CalendarView calendar;
     protected TextView tv_date;
     protected Spinner spinner;
-    protected String date, worker_cod, name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +58,9 @@ public class AddJornalActivity extends BaseActivity {
 
         // Spinner:
         spinner         = (Spinner) findViewById(R.id.sp_add_jornal);
+
+        // LinearLayout:
+        linearSalary    = (LinearLayout) findViewById(R.id.LinearSpinnerSalary);
 
         // ArrayList's:
         listWorkers     = new ArrayList<>();
@@ -75,6 +82,26 @@ public class AddJornalActivity extends BaseActivity {
         // Lanzamos el hilo para rellenar los datos con los trabajadores disponibles de ese dia:
         new WorkersTask().execute();
 
+        // Evento para controlar la el radiobuton con el cual le daremos visibilidad al linearSalary:
+        eventRadioButton();
+
+    }
+
+    public void eventRadioButton(){
+        rb_assist.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(rb_assist.isChecked()){
+                    if (linearSalary.getVisibility() == View.GONE){
+                        linearSalary.setVisibility(View.VISIBLE);
+                    }
+                }else{
+                    if (linearSalary.getVisibility() == View.VISIBLE){
+                        linearSalary.setVisibility(View.GONE);
+                    }
+                }
+            }
+        });
     }
 
     public void getCalendarOnDateChangeListener(){

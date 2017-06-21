@@ -25,6 +25,7 @@ import android.widget.Toast;
 
 import com.example.raul.oilnote.Adapters.ListJornalWorkerAdapter;
 import com.example.raul.oilnote.Objects.Jornal;
+import com.example.raul.oilnote.Objects.Weight;
 import com.example.raul.oilnote.R;
 import com.example.raul.oilnote.Utils.ImageHelper;
 import com.hookedonplay.decoviewlib.DecoView;
@@ -48,7 +49,7 @@ import static com.example.raul.oilnote.Utils.GlobalVars.USER_COD;
 
 public class InfoWorkerActivity extends BaseActivity {
 
-    protected TextView name_worker, phone_worker, tv_jornal, tv_miss, tvPorciento, tv_total_jornal;
+    protected TextView name_worker, phone_worker, tv_jornal, tv_miss, tvPorciento, tv_total_jornal, tv_total_money;
     protected ImageView imagen_worker, call, sms, whatsapp, share, delete;
     protected int jornal, miss, total, half, animation, series1Index;
     protected List<Jornal> listMissings, listJornals;
@@ -88,6 +89,7 @@ public class InfoWorkerActivity extends BaseActivity {
         tv_jornal       = (TextView) findViewById(R.id.tv_jornal);
         tv_miss         = (TextView) findViewById(R.id.tv_miss);
         tv_total_jornal = (TextView) findViewById(R.id.total_jornal);
+        tv_total_money  = (TextView) findViewById(R.id.total_money);
 
         // ImagenView:
         imagen_worker   = (ImageView) findViewById(R.id.imagen);
@@ -104,7 +106,6 @@ public class InfoWorkerActivity extends BaseActivity {
         call            = (ImageView) findViewById(R.id.iv_call);
         sms             = (ImageView) findViewById(R.id.iv_sms);
         whatsapp        = (ImageView) findViewById(R.id.iv_whatsapp);
-        share           = (ImageView) findViewById(R.id.iv_share);
         delete          = (ImageView) findViewById(R.id.iv_delete);
 
         // Int:
@@ -117,7 +118,6 @@ public class InfoWorkerActivity extends BaseActivity {
         call            .setOnClickListener(this);
         sms             .setOnClickListener(this);
         whatsapp        .setOnClickListener(this);
-        share           .setOnClickListener(this);
         delete          .setOnClickListener(this);
 
         // Rellenar campos de la actividad:
@@ -243,9 +243,7 @@ public class InfoWorkerActivity extends BaseActivity {
 
                 break;
 
-            case R.id.iv_share:
 
-                break;
 
             // Opción para borrar al trabajador:
             case R.id.iv_delete:
@@ -379,7 +377,7 @@ public class InfoWorkerActivity extends BaseActivity {
 
             try {
                 // Consulto los jornales del trabajador:
-                parametrosPost.put("ins_sql",   "SELECT jornal_cod ,DATE_FORMAT(jornal_date, '%d-%m-%Y'), worker_name " +
+                parametrosPost.put("ins_sql",   "SELECT jornal_cod ,DATE_FORMAT(jornal_date, '%d-%m-%Y'), worker_name, jornal_salary " +
                                                 "FROM jornals  " +
                                                 "WHERE user_cod = '" + USER_COD + "' " +
                                                 "AND worker_name =  '"+ name +"'" +
@@ -426,7 +424,10 @@ public class InfoWorkerActivity extends BaseActivity {
                     setListViewHeightBasedOnChildren(listViewJornals);
 
                     // Jornales totales:
-                    tv_total_jornal.setText(""+ listJornals.size());
+                    tv_total_jornal.setText(getResources().getString(R.string.all_jornal) + " " + listJornals.size());
+
+                    // Dinero ganado:
+                    tv_total_money.setText(getResources().getString(R.string.total_money)+ " " + getTotalMoney(listJornals));
 
                 }else{
                     jornal = 0;
@@ -474,6 +475,7 @@ public class InfoWorkerActivity extends BaseActivity {
 
                 jornal.setJornal_cod(jsonArray.getJSONObject(i).getString("jornal_cod"));
                 jornal.setWorker_name(jsonArray.getJSONObject(i).getString("worker_name"));
+                jornal.setJornal_salary(jsonArray.getJSONObject(i).getString("jornal_salary"));
                 jornal.setJornal_date(jsonArray.getJSONObject(i).getString("DATE_FORMAT(jornal_date, '%d-%m-%Y')"));
 
                 listJornals.add(jornal);
@@ -496,6 +498,18 @@ public class InfoWorkerActivity extends BaseActivity {
                 listMissings.add(jornal);
             }
         }
+    }
+
+    public String getTotalMoney(List<Jornal> listJornals){
+        List<Jornal> list = listJornals;
+        double money, cont = 0;
+
+        for(int i = 0; i < list.size() ; i++ ){
+            money = Double.parseDouble(list.get(i).getJornal_salary()) ;
+            cont += money;
+        }
+
+        return cont + " €";
     }
 
     /**

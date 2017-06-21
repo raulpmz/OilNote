@@ -18,7 +18,7 @@ import java.util.List;
 
 public class ListJornalWorkerAdapter extends ArrayAdapter<Jornal> {
 
-    private TextView date;
+    private TextView date, salary;
 
     public ListJornalWorkerAdapter(Context context, List<Jornal> objects) {
         super(context, 0, objects);
@@ -38,14 +38,16 @@ public class ListJornalWorkerAdapter extends ArrayAdapter<Jornal> {
 
         // Referencias UI:
         // TextView's:
-        date = (TextView) convertView.findViewById(R.id.date_jornal);
+        date    = (TextView) convertView.findViewById(R.id.date_jornal);
 
+        salary  = (TextView) convertView.findViewById(R.id.salary);
         // Jornal actual:
         Jornal jornal = getItem(position);
 
         // Se editan los componentes del LinearLayout:
         // Fecha del jornal:
         date.setText(jornal.getJornal_date());
+        salary.setText(jornal.getJornal_salary() + " €");
 
         // Retorna la vista:
         return convertView;

@@ -89,6 +89,7 @@
     <!--               ListWorkerActivity            -->
 
     <string name="worker">"Trabajador"</string>
+    <string name="salary">"Salario"</string>
     <string name="successful_remove_worker">El trabajador fue elimidado con exito</string>
     <string name="error_remove_worker">El trabajador fue no elimidado con exito</string>
     <string name="are_sure_worker">¿Está seguro de que desea borrar a este trabajador?</string>
@@ -104,6 +105,7 @@
     <string name="name_small">El nombre debe de contener más de 2 letras</string>
     <string name="successful_add_worker">El trabajador fue añadido con exito</string>
     <string name="error_add_worker">Error: El trabajador no fue añadido correctamente</string>
+    <string name="select_salary">Seleccione el salario del jornal</string>
 
     <!--               InfoWorkerActivity            -->
 
@@ -111,8 +113,11 @@
     <string name="successful_edit_worker">El trabajador fue editado con exito</string>
     <string name="error_edit_worker">Error: El trabajador no fue editado correctamente</string>
     <string name="info_worker">Información del Trabajador</string>
-    <string name="attention">Atención</string>
     <string name="missis">Faltas y Asistencias</string>
+    <string name="attention">Atención</string>
+    <string name="all_jornal">Nº jornales: </string>
+    <string name="total_money">Dinero ganado: </string>
+    <string name="money">Dinero</string>
 
     <!--               ListJornalActivity             -->
 
@@ -134,6 +139,8 @@
     <string name="successful_remove_plot">La parcela fue elimidada con exito</string>
     <string name="error_remove_plot">La parcela no fue elimidada con exito</string>
     <string name="are_sure_plant">¿Está seguro de que desea borrar esta parcela?</string>
+    <string name="total_weight">Total recogidos </string>
+    <string name="half_efficiency">Total recogidos </string>
 
     <!--               ListWeigthsActivity             -->
 

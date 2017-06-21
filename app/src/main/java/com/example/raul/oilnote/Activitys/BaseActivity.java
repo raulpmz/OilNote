@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -250,18 +251,15 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
         if(drawer != null){
             if (drawer.isDrawerOpen(GravityCompat.START)) {
                 drawer.closeDrawer(GravityCompat.START);
+
             } else {
-                super.onBackPressed();
-                if(!BaseActivity.this.getClass().equals(MainActivity.class)){
-                    intent = new Intent(this, MainActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(new Intent(this,MainActivity.class));
-                    BaseActivity.this.finish();
-                }
+                startActivity(new Intent(getBaseContext(), MainActivity.class)
+                        .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP));
+                finish();
             }
         }else{
             super.onBackPressed();
-        }
 
+        }
     }
 }

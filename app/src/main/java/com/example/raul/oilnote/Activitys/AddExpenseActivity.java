@@ -87,6 +87,9 @@ public class AddExpenseActivity extends AppCompatActivity {
 
         // Objetos JSON:
         jsonObject      = new JSONObject();
+
+        // Evento calendario:
+        getCalendarOnDateChangeListener();
     }
 
     // Controlamos el evento que se genera cada vez que cambiamos la fecha del CalendarView:
