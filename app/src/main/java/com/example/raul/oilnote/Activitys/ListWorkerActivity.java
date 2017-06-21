@@ -116,7 +116,7 @@ public class ListWorkerActivity extends BaseActivity {
                 Intent intent = new Intent(ListWorkerActivity.this,InfoWorkerActivity.class);
 
                 intent.putExtra("cod",listWorkers.get(i).getWorkerCod());
-                intent.putExtra("name",listWorkers.get(i).getWorkerName());
+                intent.putExtra("type_expense",listWorkers.get(i).getWorkerName());
                 intent.putExtra("phone",listWorkers.get(i).getWorkerPhone());
                 intent.putExtra("photo",listWorkers.get(i).getWorkerPhoto());
 
@@ -143,7 +143,7 @@ public class ListWorkerActivity extends BaseActivity {
                                     Intent intent = new Intent(ListWorkerActivity.this,InfoWorkerActivity.class);
 
                                     intent.putExtra("cod",listWorkers.get(i).getWorkerCod());
-                                    intent.putExtra("name",listWorkers.get(i).getWorkerName());
+                                    intent.putExtra("type_expense",listWorkers.get(i).getWorkerName());
                                     intent.putExtra("phone",listWorkers.get(i).getWorkerPhone());
                                     intent.putExtra("photo",listWorkers.get(i).getWorkerPhoto());
 
@@ -216,7 +216,9 @@ public class ListWorkerActivity extends BaseActivity {
                                                     "FROM workers " +
                                                     "WHERE user_cod = '" + USER_COD + "' " +
                                                     "ORDER BY worker_name");
+                    b_name = false;
                 }
+                Log.e("parametrosPost",""+parametrosPost);
                 jSONArray = connection.sendRequest(BASE_URL_READ, parametrosPost);
                 if (jSONArray != null) {
                     return jSONArray;
@@ -379,6 +381,11 @@ public class ListWorkerActivity extends BaseActivity {
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        b_name = false;
+    }
 
     @Override
     protected void onRestart() {

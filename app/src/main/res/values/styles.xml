@@ -3,8 +3,8 @@
     <!-- Base application theme. -->
     <style name="AppThemeOilNote" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/GrisNegro</item>
-        <item name="colorPrimaryDark">@color/GrisNegro</item>
+        <item name="colorPrimary">@color/MarronNegro</item>
+        <item name="colorPrimaryDark">@color/MarronNegro</item>
         <item name="colorAccent">@color/VerdeCorporativo</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>

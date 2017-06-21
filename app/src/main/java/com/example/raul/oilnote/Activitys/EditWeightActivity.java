@@ -61,7 +61,7 @@ public class EditWeightActivity extends AppCompatActivity {
         // String:
         cod             = bundle.getString("cod");
         date            = bundle.getString("date");
-        name            = bundle.getString("name");
+        name            = bundle.getString("type_expense");
         number          = bundle.getString("number");
 
         // CalendarView:
@@ -284,7 +284,7 @@ public class EditWeightActivity extends AppCompatActivity {
                         Intent i = getIntent();
 
                         i.putExtra("date",date2);
-                        i.putExtra("name",name);
+                        i.putExtra("type_expense",name);
                         i.putExtra("number",number);
 
                         setResult(RESULT_OK, i);

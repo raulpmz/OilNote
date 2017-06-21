@@ -77,7 +77,7 @@ public class InfoWorkerActivity extends BaseActivity {
 
         // String:
         cod             = bundle.getString("cod");
-        name            = bundle.getString("name");
+        name            = bundle.getString("type_expense");
         phone           = bundle.getString("phone");
         photo           = bundle.getString("photo");
 
@@ -171,7 +171,7 @@ public class InfoWorkerActivity extends BaseActivity {
                 Intent intent = new Intent(InfoWorkerActivity.this,EditWorkerActivity.class);
 
                 intent.putExtra("cod",cod);
-                intent.putExtra("name",name);
+                intent.putExtra("type_expense",name);
                 intent.putExtra("phone",phone);
                 intent.putExtra("photo",photo);
 
@@ -279,7 +279,7 @@ public class InfoWorkerActivity extends BaseActivity {
 
         } else {
             // De lo contrario, recogemos el resultado de la segunda actividad.
-            name    = data.getExtras().getString("name");
+            name    = data.getExtras().getString("type_expense");
             phone   = data.getExtras().getString("phone");
             photo   = data.getExtras().getString("photo");
 
@@ -504,10 +504,10 @@ public class InfoWorkerActivity extends BaseActivity {
 
     // Método para configurar la gráfica, su animación y los valores de esta:
     public void setGraphyc(int half, int animation){
-        final SeriesItem seriesItem1 = new SeriesItem.Builder(ContextCompat.getColor(this, R.color.GrisNegro))
+        final SeriesItem seriesItem1 = new SeriesItem.Builder(ContextCompat.getColor(this, R.color.MarronNegro))
                 .setRange(0, 100, 0)
                 .setInitialVisibility(false)
-                .setLineWidth(60f)
+                .setLineWidth(55f)
                 .addEdgeDetail(new EdgeDetail(EdgeDetail.EdgeType.EDGE_OUTER, Color.parseColor("#22000000"), 0.4f))
                 .setSeriesLabel(new SeriesLabel.Builder("Asistencia %.0f%%").build())
                 .setInterpolator(new DecelerateInterpolator())

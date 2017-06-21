@@ -93,7 +93,7 @@ public class ListPlotsActivity extends BaseActivity {
                 Intent intent = new Intent(ListPlotsActivity.this,InfoPlotActivity.class);
 
                 intent.putExtra("cod",listPlots.get(i).getCod());
-                intent.putExtra("name",listPlots.get(i).getName());
+                intent.putExtra("type_expense",listPlots.get(i).getName());
                 intent.putExtra("number_plant",listPlots.get(i).getNumber_plant());
 
                 startActivity(intent);
@@ -119,7 +119,7 @@ public class ListPlotsActivity extends BaseActivity {
                                     Intent intent = new Intent(ListPlotsActivity.this,InfoPlotActivity.class);
 
                                     intent.putExtra("cod",listPlots.get(i).getCod());
-                                    intent.putExtra("name",listPlots.get(i).getName());
+                                    intent.putExtra("type_expense",listPlots.get(i).getName());
                                     intent.putExtra("number_plant",listPlots.get(i).getNumber_plant());
 
                                     startActivity(intent);

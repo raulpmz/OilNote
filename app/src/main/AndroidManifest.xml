@@ -55,7 +55,9 @@
         <activity android:name=".Activitys.InfoPlotActivity" />
         <activity android:name=".Activitys.AddWeightActivity" />
         <activity android:name=".Activitys.InfoWeightActivity" />
-        <activity android:name=".Activitys.EditWeightActivity"></activity>
+        <activity android:name=".Activitys.EditWeightActivity"/>
+        <activity android:name=".Activitys.ListExpensesActivity" />
+        <activity android:name=".Activitys.AddExpenseActivity"></activity>
     </application>
 
 </manifest>

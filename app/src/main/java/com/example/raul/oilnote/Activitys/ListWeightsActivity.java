@@ -51,12 +51,12 @@ public class ListWeightsActivity extends BaseActivity {
     protected DatePickerDialog.OnDateSetListener mDateToSetListener;
     protected DatePickerDialog.OnDateSetListener mDateSetListener;
     protected TextView total, tv_date, tv_date_from, tv_date_to;
+    protected int year, month, day, compare_from, compare_to;
     protected String name, date, date_from, date_to;
     protected ListWeightAdapter listWeightAdapter;
     protected AlertDialog.Builder alert2;
     protected ListView listViewWeigths;
     protected List<Weight> listWeight;
-    protected int year, month, day;
     protected EditText et_name;
     protected Calendar cal;
 
@@ -150,7 +150,7 @@ public class ListWeightsActivity extends BaseActivity {
 
                 intent.putExtra("cod",listWeight.get(i).getWeight_cod());
                 intent.putExtra("date",listWeight.get(i).getWeight_date());
-                intent.putExtra("name",listWeight.get(i).getPlot_name());
+                intent.putExtra("type_expense",listWeight.get(i).getPlot_name());
                 intent.putExtra("number",listWeight.get(i).getWeight_number());
 
                 startActivity(intent);
@@ -177,7 +177,7 @@ public class ListWeightsActivity extends BaseActivity {
 
                                     intent.putExtra("cod",listWeight.get(i).getWeight_cod());
                                     intent.putExtra("date",listWeight.get(i).getWeight_date());
-                                    intent.putExtra("name",listWeight.get(i).getPlot_name());
+                                    intent.putExtra("type_expense",listWeight.get(i).getPlot_name());
                                     intent.putExtra("number",listWeight.get(i).getWeight_number());
 
                                     startActivity(intent);
@@ -545,6 +545,7 @@ public class ListWeightsActivity extends BaseActivity {
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 month = month + 1;
                 date_from = year + "-" + month + "-" + day;
+                compare_from = Integer.parseInt(day + "" + month + "" + year);
                 tv_date_from.setText(day + "-" + month + "-" + year);
                 b_date_from = true;
 
@@ -562,6 +563,7 @@ public class ListWeightsActivity extends BaseActivity {
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 month = month + 1;
                 date_to = year + "-" + month + "-" + day;
+                compare_to = Integer.parseInt(day + "" + month + "" + year);
                 tv_date_to.setText(day + "-" + month + "-" + year);
                 b_date_to = true;
 
@@ -614,21 +616,29 @@ public class ListWeightsActivity extends BaseActivity {
                     b_date = false;
                 }
                 else if(b_date_from && b_date_to){
-                    parametrosPost.put("ins_sql",   "SELECT weight_cod ,DATE_FORMAT(weight_date, '%d-%m-%Y'), plot_name, weight_number " +
-                                                    "FROM weights  " +
-                                                    "WHERE user_cod = '" + USER_COD + "' " +
-                                                    "AND weight_date " +
-                                                    "BETWEEN '"+ date_from +"' AND '"+ date_to +"' " +
-                                                    "ORDER BY weight_date DESC");
-                    b_date_from = false;
-                    b_date_to   = false;
+                    if (compare_from < compare_to){
+                        parametrosPost.put("ins_sql",   "SELECT weight_cod ,DATE_FORMAT(weight_date, '%d-%m-%Y'), plot_name, weight_number " +
+                                "FROM weights  " +
+                                "WHERE user_cod = '" + USER_COD + "' " +
+                                "AND weight_date " +
+                                "BETWEEN '"+ date_from +"' AND '"+ date_to +"' " +
+                                "ORDER BY weight_date DESC");
+                    }else{
+                        parametrosPost.put("ins_sql",   "SELECT weight_cod ,DATE_FORMAT(weight_date, '%d-%m-%Y'), plot_name, weight_number " +
+                                "FROM weights  " +
+                                "WHERE user_cod = '" + USER_COD + "' " +
+                                "AND weight_date " +
+                                "BETWEEN '"+ date_to +"' AND '"+ date_from +"' " +
+                                "ORDER BY weight_date DESC");
+                    }
+
+
                 }
                 else{
                     parametrosPost.put("ins_sql",   "SELECT weight_cod ,DATE_FORMAT(weight_date, '%d-%m-%Y'), plot_name, weight_number " +
                                                     "FROM weights " +
                                                     "WHERE user_cod = '" + USER_COD + "' " +
                                                     "ORDER BY weight_date DESC");
-                    clear();
                     b_date_from = false;
                     b_date_to   = false;
                     b_name      = false;

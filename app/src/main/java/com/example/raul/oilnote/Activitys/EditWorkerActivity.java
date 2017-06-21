@@ -66,7 +66,7 @@ public class EditWorkerActivity extends BaseActivity {
 
         // String:
         cod             = bundle.getString("cod");
-        name            = bundle.getString("name");
+        name            = bundle.getString("type_expense");
         phone           = bundle.getString("phone");
         photo           = bundle.getString("photo");
 
@@ -388,7 +388,7 @@ public class EditWorkerActivity extends BaseActivity {
 
                         Intent i = getIntent();
 
-                        i.putExtra("name", _nameExtra);
+                        i.putExtra("type_expense", _nameExtra);
                         i.putExtra("phone", _phoneExtra);
                         i.putExtra("photo", _photoExtra);
                         setResult(RESULT_OK, i);

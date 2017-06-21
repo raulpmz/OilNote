@@ -59,7 +59,7 @@
                     android:gravity="center_vertical"
                     android:paddingLeft="20dp"
                     android:text="@string/select_date"
-                    android:textColor="@color/GrisNegro"
+                    android:textColor="@color/MarronNegro"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
@@ -71,7 +71,7 @@
             android:id="@+id/view5"
             android:layout_width="match_parent"
             android:layout_height="2dip"
-            android:background="@color/GrisNegro" />
+            android:background="@color/MarronNegro" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -121,7 +121,7 @@
                     android:gravity="center_vertical"
                     android:paddingLeft="20dp"
                     android:text="@string/select_date"
-                    android:textColor="@color/GrisNegro"
+                    android:textColor="@color/MarronNegro"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
@@ -187,7 +187,7 @@
                     android:gravity="center_vertical"
                     android:paddingLeft="20dp"
                     android:text="@string/select_date"
-                    android:textColor="@color/GrisNegro"
+                    android:textColor="@color/MarronNegro"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
@@ -231,7 +231,7 @@
                     android:gravity="center_vertical"
                     android:paddingLeft="20dp"
                     android:text="@string/_name"
-                    android:textColor="@color/GrisNegro"
+                    android:textColor="@color/MarronNegro"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
@@ -281,7 +281,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/GrisNegro"
+            android:background="@color/MarronNegro"
             android:orientation="horizontal">
 
             <TextView
@@ -349,7 +349,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/GrisNegro"
+            android:background="@color/MarronNegro"
             android:orientation="horizontal"
             android:paddingLeft="10dp">
 

@@ -59,7 +59,7 @@ public class InfoPlotActivity extends BaseActivity {
 
         // String:
         cod             = bundle.getString("cod");
-        name            = bundle.getString("name");
+        name            = bundle.getString("type_expense");
         number          = bundle.getString("number_plant");
 
         // ListView:
@@ -106,7 +106,7 @@ public class InfoPlotActivity extends BaseActivity {
                 Intent intent = new Intent(InfoPlotActivity.this,EditPlotActivity.class);
 
                 intent.putExtra("cod",cod);
-                intent.putExtra("name",name);
+                intent.putExtra("type_expense",name);
                 intent.putExtra("number_plant",number);
 
                 startActivityForResult(intent, EDIT);
@@ -145,7 +145,7 @@ public class InfoPlotActivity extends BaseActivity {
 
         } else {
             // De lo contrario, recogemos el resultado de la segunda actividad.
-            name     = data.getExtras().getString("name");
+            name     = data.getExtras().getString("type_expense");
             number   = data.getExtras().getString("number");
 
             // Y rellenamos los TextView con la nueva información:

@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string-array name="type_expenses">
+        <item>Avería</item>
+        <item>Combustible</item>
+        <item>Materiales</item>
+        <item>Otros</item>
+    </string-array>
 
-    <string-array name="job">
-        <item>Peon</item>
-        <item>Correo</item>
-        <item>NIF o CIF</item>
+    <string-array name="type_filter">
+        <item>Ninguno</item>
+        <item>Avería</item>
+        <item>Combustible</item>
+        <item>Materiales</item>
+        <item>Otros</item>
     </string-array>
 </resources>

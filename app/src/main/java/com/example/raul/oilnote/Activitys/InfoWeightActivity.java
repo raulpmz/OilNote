@@ -45,7 +45,7 @@ public class InfoWeightActivity extends BaseActivity {
         // String:
         cod             = bundle.getString("cod");
         date            = bundle.getString("date");
-        name            = bundle.getString("name");
+        name            = bundle.getString("type_expense");
         number          = bundle.getString("number");
 
         // AlertDialog:
@@ -83,7 +83,7 @@ public class InfoWeightActivity extends BaseActivity {
 
                 intent.putExtra("cod",cod);
                 intent.putExtra("date",date);
-                intent.putExtra("name",name);
+                intent.putExtra("type_expense",name);
                 intent.putExtra("number",number);
 
                 startActivityForResult(intent, EDIT);
@@ -124,7 +124,7 @@ public class InfoWeightActivity extends BaseActivity {
         } else {
             // De lo contrario, recogemos el resultado de la segunda actividad.
             date    = data.getExtras().getString("date");
-            name    = data.getExtras().getString("name");
+            name    = data.getExtras().getString("type_expense");
             number  = data.getExtras().getString("number");
 
             // Y rellenamos los TextView con la nueva información:

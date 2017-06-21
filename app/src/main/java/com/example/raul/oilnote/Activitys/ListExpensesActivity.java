@@ -7,25 +7,23 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.BoolRes;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.raul.oilnote.Adapters.ListJornalAdapter;
-import com.example.raul.oilnote.Objects.Jornal;
+import com.example.raul.oilnote.Adapters.ListExpenseAdapter;
+import com.example.raul.oilnote.Objects.Expense;
 import com.example.raul.oilnote.R;
 
 import org.json.JSONArray;
@@ -41,51 +39,47 @@ import static com.example.raul.oilnote.Utils.GlobalVars.BASE_URL_READ;
 import static com.example.raul.oilnote.Utils.GlobalVars.BASE_URL_WRITE;
 import static com.example.raul.oilnote.Utils.GlobalVars.USER_COD;
 
-public class ListJornalsActivity extends BaseActivity {
+public class ListExpensesActivity extends BaseActivity {
 
-    protected LinearLayout linearFilterName, linearFilterDate, linearFilterDateToDate;
-    protected Boolean controlFilter, b_name, b_date, b_date_from, b_date_to;
+    protected LinearLayout linearFilterType, linearFilterDate, linearFilterDateToDate;
+    protected Boolean controlFilter, b_type, b_date, b_date_from, b_date_to;
     protected DatePickerDialog.OnDateSetListener mDateFromSetListener;
     protected DatePickerDialog.OnDateSetListener mDateToSetListener;
     protected DatePickerDialog.OnDateSetListener mDateSetListener;
     protected TextView total, tv_date, tv_date_from, tv_date_to;
-    protected ListJornalAdapter listJornalAdapter;
-    protected String name, date, date_from, date_to;
+    protected ListExpenseAdapter listExpenseAdapter;
+    protected String type_expense, date, date_from, date_to;
     protected AlertDialog.Builder alert2;
-    protected ListView listViewJornals;
-    protected List<Jornal> listJornals;
+    protected ListView listViewExpenses;
+    protected List<Expense> listExpense;
     protected int year, month, day, compare_from, compare_to;
-    protected EditText et_name;
+    protected Spinner spinner;
     protected Calendar cal;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState, R.layout.activity_list_jornals);
+        super.onCreate(savedInstanceState, R.layout.activity_list_expenses);
 
         // ListView:
-        listViewJornals         = (ListView) findViewById(R.id.list_jornal);
+        listViewExpenses        = (ListView) findViewById(R.id.list_expense);
 
         // List:
-        listJornals             = new ArrayList<>();
+        listExpense             = new ArrayList<>();
 
         // LinearLayout:
-        linearFilterName        = (LinearLayout) findViewById(R.id.LinearFilterName);
+        linearFilterType        = (LinearLayout) findViewById(R.id.LinearFilterType);
         linearFilterDate        = (LinearLayout) findViewById(R.id.LinearFilterDate);
         linearFilterDateToDate  = (LinearLayout) findViewById(R.id.LinearFilterDateFromTo);
 
         // TextView:
-        total                   = (TextView) findViewById(R.id.total_jornal);
+        total                   = (TextView) findViewById(R.id.total_expense);
         tv_date                 = (TextView) findViewById(R.id.tv_filter_date);
         tv_date_from            = (TextView) findViewById(R.id.tv_filter_date_from);
         tv_date_to              = (TextView) findViewById(R.id.tv_filter_date_to);
 
-        // EditText:
-        et_name                 = (EditText) findViewById(R.id.et_filter_name);
-
-        // Boleano:
+        // Boleanos:
         controlFilter           = false;
-        b_name                  = false;
+        b_type                  = false;
         b_date                  = false;
         b_date_from             = false;
         b_date_to               = false;
@@ -94,24 +88,31 @@ public class ListJornalsActivity extends BaseActivity {
         alert                   = new AlertDialog.Builder(this);
         alert2                  = new AlertDialog.Builder(this);
 
-        // Hilo para mostar la lista de jornales:
-        new ListJornalsTask().execute();
+        // Spinner:
+        spinner         = (Spinner) findViewById(R.id.sp_filter_type);
 
-        // Evento para recoger los caracteres del EditText:
+        ArrayAdapter spinner_adapter = ArrayAdapter.createFromResource( this, R.array.type_filter , R.layout.support_simple_spinner_dropdown_item);
+        spinner_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(spinner_adapter);
+
         onKeyListener();
+
+        // Hilo para mostar la lista de gastos:
+        new ListExpensesTask().execute();
 
         // Selector de fecha:
         mDateSetListener();
         mDateFromSetListener();
         mDateToSetListener();
+
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.toolbar_menu, menu);
 
-        menu.findItem(R.id.action_add_jornal).setVisible(true);
-        menu.findItem(R.id.action_add_jornal).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        menu.findItem(R.id.action_expense).setVisible(true);
+        menu.findItem(R.id.action_expense).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         menu.findItem(R.id.action_filter).setVisible(true);
         menu.findItem(R.id.action_filter).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 
@@ -125,8 +126,8 @@ public class ListJornalsActivity extends BaseActivity {
         switch (id){
 
             // En el caso de elegir la opción de añadir jornal:
-            case R.id.action_add_jornal:
-                startActivity(new Intent(ListJornalsActivity.this,AddJornalActivity.class));
+            case R.id.action_expense:
+                startActivity(new Intent(ListExpensesActivity.this,AddExpenseActivity.class));
                 break;
             // En el caso de elegir la opción de filtros:
             case R.id.action_filter:
@@ -138,10 +139,11 @@ public class ListJornalsActivity extends BaseActivity {
         return super.onOptionsItemSelected(item);
     }
 
+
     // Evento al seleccionar un elemento de la lista:
     public void onClickList(){
 
-        listViewJornals.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        listViewExpenses.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, final int i, long l) {
                 final CharSequence[] items = new CharSequence[1];
@@ -155,11 +157,11 @@ public class ListJornalsActivity extends BaseActivity {
                                 if(pos == 0){
                                     dialog.dismiss();
                                     alert2.setTitle(R.string.attention);
-                                    alert2.setMessage(R.string.are_sure_plant);
+                                    alert2.setMessage(R.string.are_sure_expense);
                                     alert2.setPositiveButton(R.string.add_remove, new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {
-                                            new RemoveJornalTask(listJornals.get(i).getJornal_cod()).execute();
+                                            new RemoveExpenseTask(listExpense.get(i).getCod()).execute();
                                         }
                                     });
                                     alert2.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
@@ -186,14 +188,27 @@ public class ListJornalsActivity extends BaseActivity {
         });
     }
 
-    class ListJornalsTask extends AsyncTask<Void, Void, JSONArray> {
+    // Metodo para calcular el total de los kilogramos:
+    public String calculateTotalExpenses(List<Expense> listExpense){
+        List<Expense> list = listExpense;
+        double exp, cont = 0;
+
+        for(int i = 0; i < list.size() ; i++ ){
+            exp = Double.parseDouble(list.get(i).getMoney()) ;
+            cont += exp;
+        }
+
+        return "" + cont;
+    }
+
+    class ListExpensesTask extends AsyncTask<Void, Void, JSONArray> {
 
         private HashMap<String, String> parametrosPost = new HashMap<>();
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            onProgressDialog(ListJornalsActivity.this,getString(R.string.loading));
+            onProgressDialog(ListExpensesActivity.this,getString(R.string.loading));
         }
 
         @Override
@@ -201,10 +216,10 @@ public class ListJornalsActivity extends BaseActivity {
 
             try {
                 // Consulto los trabajadores que tiene el usuario:
-                parametrosPost.put("ins_sql",   "SELECT jornal_cod ,DATE_FORMAT(jornal_date, '%d-%m-%Y'), worker_name " +
-                                                "FROM jornals  " +
+                parametrosPost.put("ins_sql",   "SELECT expense_cod ,DATE_FORMAT(expense_date, '%d-%m-%Y'), expense_type, expense_money " +
+                                                "FROM expenses  " +
                                                 "WHERE user_cod = '" + USER_COD + "' " +
-                                                "ORDER BY jornal_date DESC");
+                                                "ORDER BY expense_date DESC");
 
                 jSONArray = connection.sendRequest(BASE_URL_READ, parametrosPost);
 
@@ -227,11 +242,11 @@ public class ListJornalsActivity extends BaseActivity {
             try {
                 if(jsonArray != null){
                     // Inicializo el adaptador:
-                    listJornalAdapter = new ListJornalAdapter(ListJornalsActivity.this, mapJornalsList(jsonArray));
+                    listExpenseAdapter = new ListExpenseAdapter(ListExpensesActivity.this,mapExpensesList(jsonArray));
                     // Relacionando la lista con el adaptador:
-                    listViewJornals.setAdapter(listJornalAdapter);
+                    listViewExpenses.setAdapter(listExpenseAdapter);
 
-                    total.setText(""+listJornals.size());
+                    total.setText(calculateTotalExpenses(listExpense) + " €");
 
                     onClickList();
 
@@ -244,51 +259,29 @@ public class ListJornalsActivity extends BaseActivity {
         }
     }
 
-    // Mapeo los dato del JSONArray que recivo en una lista de trabajadores para montar el adaptador:
-    public List<Jornal> mapJornalsList(JSONArray jsonArray) throws JSONException {
-
-        List<Jornal> lj = new ArrayList<>();
-
-        if(jsonArray != null){
-            for(int i = 0; i < jsonArray.length() ; i++ ){
-
-                Jornal jornal = new Jornal();
-
-                jornal.setJornal_cod(jsonArray.getJSONObject(i).getString("jornal_cod"));
-                jornal.setWorker_name(jsonArray.getJSONObject(i).getString("worker_name"));
-                jornal.setJornal_date(jsonArray.getJSONObject(i).getString("DATE_FORMAT(jornal_date, '%d-%m-%Y')"));
-
-                lj.add(jornal);
-            }
-            listJornals = lj;
-        }
-
-        return lj;
-    }
-
-    // Hilo para borrar el jornal:
-    class RemoveJornalTask extends AsyncTask<Void,Void,JSONObject> {
+    // Hilo para borrar la parcela:
+    class RemoveExpenseTask extends AsyncTask<Void,Void,JSONObject> {
 
         private String cod;
         private HashMap<String, String> parametrosPost = new HashMap<>();
 
-        public RemoveJornalTask(String cod) {
+        public RemoveExpenseTask(String cod) {
             this.cod = cod;
         }
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            onProgressDialog(ListJornalsActivity.this, getResources().getString(R.string.remove));
+            onProgressDialog(ListExpensesActivity.this, getResources().getString(R.string.save));
         }
 
         @Override
         protected JSONObject doInBackground(Void... params) {
 
             try {
-                parametrosPost.put("ins_sql",   "DELETE FROM jornals " +
+                parametrosPost.put("ins_sql",   "DELETE FROM expenses " +
                                                 "WHERE user_cod = "+ USER_COD +" " +
-                                                "AND jornal_cod = "+ cod);
+                                                "AND expense_cod = "+ cod);
                 jsonObject = connection.sendWrite(BASE_URL_WRITE, parametrosPost);
 
                 if (jsonObject != null) {
@@ -296,7 +289,6 @@ public class ListJornalsActivity extends BaseActivity {
                 }
 
             } catch (JSONException e) {
-                Snackbar.make(findViewById(R.id.ListLayout), getResources().getString(R.string.server_down), Toast.LENGTH_SHORT).show();
                 e.getMessage();
             }
             return null;
@@ -311,18 +303,41 @@ public class ListJornalsActivity extends BaseActivity {
             if (jsonObject != null) {
                 try {
                     if(jsonObject.getInt("added") == 1){
-                        Snackbar.make(findViewById(R.id.ListLayout), getResources().getString(R.string.successful_remove_jornal), Toast.LENGTH_SHORT).show();
-                        new ListJornalsTask().execute();
+                        Snackbar.make(findViewById(R.id.LinearExpenses), getResources().getString(R.string.successful_remove_expense), Toast.LENGTH_SHORT).show();
+                        new ListExpensesTask().execute();
                     }else{
-                        Snackbar.make(findViewById(R.id.ListLayout), getResources().getString(R.string.error_remove_jornal), Toast.LENGTH_SHORT).show();
+                        Snackbar.make(findViewById(R.id.LinearExpenses), getResources().getString(R.string.error_remove_expense), Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }else{
-                Snackbar.make(findViewById(R.id.ListLayout), getResources().getString(R.string.server_down), Toast.LENGTH_SHORT).show();
+                Snackbar.make(findViewById(R.id.LinearExpenses), getResources().getString(R.string.server_down), Toast.LENGTH_SHORT).show();
             }
         }
+    }
+
+    // Mapeo los dato del JSONArray que recivo en una lista de trabajadores para montar el adaptador:
+    public List<Expense> mapExpensesList(JSONArray jsonArray) throws JSONException {
+
+        List<Expense> lj = new ArrayList<>();
+
+        if(jsonArray != null){
+            for(int i = 0; i < jsonArray.length() ; i++ ){
+
+                Expense expense = new Expense();
+
+                expense.setCod(jsonArray.getJSONObject(i).getString("expense_cod"));
+                expense.setDate(jsonArray.getJSONObject(i).getString("DATE_FORMAT(expense_date, '%d-%m-%Y')"));
+                expense.setType(jsonArray.getJSONObject(i).getString("expense_type"));
+                expense.setMoney(jsonArray.getJSONObject(i).getString("expense_money"));
+
+                lj.add(expense);
+            }
+            listExpense = lj;
+        }
+
+        return lj;
     }
 
     /**
@@ -332,11 +347,11 @@ public class ListJornalsActivity extends BaseActivity {
     public void actionFilters(){
         if (controlFilter){
 
-            if(linearFilterName.getVisibility() == View.VISIBLE){
-                linearFilterName.setVisibility(View.GONE);
+            if(linearFilterType.getVisibility() == View.VISIBLE){
+                linearFilterType.setVisibility(View.GONE);
                 controlFilter = false;
-                et_name.setText(null);
-                b_name = false;
+                spinner.setSelection(0);
+                b_type = false;
             }
 
             if(linearFilterDate.getVisibility() == View.VISIBLE){
@@ -355,14 +370,17 @@ public class ListJornalsActivity extends BaseActivity {
                 b_date_to = false;
             }
 
+            new ListExpensesTask().execute();
+
         }else{
             final CharSequence[] items = new CharSequence[3];
 
-            items[0] = getResources().getString(R.string.for_name);
+            items[0] = getResources().getString(R.string.type);
             items[1] = getResources().getString(R.string.for_date);
             items[2] = getResources().getString(R.string.date_to_date);
 
             alert.setTitle(getResources().getString(R.string.filter))
+                    .setCancelable(true)
                     .setItems(items, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int pos) {
@@ -371,10 +389,10 @@ public class ListJornalsActivity extends BaseActivity {
                             if(pos == 0){
                                 controlFilter = true;
 
-                                if(linearFilterName.getVisibility() == View.GONE){
-                                    linearFilterName.setVisibility(View.VISIBLE);
-                                    et_name.setText(null);
-                                    b_name = false;
+                                if(linearFilterType.getVisibility() == View.GONE){
+                                    linearFilterType.setVisibility(View.VISIBLE);
+                                    spinner.setSelection(0);
+                                    b_type = false;
                                 }
 
                             }
@@ -416,24 +434,21 @@ public class ListJornalsActivity extends BaseActivity {
     }
 
     public void onKeyListener(){
-        et_name.addTextChangedListener(new TextWatcher() {
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // Obtengo los caracteres del EditTect:
-                name = et_name.getText().toString();
-                b_name = true;
-                // Ejecutar el hilo para obtener el filtrado por nombre:
-                new ListFilterJornalsTask(name, date, date_from, date_to).execute();
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if(spinner.getSelectedItemPosition() == 0){
+                    new ListExpensesTask().execute();
+                }else{
+                    type_expense = spinner.getSelectedItem().toString();
+                    b_type = true;
+                    new ListFilterExpensesTask(type_expense, date, date_from, date_to).execute();
+                }
 
             }
+
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count,
-                                          int after) {
-                // TODO Auto-generated method stub
-            }
-            @Override
-            public void afterTextChanged(Editable s) {
-                // TODO Auto-generated method stub
+            public void onNothingSelected(AdapterView<?> adapterView) {
 
             }
         });
@@ -489,7 +504,7 @@ public class ListJornalsActivity extends BaseActivity {
                 b_date = true;
 
                 // Ejecutar el hilo para obtener el filtrado por fecha:
-                new ListFilterJornalsTask(name, date, date_from, date_to).execute();
+                new ListFilterExpensesTask(type_expense, date, date_from, date_to).execute();
             }
         };
     }
@@ -506,7 +521,7 @@ public class ListJornalsActivity extends BaseActivity {
 
                 // Ejecutar el hilo si las dos fechas están insertadas:
                 if(b_date_from && b_date_to){
-                    new ListFilterJornalsTask(name, date, date_from, date_to).execute();
+                    new ListFilterExpensesTask(type_expense, date, date_from, date_to).execute();
                 }
             }
         };
@@ -524,19 +539,19 @@ public class ListJornalsActivity extends BaseActivity {
 
                 // Ejecutar el hilo si las dos fechas están insertadas:
                 if(b_date_from && b_date_to){
-                    new ListFilterJornalsTask(name, date, date_from, date_to).execute();
+                    new ListFilterExpensesTask(type_expense, date, date_from, date_to).execute();
                 }
             }
         };
     }
 
-    class ListFilterJornalsTask extends AsyncTask<Void, Void, JSONArray> {
+    class ListFilterExpensesTask extends AsyncTask<Void, Void, JSONArray> {
 
         private HashMap<String, String> parametrosPost = new HashMap<>();
-        private String name, date, date_from, date_to;
+        private String type, date, date_from, date_to;
 
-        public ListFilterJornalsTask(String name, String date, String date_from, String date_to) {
-            this.name = name;
+        public ListFilterExpensesTask(String type, String date, String date_from, String date_to) {
+            this.type = type;
             this.date = date;
             this.date_from = date_from;
             this.date_to = date_to;
@@ -545,7 +560,7 @@ public class ListJornalsActivity extends BaseActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            onProgressDialog(ListJornalsActivity.this,getString(R.string.loading));
+            onProgressDialog(ListExpensesActivity.this,getString(R.string.loading));
         }
 
         @Override
@@ -553,50 +568,49 @@ public class ListJornalsActivity extends BaseActivity {
 
             try {
                 // Consulto los trabajadores que tiene el usuario:
-                if(b_name){
-                    parametrosPost.put("ins_sql",   "SELECT jornal_cod ,DATE_FORMAT(jornal_date, '%d-%m-%Y'), worker_name " +
-                                                    "FROM jornals  " +
+                if(b_type){
+                    parametrosPost.put("ins_sql",   "SELECT expense_cod ,DATE_FORMAT(expense_date, '%d-%m-%Y'), expense_type, expense_money " +
+                                                    "FROM expenses  " +
                                                     "WHERE user_cod = '" + USER_COD + "' " +
-                                                    "AND worker_name "+
-                                                    "LIKE '%"+ name +"%' "+
-                                                    "ORDER BY jornal_date DESC");
-                    b_name = false;
+                                                    "AND expense_type ='"+ type +"' "+
+                                                    "ORDER BY expense_date DESC");
+                    b_type = false;
                 }
                 else if(b_date){
-                    parametrosPost.put("ins_sql",   "SELECT jornal_cod ,DATE_FORMAT(jornal_date, '%d-%m-%Y'), worker_name " +
-                                                    "FROM jornals  " +
+                    parametrosPost.put("ins_sql",   "SELECT expense_cod ,DATE_FORMAT(expense_date, '%d-%m-%Y'), expense_type, expense_money " +
+                                                    "FROM expenses  " +
                                                     "WHERE user_cod = '" + USER_COD + "' " +
-                                                    "AND jornal_date = '"+ date +"' "+
-                                                    "ORDER BY jornal_date DESC");
+                                                    "AND expense_date = '"+ date +"' "+
+                                                    "ORDER BY expense_date DESC");
                     b_date = false;
                 }
                 else if(b_date_from && b_date_to){
-
-                    if(compare_from < compare_to){
-                        parametrosPost.put("ins_sql",   "SELECT jornal_cod ,DATE_FORMAT(jornal_date, '%d-%m-%Y'), worker_name " +
-                                "FROM jornals  " +
+                    if (compare_from < compare_to){
+                        parametrosPost.put("ins_sql",   "SELECT expense_cod ,DATE_FORMAT(expense_date, '%d-%m-%Y'), expense_type, expense_money " +
+                                "FROM expenses  " +
                                 "WHERE user_cod = '" + USER_COD + "' " +
-                                "AND jornal_date " +
+                                "AND expense_date " +
                                 "BETWEEN '"+ date_from +"' AND '"+ date_to +"' " +
-                                "ORDER BY jornal_date DESC");
-                    }else {
-                        parametrosPost.put("ins_sql",   "SELECT jornal_cod ,DATE_FORMAT(jornal_date, '%d-%m-%Y'), worker_name " +
-                                "FROM jornals  " +
+                                "ORDER BY expense_date DESC");
+                    }else{
+                        parametrosPost.put("ins_sql",   "SELECT expense_cod ,DATE_FORMAT(expense_date, '%d-%m-%Y'), expense_type, expense_money " +
+                                "FROM expenses  " +
                                 "WHERE user_cod = '" + USER_COD + "' " +
-                                "AND jornal_date " +
+                                "AND expense_date " +
                                 "BETWEEN '"+ date_to +"' AND '"+ date_from +"' " +
-                                "ORDER BY jornal_date DESC");
+                                "ORDER BY expense_date DESC");
                     }
+
 
                 }
                 else{
-                    parametrosPost.put("ins_sql",   "SELECT jornal_cod ,DATE_FORMAT(jornal_date, '%d-%m-%Y'), worker_name " +
-                                                    "FROM jornals  " +
+                    parametrosPost.put("ins_sql",  "SELECT expense_cod ,DATE_FORMAT(expense_date, '%d-%m-%Y'), expense_type, expense_money " +
+                                                    "FROM expenses  " +
                                                     "WHERE user_cod = '" + USER_COD + "' " +
-                                                    "ORDER BY jornal_date DESC");
+                                                    "ORDER BY expense_date DESC");
                     b_date_from = false;
                     b_date_to   = false;
-                    b_name      = false;
+                    b_type      = false;
                     b_date      = false;
                 }
 
@@ -622,11 +636,11 @@ public class ListJornalsActivity extends BaseActivity {
             try {
                 if(jsonArray != null){
                     // Inicializo el adaptador:
-                    listJornalAdapter = new ListJornalAdapter(ListJornalsActivity.this, mapJornalsList(jsonArray));
+                    listExpenseAdapter = new ListExpenseAdapter(ListExpensesActivity.this,mapExpensesList(jsonArray));
                     // Relacionando la lista con el adaptador:
-                    listViewJornals.setAdapter(listJornalAdapter);
+                    listViewExpenses.setAdapter(listExpenseAdapter);
 
-                    total.setText(""+listJornals.size());
+                    total.setText(calculateTotalExpenses(listExpense) + " €");
 
                     onClickList();
 
@@ -644,16 +658,16 @@ public class ListJornalsActivity extends BaseActivity {
     protected void onRestart() {
         super.onRestart();
 
-        b_name                  = false;
+        b_type                  = false;
         b_date                  = false;
         b_date_from             = false;
         b_date_to               = false;
 
-        if(linearFilterName.getVisibility() == View.VISIBLE){
-            linearFilterName.setVisibility(View.GONE);
+        if(linearFilterType.getVisibility() == View.VISIBLE){
+            linearFilterType.setVisibility(View.GONE);
             controlFilter = false;
-            et_name.setText(null);
-            b_name = false;
+            spinner.setSelection(0);
+            b_type = false;
         }
 
         if(linearFilterDate.getVisibility() == View.VISIBLE){
@@ -672,6 +686,7 @@ public class ListJornalsActivity extends BaseActivity {
             b_date_to = false;
         }
 
-        new ListJornalsTask().execute();
+        new ListExpensesTask().execute();
     }
+
 }

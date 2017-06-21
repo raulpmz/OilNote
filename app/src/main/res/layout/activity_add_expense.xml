@@ -2,168 +2,122 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/LinearAddWorker"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/Gris"
-    android:orientation="vertical">
-
-    <LinearLayout
+    android:orientation="vertical"
+    tools:context="com.example.raul.oilnote.Activitys.AddExpenseActivity">
+    <include
+        layout="@layout/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content" />
 
-        <ScrollView
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/LinearAddExpense"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/Gris">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <LinearLayout
-                android:id="@+id/LinearScroll"
+                android:id="@+id/layout_focus"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/Gris"
+                android:layout_height="match_parent"
+                android:focusable="true"
+                android:focusableInTouchMode="true">
+
+                <requestFocus />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
                 android:orientation="vertical">
 
                 <LinearLayout
-                    android:id="@+id/LinearPhoto"
+                    android:id="@+id/LinearCalendar"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/MarronNegro"
-                    android:orientation="vertical">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:background="@color/MarronNegro"
-                        android:gravity="center"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/textView6"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/worker"
-                            android:textAlignment="center"
-                            android:textColor="@color/Gris"
-                            android:textSize="18sp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-
-                    <View
-                        android:id="@+id/view6"
-                        android:layout_width="match_parent"
-                        android:layout_height="3dp"
-                        android:layout_weight="1"
-                        android:background="@color/GrisClaro" />
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:padding="10dp">
-
-                        <ImageView
-                            android:id="@+id/imagen"
-                            android:layout_width="match_parent"
-                            android:layout_height="205dp"
-                            android:layout_alignParentLeft="true"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            app:srcCompat="@drawable/user_white"
-                            tools:layout_editor_absoluteX="3dp"
-                            tools:layout_editor_absoluteY="3dp" />
-
-                        <ImageView
-                            android:id="@+id/imageButton"
-                            android:layout_width="50dp"
-                            android:layout_height="40dp"
-                            android:layout_alignBottom="@+id/imagen"
-                            android:layout_alignEnd="@+id/imagen"
-                            android:layout_alignRight="@+id/imagen"
-                            android:background="@color/Transparent"
-                            android:clickable="true"
-                            android:elevation="1dp"
-                            android:onClick="onClickOptionCamera"
-                            app:srcCompat="@drawable/camera_white"
-                            tools:layout_editor_absoluteX="256dp"
-                            tools:layout_editor_absoluteY="159dp" />
-                    </RelativeLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/LinearName"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="5dp"
+                    android:layout_height="wrap_content"
                     android:background="@drawable/customlistminborder"
                     android:orientation="vertical">
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:background="@color/MarronNegro"
-                        android:gravity="center"
-                        android:orientation="horizontal">
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
 
-                        <TextView
-                            android:id="@+id/textView8"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
                             android:layout_weight="1"
-                            android:text="@string/_name"
-                            android:textAlignment="center"
-                            android:textColor="@color/Gris"
-                            android:textSize="18sp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
+                            android:background="@color/MarronNegro"
+                            android:gravity="center"
+                            android:orientation="horizontal">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:padding="10dip">
-
+                            <TextView
+                                android:id="@+id/textView5"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/select_day"
+                                android:textAlignment="center"
+                                android:textColor="@color/Gris"
+                                android:textSize="18sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:orientation="horizontal"
-                            android:padding="5dp">
+                            android:layout_weight="1"
+                            android:orientation="vertical">
 
-                            <ImageView
-                                android:id="@+id/imageView5"
-                                android:layout_width="33dp"
-                                android:layout_height="match_parent"
-                                app:srcCompat="@drawable/user_grisnegro" />
-
-                            <EditText
-                                android:id="@+id/et_add_worker_name"
+                            <CalendarView
+                                android:id="@+id/calendar_add_expenses"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="5dp"
-                                android:layout_marginRight="10dp"
-                                android:layout_weight="1"
-                                android:autoText="false"
-                                android:ems="12"
-                                android:hint="@string/_name"
-                                android:inputType="textCapWords"
-                                android:maxLength="25"
-                                android:paddingLeft="5dp"
-                                android:textColor="@color/VerdeCorporativo" />
+                                android:layout_weight="1" />
 
+                            <View
+                                android:id="@+id/view3"
+                                android:layout_width="match_parent"
+                                android:layout_height="3dp"
+                                android:layout_weight="1"
+                                android:background="@color/GrisClaro" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/tv_day"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="15-6-2017"
+                                android:textAlignment="center"
+                                android:textColor="@color/GrisOscuro"
+                                android:textSize="18sp"
+                                android:textStyle="bold|italic" />
                         </LinearLayout>
 
                     </LinearLayout>
 
-
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/LinearPhone"
+                    android:id="@+id/LinearSpinner"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:background="@drawable/customlistminborder"
                     android:orientation="vertical">
@@ -180,7 +134,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="@string/phone"
+                            android:text="@string/type"
                             android:textAlignment="center"
                             android:textColor="@color/Gris"
                             android:textSize="18sp"
@@ -200,25 +154,74 @@
                             android:orientation="horizontal"
                             android:padding="5dp">
 
-                            <ImageView
-                                android:id="@+id/imageView2"
-                                android:layout_width="32dp"
-                                android:layout_height="match_parent"
-                                app:srcCompat="@drawable/phone_grisnegro" />
+                            <Spinner
+                                android:id="@+id/sp_add_expenses"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:textAlignment="center" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/LinearRadioButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/customlistminborder"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="@color/MarronNegro"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/textView3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/expenses"
+                            android:textAlignment="center"
+                            android:textColor="@color/Gris"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="10dip">
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+                            android:padding="5dp">
 
                             <EditText
-                                android:id="@+id/et_add_worker_phone"
+                                android:id="@+id/et_add_money"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="5dp"
                                 android:layout_marginRight="10dp"
                                 android:layout_weight="1"
                                 android:ems="9"
-                                android:hint="@string/phone"
-                                android:inputType="phone"
+                                android:hint="@string/euro"
+                                android:inputType="numberDecimal"
                                 android:maxLength="9"
                                 android:paddingLeft="5dp"
                                 android:textColor="@color/VerdeCorporativo" />
+
 
                         </LinearLayout>
 
@@ -230,7 +233,7 @@
                 <LinearLayout
                     android:id="@+id/LinearButton"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:background="@drawable/customlistminborder"
                     android:orientation="vertical">
@@ -255,12 +258,12 @@
                             android:padding="5dp">
 
                             <Button
-                                android:id="@+id/b_add_worker"
+                                android:id="@+id/b_add_expenses"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:background="@drawable/button_gris"
-                                android:onClick="buttonAdd"
+                                android:background="@drawable/button_yellow"
+                                android:onClick="addExpenses"
                                 android:text="@string/add" />
                         </LinearLayout>
 
@@ -270,8 +273,6 @@
                 </LinearLayout>
 
             </LinearLayout>
-        </ScrollView>
-
-    </LinearLayout>
-
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

@@ -83,5 +83,12 @@
         android:title="@string/filter"
         android:visible="false" />
 
+    <item
+        android:id="@+id/action_expense"
+        android:icon="@drawable/euro_white"
+        android:orderInCategory="99"
+        android:title="@string/expenses"
+        android:visible="false" />
+
 
 </menu>

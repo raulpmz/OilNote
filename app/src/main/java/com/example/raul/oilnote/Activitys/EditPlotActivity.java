@@ -44,7 +44,7 @@ public class EditPlotActivity extends AppCompatActivity {
 
         // String:
         cod             = bundle.getString("cod");
-        name            = bundle.getString("name");
+        name            = bundle.getString("type_expense");
         number          = bundle.getString("number_plant");
 
         // EditText:
@@ -142,7 +142,7 @@ public class EditPlotActivity extends AppCompatActivity {
 
                         Intent i = getIntent();
 
-                        i.putExtra("name", name);
+                        i.putExtra("type_expense", name);
                         i.putExtra("number", number);
 
                         setResult(RESULT_OK, i);

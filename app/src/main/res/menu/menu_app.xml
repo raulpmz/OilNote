@@ -58,6 +58,10 @@
                 android:id="@+id/list_weight"
                 android:icon="@drawable/weight_grisnegro"
                 android:title="@string/list_weight" />
+            <item
+                android:id="@+id/list_expense"
+                android:icon="@drawable/euro_white"
+                android:title="@string/expenses" />
         </menu>
     </item>
 

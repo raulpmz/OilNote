@@ -207,6 +207,15 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
                     startActivity(intent);
                 }
                 break;
+
+            // Botón para acceder a la actividad para añadir jornales:
+            case R.id.list_expense:
+                if(!BaseActivity.this.getClass().equals(ListExpensesActivity.class)){
+                    intent = new Intent(this,ListExpensesActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                }
+                break;
         }
 
         drawer.closeDrawer(GravityCompat.START);
@@ -218,7 +227,6 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
         progressDialog = new ProgressDialog(context);
         progressDialog.setMessage(msg);
         progressDialog.setIndeterminate(false);
-        progressDialog.setCancelable(false);
         progressDialog.setMax(100);
         progressDialog.show();
     }

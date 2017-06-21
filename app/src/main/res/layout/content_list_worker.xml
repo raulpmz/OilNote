@@ -35,7 +35,7 @@
                     android:gravity="center_vertical"
                     android:paddingLeft="20dp"
                     android:text="@string/_name"
-                    android:textColor="@color/GrisNegro"
+                    android:textColor="@color/MarronNegro"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
@@ -73,7 +73,7 @@
         android:id="@+id/separator"
         android:layout_width="match_parent"
         android:layout_height="2dip"
-        android:background="@color/GrisNegro" />
+        android:background="@color/MarronNegro" />
 
     <LinearLayout
         android:layout_width="match_parent"

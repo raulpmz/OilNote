@@ -140,6 +140,26 @@
     <string name="error_remove_weight">El pesaje no fue elimidado con exito</string>
     <string name="are_sure_weight">¿Está seguro de que desea borrar este pesaje?</string>
 
+    <!--               ListExpensesActivity             -->
+
+    <string name="successful_remove_expense">El gasto fue elimidado con exito</string>
+    <string name="error_remove_expense">El gasto no fue elimidado con exito</string>
+    <string name="are_sure_expense">¿Está seguro de que desea borrar este gasto?</string>
+    <string name="total_expense">Nº total de gastos</string>
+    <string name="type">Tipo de gasto</string>
+    <string name="expenses">Gastos</string>
+    <string name="expense">Gasto</string>
+    <string name="type_">Tipo</string>
+    <string name="euro">€</string>
+
+    <!--               AddExpensesActivity             -->
+
+    <string name="error_expenses">Los simbolos "-" (barrao) o "," (coma) no están permitidos.
+                                        \n\t\tUse "." (punto) en su lugar.
+    </string>
+    <string name="successful_add_expense">El gasto fue añadido con exito</string>
+    <string name="error_add_expense">Error al añadir el gasto</string>
+
     <!--               AddJornalActivity             -->
 
     <string name="rb_assist">Ha asistido</string>
