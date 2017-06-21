@@ -46,11 +46,11 @@ import static com.example.raul.oilnote.Utils.GlobalVars.USER_COD;
 public class ListWeightsActivity extends BaseActivity {
 
     protected LinearLayout linearFilterName, linearFilterDate, linearFilterDateToDate;
+    protected TextView total, total_efficiency, tv_date, tv_date_from, tv_date_to;
     protected Boolean controlFilter, b_name, b_date, b_date_from, b_date_to;
     protected DatePickerDialog.OnDateSetListener mDateFromSetListener;
     protected DatePickerDialog.OnDateSetListener mDateToSetListener;
     protected DatePickerDialog.OnDateSetListener mDateSetListener;
-    protected TextView total, tv_date, tv_date_from, tv_date_to;
     protected int year, month, day, compare_from, compare_to;
     protected String name, date, date_from, date_to;
     protected ListWeightAdapter listWeightAdapter;
@@ -76,7 +76,8 @@ public class ListWeightsActivity extends BaseActivity {
         linearFilterDateToDate  = (LinearLayout) findViewById(R.id.LinearFilterDateFromTo);
 
         // TextView:
-        total           = (TextView) findViewById(R.id.total_weights);
+        total                   = (TextView) findViewById(R.id.total_weights);
+        total_efficiency        = (TextView) findViewById(R.id.total_efficiency);
         tv_date                 = (TextView) findViewById(R.id.tv_filter_date);
         tv_date_from            = (TextView) findViewById(R.id.tv_filter_date_from);
         tv_date_to              = (TextView) findViewById(R.id.tv_filter_date_to);
@@ -95,9 +96,6 @@ public class ListWeightsActivity extends BaseActivity {
         alert           = new AlertDialog.Builder(this);
         alert2          = new AlertDialog.Builder(this);
 
-        // Hilo para rellenar los datos las parcelas:
-        new ListWeigthsTask().execute();
-
         // Evento para recoger los caracteres del EditText:
         onKeyListener();
 
@@ -105,6 +103,9 @@ public class ListWeightsActivity extends BaseActivity {
         mDateSetListener();
         mDateFromSetListener();
         mDateToSetListener();
+
+        // Hilo para rellenar los datos las parcelas:
+        new ListWeigthsTask().execute();
     }
 
     @Override
@@ -152,6 +153,7 @@ public class ListWeightsActivity extends BaseActivity {
                 intent.putExtra("date",listWeight.get(i).getWeight_date());
                 intent.putExtra("type_expense",listWeight.get(i).getPlot_name());
                 intent.putExtra("number",listWeight.get(i).getWeight_number());
+                intent.putExtra("efficiency",listWeight.get(i).getWeight_efficiency());
 
                 startActivity(intent);
             }
@@ -179,6 +181,7 @@ public class ListWeightsActivity extends BaseActivity {
                                     intent.putExtra("date",listWeight.get(i).getWeight_date());
                                     intent.putExtra("type_expense",listWeight.get(i).getPlot_name());
                                     intent.putExtra("number",listWeight.get(i).getWeight_number());
+                                    intent.putExtra("efficiency",listWeight.get(i).getWeight_efficiency());
 
                                     startActivity(intent);
                                 }
@@ -230,6 +233,21 @@ public class ListWeightsActivity extends BaseActivity {
         return "" + cont;
     }
 
+    public String calculateTotalEfficiency(List<Weight> listWeight){
+        List<Weight> list = listWeight;
+        double kg, cont = 0, media = 0;
+
+        for(int i = 0; i < list.size() ; i++ ){
+            if(!list.get(i).getWeight_efficiency().equals("")) {
+                kg = Double.parseDouble(list.get(i).getWeight_efficiency());
+                cont += kg;
+                media++;
+            }
+        }
+
+        return (cont / media) + " %";
+    }
+
     // Hilo para obtener los datos de las parcelas:
     class ListWeigthsTask extends AsyncTask<Void, Void, JSONArray> {
 
@@ -246,7 +264,7 @@ public class ListWeightsActivity extends BaseActivity {
 
             try {
                 // Consulto los trabajadores que tiene el usuario:
-                parametrosPost.put("ins_sql",   "SELECT weight_cod ,DATE_FORMAT(weight_date, '%d-%m-%Y'), plot_name, weight_number " +
+                parametrosPost.put("ins_sql",   "SELECT weight_cod ,DATE_FORMAT(weight_date, '%d-%m-%Y'), plot_name, weight_number, weight_efficiency " +
                                                 "FROM weights " +
                                                 "WHERE user_cod = '" + USER_COD + "' " +
                                                 "ORDER BY weight_date DESC");
@@ -277,6 +295,7 @@ public class ListWeightsActivity extends BaseActivity {
                     listViewWeigths.setAdapter(listWeightAdapter);
 
                     total.setText(calculateTotalWeigth(listWeight) + " kg");
+                    total_efficiency.setText(calculateTotalEfficiency(listWeight));
 
                     onClickList();
 
@@ -303,6 +322,7 @@ public class ListWeightsActivity extends BaseActivity {
                 weight.setWeight_date(jsonArray.getJSONObject(i).getString("DATE_FORMAT(weight_date, '%d-%m-%Y')"));
                 weight.setPlot_name(jsonArray.getJSONObject(i).getString("plot_name"));
                 weight.setWeight_number(jsonArray.getJSONObject(i).getString("weight_number"));
+                weight.setWeight_efficiency(jsonArray.getJSONObject(i).getString("weight_efficiency"));
 
                 lw.add(weight);
             }
@@ -599,7 +619,7 @@ public class ListWeightsActivity extends BaseActivity {
             try {
                 // Consulto los trabajadores que tiene el usuario:
                 if(b_name){
-                    parametrosPost.put("ins_sql",   "SELECT weight_cod ,DATE_FORMAT(weight_date, '%d-%m-%Y'), plot_name, weight_number " +
+                    parametrosPost.put("ins_sql",    "SELECT weight_cod ,DATE_FORMAT(weight_date, '%d-%m-%Y'), plot_name, weight_number, weight_efficiency " +
                                                      "FROM weights  " +
                                                      "WHERE user_cod = '" + USER_COD + "' " +
                                                      "AND plot_name "+
@@ -608,8 +628,7 @@ public class ListWeightsActivity extends BaseActivity {
                     b_name = false;
                 }
                 else if(b_date){
-                    parametrosPost.put("ins_sql",   "SELECT weight_cod ,DATE_FORMAT(weight_date, '%d-%m-%Y'), plot_name, weight_number " +
-                                                     "FROM weights  " +
+                    parametrosPost.put("ins_sql",   "SELECT weight_cod ,DATE_FORMAT(weight_date, '%d-%m-%Y'), plot_name, weight_number, weight_efficiency " +
                                                      "WHERE user_cod = '" + USER_COD + "' " +
                                                      "AND weight_date = '"+ date +"' "+
                                                      "ORDER BY weight_date DESC");
@@ -617,25 +636,25 @@ public class ListWeightsActivity extends BaseActivity {
                 }
                 else if(b_date_from && b_date_to){
                     if (compare_from < compare_to){
-                        parametrosPost.put("ins_sql",   "SELECT weight_cod ,DATE_FORMAT(weight_date, '%d-%m-%Y'), plot_name, weight_number " +
-                                "FROM weights  " +
-                                "WHERE user_cod = '" + USER_COD + "' " +
-                                "AND weight_date " +
-                                "BETWEEN '"+ date_from +"' AND '"+ date_to +"' " +
-                                "ORDER BY weight_date DESC");
+                        parametrosPost.put("ins_sql",   "SELECT weight_cod ,DATE_FORMAT(weight_date, '%d-%m-%Y'), plot_name, weight_number, weight_efficiency " +
+                                                        "FROM weights  " +
+                                                        "WHERE user_cod = '" + USER_COD + "' " +
+                                                        "AND weight_date " +
+                                                        "BETWEEN '"+ date_from +"' AND '"+ date_to +"' " +
+                                                        "ORDER BY weight_date DESC");
                     }else{
-                        parametrosPost.put("ins_sql",   "SELECT weight_cod ,DATE_FORMAT(weight_date, '%d-%m-%Y'), plot_name, weight_number " +
-                                "FROM weights  " +
-                                "WHERE user_cod = '" + USER_COD + "' " +
-                                "AND weight_date " +
-                                "BETWEEN '"+ date_to +"' AND '"+ date_from +"' " +
-                                "ORDER BY weight_date DESC");
+                        parametrosPost.put("ins_sql",   "SELECT weight_cod ,DATE_FORMAT(weight_date, '%d-%m-%Y'), plot_name, weight_number, weight_efficiency " +
+                                                        "FROM weights  " +
+                                                        "WHERE user_cod = '" + USER_COD + "' " +
+                                                        "AND weight_date " +
+                                                        "BETWEEN '"+ date_to +"' AND '"+ date_from +"' " +
+                                                        "ORDER BY weight_date DESC");
                     }
 
 
                 }
                 else{
-                    parametrosPost.put("ins_sql",   "SELECT weight_cod ,DATE_FORMAT(weight_date, '%d-%m-%Y'), plot_name, weight_number " +
+                    parametrosPost.put("ins_sql",   "SELECT weight_cod ,DATE_FORMAT(weight_date, '%d-%m-%Y'), plot_name, weight_number, weight_efficiency " +
                                                     "FROM weights " +
                                                     "WHERE user_cod = '" + USER_COD + "' " +
                                                     "ORDER BY weight_date DESC");

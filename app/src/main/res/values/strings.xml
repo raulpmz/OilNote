@@ -83,6 +83,8 @@
     <string name="list_weight">Pesajes</string>
     <string name="date">Fecha</string>
     <string name="weight">Peso</string>
+    <string name="_efficiency">Indique el rendimiento</string>
+    <string name="efficiency">Rendimiento</string>
 
     <!--               ListWorkerActivity            -->
 
@@ -135,7 +137,8 @@
 
     <!--               ListWeigthsActivity             -->
 
-    <string name="total_weigt">Nº total de kg recogidos</string>
+    <string name="total_weigt">Total kg: </string>
+    <string name="total_efficiency">Rendimiento medio: </string>
     <string name="successful_remove_weight">El pesaje fue elimidado con exito</string>
     <string name="error_remove_weight">El pesaje no fue elimidado con exito</string>
     <string name="are_sure_weight">¿Está seguro de que desea borrar este pesaje?</string>

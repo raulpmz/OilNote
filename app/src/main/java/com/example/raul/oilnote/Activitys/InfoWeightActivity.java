@@ -24,8 +24,8 @@ import static com.example.raul.oilnote.Utils.GlobalVars.USER_COD;
 
 public class InfoWeightActivity extends BaseActivity {
 
-    protected TextView tv_date, tv_name, tv_weight;
-    protected String cod, date, name, number;
+    protected TextView tv_date, tv_name, tv_weight, tv_efficiency;
+    protected String cod, date, name, number, efficiency;
     protected AlertDialog.Builder alert;
     protected final static int EDIT = 0;
     protected Bundle bundle;
@@ -41,12 +41,14 @@ public class InfoWeightActivity extends BaseActivity {
         tv_date         = (TextView) findViewById(R.id.tv_date_weight);
         tv_name         = (TextView) findViewById(R.id.tv_name_plot);
         tv_weight       = (TextView) findViewById(R.id.tv_number_weight);
+        tv_efficiency   = (TextView) findViewById(R.id.tv_efficiency);
 
         // String:
         cod             = bundle.getString("cod");
         date            = bundle.getString("date");
         name            = bundle.getString("type_expense");
         number          = bundle.getString("number");
+        efficiency      = bundle.getString("efficiency");
 
         // AlertDialog:
         alert = new AlertDialog.Builder(InfoWeightActivity.this);
@@ -56,6 +58,10 @@ public class InfoWeightActivity extends BaseActivity {
         tv_date.setText(date);
         tv_name.setText(name);
         tv_weight.setText(number);
+        if (!efficiency.equals("")){
+            tv_efficiency.setText(efficiency + " %");
+        }
+
 
     }
 
@@ -85,6 +91,7 @@ public class InfoWeightActivity extends BaseActivity {
                 intent.putExtra("date",date);
                 intent.putExtra("type_expense",name);
                 intent.putExtra("number",number);
+                intent.putExtra("efficiency",efficiency);
 
                 startActivityForResult(intent, EDIT);
 
@@ -123,9 +130,10 @@ public class InfoWeightActivity extends BaseActivity {
 
         } else {
             // De lo contrario, recogemos el resultado de la segunda actividad.
-            date    = data.getExtras().getString("date");
-            name    = data.getExtras().getString("type_expense");
-            number  = data.getExtras().getString("number");
+            date        = data.getExtras().getString("date");
+            name        = data.getExtras().getString("type_expense");
+            number      = data.getExtras().getString("number");
+            efficiency  = data.getExtras().getString("efficiency");
 
             // Y rellenamos los TextView con la nueva información:
             switch (requestCode) {
@@ -133,6 +141,9 @@ public class InfoWeightActivity extends BaseActivity {
                     tv_date.setText(date);
                     tv_name.setText(name);
                     tv_weight.setText(number);
+                    if (!efficiency.equals("")){
+                        tv_efficiency.setText(efficiency + " %");
+                    }
                     break;
             }
         }

@@ -34,9 +34,9 @@ import static com.example.raul.oilnote.Utils.GlobalVars.USER_COD;
 
 public class AddWeightActivity extends AppCompatActivity {
 
-    protected String date, plot_name, number_weight;
+    protected String date, plot_name, number_weight, efficiency;
+    protected EditText et_nweight, et_efficiency;
     protected ProgressDialog progressDialog;
-    protected EditText et_nweight;
     protected SimpleDateFormat ss1, ss2;
     protected JSONObject jsonObject;
     protected Connection connection;
@@ -66,6 +66,7 @@ public class AddWeightActivity extends AppCompatActivity {
 
         // EditText:
         et_nweight      = (EditText) findViewById(R.id.et_add_number_weight);
+        et_efficiency   = (EditText) findViewById(R.id.et_efficiency);
 
         // Toolbar:
         toolbar         = (Toolbar) findViewById(R.id.toolbar);
@@ -119,6 +120,7 @@ public class AddWeightActivity extends AppCompatActivity {
         // Guardo los valores en las variables:
         plot_name       = spinner.getSelectedItem().toString();
         number_weight   = et_nweight.getText().toString();
+        efficiency      = et_efficiency.getText().toString();
 
         // Compruebo que el EditText del peso no esta vacío:
         if(et_nweight.length() > 0){
@@ -236,8 +238,8 @@ public class AddWeightActivity extends AppCompatActivity {
         protected JSONObject doInBackground(Void... params) {
 
             try {
-                parametrosPost.put("ins_sql",   "INSERT INTO weights(user_cod, plot_name, weight_date, weight_number) " +
-                                                "VALUES('"+ USER_COD +"','"+ plot_name +"','"+ date +"','"+ number_weight +"')");
+                parametrosPost.put("ins_sql",   "INSERT INTO weights(user_cod, plot_name, weight_date, weight_number, weight_efficiency) " +
+                                                "VALUES('"+ USER_COD +"','"+ plot_name +"','"+ date +"','"+ number_weight +"','"+ efficiency +"')");
                 jsonObject = connection.sendWrite(BASE_URL_WRITE, parametrosPost);
 
                 if (jsonObject != null) {
@@ -267,6 +269,7 @@ public class AddWeightActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 et_nweight.setText(null);
+                et_efficiency.setText(null);
             }else{
                 Snackbar.make(findViewById(R.id.LinearAddWeight), getResources().getString(R.string.server_down), Toast.LENGTH_SHORT).show();
             }

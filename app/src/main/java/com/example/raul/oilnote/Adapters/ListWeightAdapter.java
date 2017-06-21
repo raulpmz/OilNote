@@ -19,7 +19,7 @@ import java.util.List;
 
 public class ListWeightAdapter extends ArrayAdapter<Weight> {
 
-    private TextView date, name, number;
+    private TextView date, name, number, efficiency;
 
     public ListWeightAdapter(Context context, List<Weight> objects) {
         super(context, 0, objects);
@@ -39,11 +39,13 @@ public class ListWeightAdapter extends ArrayAdapter<Weight> {
 
         // Referencias UI:
         // TextView's:
-        date    = (TextView) convertView.findViewById(R.id.date_weight);
+        date        = (TextView) convertView.findViewById(R.id.date_weight);
 
-        name    = (TextView) convertView.findViewById(R.id.name_plot);
+        name        = (TextView) convertView.findViewById(R.id.name_plot);
 
-        number  = (TextView) convertView.findViewById(R.id.weight_number);
+        number      = (TextView) convertView.findViewById(R.id.weight_number);
+
+        efficiency  = (TextView) convertView.findViewById(R.id.weight_efficiency);
 
         // Pesado actual:
         Weight weight = getItem(position);
@@ -57,6 +59,12 @@ public class ListWeightAdapter extends ArrayAdapter<Weight> {
 
         // Número de kilogamos pesados:
         number.setText(weight.getWeight_number() + " Kg");
+
+        // Número de rendimiento:
+        if(!weight.getWeight_efficiency().equals("")){
+            efficiency.setText(weight.getWeight_efficiency() + " %");
+        }
+
 
         // Retorna la vista:
         return convertView;

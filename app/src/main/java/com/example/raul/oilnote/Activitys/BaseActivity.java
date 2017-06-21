@@ -246,11 +246,18 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_menu);
+        Intent intent;
         if(drawer != null){
             if (drawer.isDrawerOpen(GravityCompat.START)) {
                 drawer.closeDrawer(GravityCompat.START);
             } else {
                 super.onBackPressed();
+                if(!BaseActivity.this.getClass().equals(MainActivity.class)){
+                    intent = new Intent(this, MainActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(new Intent(this,MainActivity.class));
+                    BaseActivity.this.finish();
+                }
             }
         }else{
             super.onBackPressed();

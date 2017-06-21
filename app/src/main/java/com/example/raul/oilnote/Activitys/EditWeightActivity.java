@@ -36,9 +36,9 @@ import static com.example.raul.oilnote.Utils.GlobalVars.USER_COD;
 
 public class EditWeightActivity extends AppCompatActivity {
 
-    protected String cod, date, date2, name, number;
+    protected String cod, date, date2, name, number, efficiency;
+    protected EditText et_nweight, et_efficiency;
     protected ProgressDialog progressDialog;
-    protected EditText et_nweight;
     protected SimpleDateFormat ss1, ss2;
     protected JSONObject jsonObject;
     protected Connection connection;
@@ -63,6 +63,7 @@ public class EditWeightActivity extends AppCompatActivity {
         date            = bundle.getString("date");
         name            = bundle.getString("type_expense");
         number          = bundle.getString("number");
+        efficiency      = bundle.getString("efficiency");
 
         // CalendarView:
         calendar        = (CalendarView) findViewById(R.id.calendar_edit_weight);
@@ -78,6 +79,7 @@ public class EditWeightActivity extends AppCompatActivity {
 
         // EditText:
         et_nweight      = (EditText) findViewById(R.id.et_edit_number_weight);
+        et_efficiency   = (EditText) findViewById(R.id.et_efficiency);
 
         // Toolbar:
         toolbar         = (Toolbar) findViewById(R.id.toolbar);
@@ -110,6 +112,7 @@ public class EditWeightActivity extends AppCompatActivity {
 
         // Relleno el EditText con la información que le paso de la actividad anterior:
         et_nweight.setText(number);
+        et_efficiency.setText(efficiency);
 
         // Evento al cabiar el día seleccionado:
         getCalendarOnDateChangeListener();
@@ -134,8 +137,9 @@ public class EditWeightActivity extends AppCompatActivity {
     // Botón para añadir el pesaje:
     public void editWeight(View w){
         // Guardo los valores en las variables:
-        name    = spinner.getSelectedItem().toString();
-        number  = et_nweight.getText().toString();
+        name        = spinner.getSelectedItem().toString();
+        number      = et_nweight.getText().toString();
+        efficiency  = et_efficiency.getText().toString();
 
         // Compruebo que el EditText del peso no esta vacío:
         if(et_nweight.length() > 0){
@@ -254,7 +258,7 @@ public class EditWeightActivity extends AppCompatActivity {
 
             try {
                 parametrosPost.put("ins_sql",   "UPDATE weights " +
-                                                "SET plot_name = '"+ name +"', weight_date = '"+ date +"', weight_number = '"+ number +"' " +
+                                                "SET plot_name = '"+ name +"', weight_date = '"+ date +"', weight_number = '"+ number +"', weight_efficiency = '"+ efficiency +"' " +
                                                 "WHERE user_cod = "+ USER_COD +" " +
                                                 "AND weight_cod = "+ cod +";");
                 jsonObject = connection.sendWrite(BASE_URL_WRITE, parametrosPost);
@@ -286,6 +290,7 @@ public class EditWeightActivity extends AppCompatActivity {
                         i.putExtra("date",date2);
                         i.putExtra("type_expense",name);
                         i.putExtra("number",number);
+                        i.putExtra("efficiency",efficiency);
 
                         setResult(RESULT_OK, i);
 
