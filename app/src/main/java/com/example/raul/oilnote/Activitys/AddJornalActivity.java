@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -11,6 +12,7 @@ import android.widget.CalendarView;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,6 +40,7 @@ public class AddJornalActivity extends BaseActivity {
     protected String date, worker_cod, name;
     protected LinearLayout linearSalary;
     protected SimpleDateFormat ss1, ss2;
+    protected ScrollView scrollView;
     protected CalendarView calendar;
     protected TextView tv_date;
     protected Spinner spinner;
@@ -48,6 +51,9 @@ public class AddJornalActivity extends BaseActivity {
 
         // CalendarView:
         calendar        = (CalendarView) findViewById(R.id.calendar_add_jornal);
+
+        // ScrollView:
+        scrollView      = (ScrollView) findViewById(R.id.Scroll);
 
         // RadioButton's:
         rb_assist       = (RadioButton) findViewById(R.id.rb_add_jornal_asist);
@@ -85,6 +91,9 @@ public class AddJornalActivity extends BaseActivity {
         // Evento para controlar la el radiobuton con el cual le daremos visibilidad al linearSalary:
         eventRadioButton();
 
+        // Control de prioridad al tocar los elementos dentro de un ScrollView:
+        controlTouchEvent();
+
     }
 
     public void eventRadioButton(){
@@ -114,6 +123,29 @@ public class AddJornalActivity extends BaseActivity {
                 new JornalWorkersTask().execute();
             }
         });
+
+
+    }
+
+    // Con este metodo solucionamos el problema que se origina la intentar interactuar con elementos
+    // que se encuentran dentro de un ScrollView:
+    public void controlTouchEvent(){
+
+        calendar.setOnTouchListener(new View.OnTouchListener() {
+            public boolean onTouch(View v, MotionEvent event) {
+                scrollView.requestDisallowInterceptTouchEvent(false);
+                Log.e("Tocando","Tocando");
+                return false;
+            }
+        });
+
+        scrollView.setOnTouchListener(new View.OnTouchListener() {
+            public boolean onTouch(View v, MotionEvent event) {
+                calendar.requestDisallowInterceptTouchEvent(true);
+                return false;
+            }
+        });
+
     }
 
     // Acción del botón guardar:

@@ -6,7 +6,8 @@
     android:orientation="vertical"
     android:padding="10dp">
 
-    <ScrollView
+    <com.example.raul.oilnote.Utils.CustomScrollView
+        android:id="@+id/Scroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -35,7 +36,54 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/bloq_module"
+                android:id="@+id/bloq_calendar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+
+                <View
+                    android:id="@+id/view23"
+                    android:layout_width="match_parent"
+                    android:layout_height="3dip"
+                    android:background="@color/MarronNegro" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="10dip">
+
+                    <TextView
+                        android:id="@+id/tv_subTittle2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/calendar"
+                        android:textColor="@color/Black"
+                        android:textSize="20dip"
+                        android:textStyle="bold" />
+
+                    <View
+                        android:id="@+id/view101"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dip"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dip"
+                        android:background="@color/GrisClaro" />
+
+                    <CalendarView
+                        android:id="@+id/calendar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/bloq_fast_access"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
@@ -57,7 +105,7 @@
                         android:id="@+id/tv_subTittle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Acceso rapido"
+                        android:text="@string/fast_access"
                         android:textColor="@color/Black"
                         android:textSize="20dip"
                         android:textStyle="bold" />
@@ -229,7 +277,203 @@
 
 
             </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/bloqast_access"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+
+                <View
+                    android:id="@+id/viw2"
+                    android:layout_width="match_parent"
+                    android:layout_height="3dip"
+                    android:background="@color/MarronNegro" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="10dip">
+
+                    <TextView
+                        android:id="@+id/tv_subTitte"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/fast_access"
+                        android:textColor="@color/Black"
+                        android:textSize="20dip"
+                        android:textStyle="bold" />
+
+                    <View
+                        android:id="@+id/viw10"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dip"
+                        android:layout_marginTop="10dip"
+                        android:background="@color/GrisClaro" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:id="@+id/btn_shre1"
+                                android:layout_width="match_parent"
+                                android:layout_height="5dp"
+                                android:layout_margin="3dip"
+                                android:layout_weight="1"
+                                android:background="@drawable/button_yellow"
+                                android:clickable="true"
+                                android:elevation="1dp"
+                                android:focusable="true"
+                                android:gravity="center"
+                                android:orientation="horizontal"
+                                android:padding="5dip">
+
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:src="@android:drawable/ic_menu_share" />
+
+                                <TextView
+                                    android:id="@+id/textiew10"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Botón"
+                                    android:textColor="@color/White"
+                                    android:textSize="12sp"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/btn_r"
+                                android:layout_width="match_parent"
+                                android:layout_height="5dp"
+                                android:layout_margin="3dip"
+                                android:layout_weight="1"
+                                android:background="@drawable/button_yellow"
+                                android:clickable="true"
+                                android:elevation="1dp"
+                                android:focusable="true"
+                                android:gravity="center"
+                                android:orientation="horizontal"
+                                android:padding="5dip">
+
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:src="@android:drawable/ic_menu_directions"
+                                    android:textColor="@color/Black" />
+
+                                <TextView
+                                    android:id="@+id/tvr2"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Botón"
+                                    android:textColor="@color/White"
+                                    android:textSize="12sp"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:id="@+id/btn_sare"
+                                android:layout_width="match_parent"
+                                android:layout_height="5dp"
+                                android:layout_margin="3dip"
+                                android:layout_weight="1"
+                                android:background="@drawable/button_yellow"
+                                android:clickable="true"
+                                android:elevation="1dp"
+                                android:focusable="true"
+                                android:gravity="center"
+                                android:orientation="horizontal"
+                                android:padding="5dip">
+
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:src="@android:drawable/ic_menu_share" />
+
+                                <TextView
+                                    android:id="@+id/txtView"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Botón"
+                                    android:textColor="@color/White"
+                                    android:textSize="12sp"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/bn_ir"
+                                android:layout_width="match_parent"
+                                android:layout_height="5dp"
+                                android:layout_margin="3dip"
+                                android:layout_weight="1"
+                                android:background="@drawable/button_yellow"
+                                android:clickable="true"
+                                android:elevation="1dp"
+                                android:focusable="true"
+                                android:gravity="center"
+                                android:orientation="horizontal"
+                                android:padding="5dip">
+
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:src="@android:drawable/ic_menu_directions"
+                                    android:textColor="@color/Black" />
+
+                                <TextView
+                                    android:id="@+id/tIr"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Botón"
+                                    android:textColor="@color/White"
+                                    android:textSize="12sp"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dip"
+                        android:layout_marginTop="10dip"
+                        android:background="@color/GrisClaro" />
+
+
+                    <LinearLayout
+                        android:id="@+id/layout_butto"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dip"
+                        android:orientation="horizontal">
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
         </LinearLayout>
-    </ScrollView>
+    </com.example.raul.oilnote.Utils.CustomScrollView>
 
 </LinearLayout>

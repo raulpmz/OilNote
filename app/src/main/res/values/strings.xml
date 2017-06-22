@@ -50,6 +50,9 @@
 
     <!--                Main_Activity               -->
 
+    <string name="calendar">Calendario</string>
+    <string name="fast_access">Acceso rápido</string>
+
     <!--            Registration_Activity           -->
 
     <string name="btn_registration">Crear cuenta</string>
