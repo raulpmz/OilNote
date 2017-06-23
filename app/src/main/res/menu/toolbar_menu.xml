@@ -10,7 +10,7 @@
 
     <item
         android:id="@+id/action_settings"
-        android:orderInCategory="100"
+        android:orderInCategory="98"
         android:title="@string/action_settings"
         android:visible="false"/>
     <item

@@ -8,35 +8,40 @@
             android:title="@string/home" />
 
         <item
-            android:id="@+id/add_worker"
-            android:icon="@drawable/add_user_button"
-            android:title="@string/add_laborer" />
-        <item
-            android:id="@+id/add_jornal"
-            android:icon="@drawable/add_to_queue_button"
-            android:title="@string/add_worker_day" />
-
-        <item
-            android:id="@+id/add_plot"
-            android:icon="@drawable/tree_white"
-            android:title="@string/add_plot" />
-
-        <item
-            android:id="@+id/add_weight"
-            android:icon="@drawable/weight_grisnegro"
-            android:title="@string/add_weigth" />
-
-        <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
-        <item
-            android:id="@+id/nav_options"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+            android:id="@+id/nav_close_session"
+            android:icon="@drawable/off"
+            android:title="@string/close" />
     </group>
 
-    <item android:title="Listas">
+    <item android:title="@string/add_data">
+        <menu>
+            <item
+                android:id="@+id/add_worker"
+                android:icon="@drawable/add_user_button"
+                android:title="@string/add_laborer" />
+            <item
+                android:id="@+id/add_jornal"
+                android:icon="@drawable/add_to_queue_button"
+                android:title="@string/add_worker_day" />
+
+            <item
+                android:id="@+id/add_plot"
+                android:icon="@drawable/tree_white"
+                android:title="@string/add_plot" />
+
+            <item
+                android:id="@+id/add_weight"
+                android:icon="@drawable/weight_grisnegro"
+                android:title="@string/add_weigth" />
+
+            <item
+                android:id="@+id/add_expenses"
+                android:icon="@drawable/euro_white"
+                android:title="@string/add_expense" />
+        </menu>
+    </item>
+
+    <item android:title="@string/list">
         <menu>
             <item
                 android:id="@+id/list_worker"
@@ -65,20 +70,21 @@
         </menu>
     </item>
 
-    <item android:title="Communicate">
+    <item android:title="@string/settings">
         <menu>
             <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
+                android:id="@+id/nav_options"
+                android:icon="@drawable/ic_menu_manage"
+                android:title="@string/options" />
             <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
-            <item
-                android:id="@+id/nav_share2"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
+                android:id="@+id/nav_preferencias"
+                android:icon="@drawable/switch_negro"
+                android:title="@string/preferences" />
+        </menu>
+    </item>
+
+    <item android:title="Communicate">
+        <menu>
             <item
                 android:id="@+id/nav_send2"
                 android:icon="@drawable/ic_menu_send"

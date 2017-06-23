@@ -10,6 +10,10 @@
     <string name="change_password">"Cambiando contraseña..."</string>
     <string name="save">Guardando...</string>
     <string name="options">Opciones</string>
+    <string name="add_data">Añade datos</string>
+    <string name="list">Listas de datos</string>
+    <string name="settings">Ajustes</string>
+    <string name="close">Cerrar Sesion</string>
     <string name="cancel">Cancelar</string>
     <string name="remove">Eliminando...</string>
     <string name="server_down">El servidor se encuentra en mantenimiento, sentimos las molestias.</string>
