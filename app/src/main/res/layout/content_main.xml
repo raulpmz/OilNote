@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/Gris"
     android:orientation="vertical"
     android:padding="10dp">
@@ -43,7 +44,7 @@
 
 
                 <View
-                    android:id="@+id/view23"
+                    android:id="@+id/view"
                     android:layout_width="match_parent"
                     android:layout_height="3dip"
                     android:background="@color/MarronNegro" />
@@ -64,7 +65,7 @@
                         android:textStyle="bold" />
 
                     <View
-                        android:id="@+id/view101"
+                        android:id="@+id/view1"
                         android:layout_width="match_parent"
                         android:layout_height="1dip"
                         android:layout_marginBottom="10dp"
@@ -143,16 +144,11 @@
                                 android:orientation="horizontal"
                                 android:padding="5dip">
 
-                                <ImageView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:src="@android:drawable/ic_menu_share" />
-
                                 <TextView
                                     android:id="@+id/textView10"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Botón"
+                                    android:text="@string/add_jornal"
                                     android:textColor="@color/White"
                                     android:textSize="12sp"
                                     android:textStyle="bold" />
@@ -172,17 +168,11 @@
                                 android:orientation="horizontal"
                                 android:padding="5dip">
 
-                                <ImageView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:src="@android:drawable/ic_menu_directions"
-                                    android:textColor="@color/Black" />
-
                                 <TextView
                                     android:id="@+id/tvIr2"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Botón"
+                                    android:text="@string/worker_list"
                                     android:textColor="@color/White"
                                     android:textSize="12sp"
                                     android:textStyle="bold" />
@@ -209,16 +199,11 @@
                                 android:orientation="horizontal"
                                 android:padding="5dip">
 
-                                <ImageView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:src="@android:drawable/ic_menu_share" />
-
                                 <TextView
                                     android:id="@+id/textView"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Botón"
+                                    android:text="@string/add_weigth"
                                     android:textColor="@color/White"
                                     android:textSize="12sp"
                                     android:textStyle="bold" />
@@ -238,17 +223,11 @@
                                 android:orientation="horizontal"
                                 android:padding="5dip">
 
-                                <ImageView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:src="@android:drawable/ic_menu_directions"
-                                    android:textColor="@color/Black" />
-
                                 <TextView
                                     android:id="@+id/tvIr"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Botón"
+                                    android:text="@string/add_expense"
                                     android:textColor="@color/White"
                                     android:textSize="12sp"
                                     android:textStyle="bold" />
@@ -264,29 +243,20 @@
                         android:background="@color/GrisClaro" />
 
 
-                    <LinearLayout
-                        android:id="@+id/layout_button"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dip"
-                        android:orientation="horizontal">
-
-                    </LinearLayout>
-
                 </LinearLayout>
 
 
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/bloqast_access"
+                android:id="@+id/bloc_half_efficiency"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
 
                 <View
-                    android:id="@+id/viw2"
+                    android:id="@+id/view3"
                     android:layout_width="match_parent"
                     android:layout_height="3dip"
                     android:background="@color/MarronNegro" />
@@ -301,13 +271,13 @@
                         android:id="@+id/tv_subTitte"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/fast_access"
+                        android:text="@string/general_info"
                         android:textColor="@color/Black"
                         android:textSize="20dip"
                         android:textStyle="bold" />
 
                     <View
-                        android:id="@+id/viw10"
+                        android:id="@+id/view5"
                         android:layout_width="match_parent"
                         android:layout_height="1dip"
                         android:layout_marginTop="10dip"
@@ -315,142 +285,86 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="80dp"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:orientation="horizontal">
 
                         <LinearLayout
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:layout_weight="1"
                             android:orientation="vertical">
 
-                            <LinearLayout
-                                android:id="@+id/btn_shre1"
+                            <TextView
+                                android:id="@+id/tv_plots"
                                 android:layout_width="match_parent"
-                                android:layout_height="5dp"
-                                android:layout_margin="3dip"
-                                android:layout_weight="1"
-                                android:background="@drawable/button_yellow"
-                                android:clickable="true"
-                                android:elevation="1dp"
-                                android:focusable="true"
-                                android:gravity="center"
-                                android:orientation="horizontal"
-                                android:padding="5dip">
+                                android:layout_height="wrap_content"
+                                android:paddingLeft="10dp"
+                                android:text="@string/plots"
+                                android:textColor="@color/Black"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
 
-                                <ImageView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:src="@android:drawable/ic_menu_share" />
-
-                                <TextView
-                                    android:id="@+id/textiew10"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Botón"
-                                    android:textColor="@color/White"
-                                    android:textSize="12sp"
-                                    android:textStyle="bold" />
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:id="@+id/btn_r"
+                            <TextView
+                                android:id="@+id/tv_tree"
                                 android:layout_width="match_parent"
-                                android:layout_height="5dp"
-                                android:layout_margin="3dip"
-                                android:layout_weight="1"
-                                android:background="@drawable/button_yellow"
-                                android:clickable="true"
-                                android:elevation="1dp"
-                                android:focusable="true"
-                                android:gravity="center"
-                                android:orientation="horizontal"
-                                android:padding="5dip">
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="15dp"
+                                android:paddingLeft="10dp"
+                                android:text="@string/tree"
+                                android:textColor="@color/Black"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
 
-                                <ImageView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:src="@android:drawable/ic_menu_directions"
-                                    android:textColor="@color/Black" />
+                            <TextView
+                                android:id="@+id/tv_workers"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="15dp"
+                                android:paddingLeft="10dp"
+                                android:text="@string/workers"
+                                android:textColor="@color/Black"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
 
-                                <TextView
-                                    android:id="@+id/tvr2"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Botón"
-                                    android:textColor="@color/White"
-                                    android:textSize="12sp"
-                                    android:textStyle="bold" />
-                            </LinearLayout>
+                            <TextView
+                                android:id="@+id/tv_kg"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="15dp"
+                                android:paddingLeft="10dp"
+                                android:text="@string/total_kg"
+                                android:textColor="@color/Black"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
                         </LinearLayout>
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_weight="1"
                             android:orientation="vertical">
 
-                            <LinearLayout
-                                android:id="@+id/btn_sare"
+                            <TextView
+                                android:id="@+id/tv_porciento"
                                 android:layout_width="match_parent"
-                                android:layout_height="5dp"
-                                android:layout_margin="3dip"
-                                android:layout_weight="1"
-                                android:background="@drawable/button_yellow"
-                                android:clickable="true"
-                                android:elevation="1dp"
-                                android:focusable="true"
-                                android:gravity="center"
-                                android:orientation="horizontal"
-                                android:padding="5dip">
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:paddingLeft="10dp"
+                                android:text="@string/half_efficiency"
+                                android:textAlignment="center"
+                                android:textColor="@color/Black"
+                                android:textSize="14sp"
+                                android:textStyle="bold"
+                                tools:layout_editor_absoluteX="0dp"
+                                tools:layout_editor_absoluteY="0dp" />
 
-                                <ImageView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:src="@android:drawable/ic_menu_share" />
-
-                                <TextView
-                                    android:id="@+id/txtView"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Botón"
-                                    android:textColor="@color/White"
-                                    android:textSize="12sp"
-                                    android:textStyle="bold" />
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:id="@+id/bn_ir"
+                            <com.hookedonplay.decoviewlib.DecoView
+                                android:id="@+id/dynamicArcView"
                                 android:layout_width="match_parent"
-                                android:layout_height="5dp"
-                                android:layout_margin="3dip"
-                                android:layout_weight="1"
-                                android:background="@drawable/button_yellow"
-                                android:clickable="true"
-                                android:elevation="1dp"
-                                android:focusable="true"
-                                android:gravity="center"
-                                android:orientation="horizontal"
-                                android:padding="5dip">
+                                android:layout_height="wrap_content"
+                                tools:layout_editor_absoluteX="8dp"
+                                tools:layout_editor_absoluteY="8dp" />
 
-                                <ImageView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:src="@android:drawable/ic_menu_directions"
-                                    android:textColor="@color/Black" />
-
-                                <TextView
-                                    android:id="@+id/tIr"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Botón"
-                                    android:textColor="@color/White"
-                                    android:textSize="12sp"
-                                    android:textStyle="bold" />
-                            </LinearLayout>
                         </LinearLayout>
-
                     </LinearLayout>
 
                     <View
@@ -459,15 +373,6 @@
                         android:layout_marginTop="10dip"
                         android:background="@color/GrisClaro" />
 
-
-                    <LinearLayout
-                        android:id="@+id/layout_butto"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dip"
-                        android:orientation="horizontal">
-
-                    </LinearLayout>
 
                 </LinearLayout>
 

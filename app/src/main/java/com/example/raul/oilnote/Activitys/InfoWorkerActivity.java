@@ -550,22 +550,6 @@ public class InfoWorkerActivity extends BaseActivity {
         arcView.addEvent(new DecoEvent.Builder(animation).setIndex(series1Index).setDelay(3500).build());
         arcView.addEvent(new DecoEvent.Builder(half).setIndex(series1Index).setDelay(6750).build());
 
-        // Le pasamos los valores a la gráfica:
-        seriesItem1.addArcSeriesItemListener(new SeriesItem.SeriesItemListener() {
-            @SuppressLint("DefaultLocale")
-            @Override
-            public void onSeriesItemAnimationProgress(float percentComplete, float currentPosition) {
-                // Obtenemos el porcentaje a mostrar:
-                float percentFilled = ((currentPosition - seriesItem1.getMinValue()) / (seriesItem1.getMaxValue() - seriesItem1.getMinValue()));
-                // Se lo pasamos al TextView:
-                tvPorciento.setText(String.format("%.0f%%", percentFilled * 100f));
-            }
-
-            @Override
-            public void onSeriesItemDisplayProgress(float percentComplete) {
-
-            }
-        });
     }
 
     @Override

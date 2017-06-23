@@ -191,7 +191,7 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
                 }
                 break;
 
-            // Botón para acceder a la actividad para añadir jornales:
+            // Botón para acceder a la actividad para añadir parcela:
             case R.id.add_plot:
                 if(!BaseActivity.this.getClass().equals(AddPlotActivity.class)){
                     intent = new Intent(this,AddPlotActivity.class);
@@ -200,7 +200,7 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
                 }
                 break;
 
-            // Botón para acceder a la actividad para añadir jornales:
+            // Botón para acceder a la actividad para añadir pesajes:
             case R.id.add_weight:
                 if(!BaseActivity.this.getClass().equals(AddWeightActivity.class)){
                     intent = new Intent(this,AddWeightActivity.class);
@@ -209,10 +209,19 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
                 }
                 break;
 
-            // Botón para acceder a la actividad para añadir jornales:
+            // Botón para acceder a la actividad para añadir gastos:
             case R.id.list_expense:
                 if(!BaseActivity.this.getClass().equals(ListExpensesActivity.class)){
                     intent = new Intent(this,ListExpensesActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                }
+                break;
+
+            // Botón para acceder a la actividad de opciones:
+            case R.id.nav_options:
+                if(!BaseActivity.this.getClass().equals(OptionsActivity.class)){
+                    intent = new Intent(this,OptionsActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
                 }

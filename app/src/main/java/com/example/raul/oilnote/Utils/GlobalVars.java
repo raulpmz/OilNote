@@ -30,5 +30,8 @@ public class GlobalVars {
                                                   "Le mandamos este correo para mostrarle los datos con" +
                                                   "los que se ha registrado. ";
 
+    public static String CHANGEPASS             = "Le mandamos este correo para confrimas el cambio de contraseña." +
+                                                  "Su nueva contraseña es:  ";
+
 
 }

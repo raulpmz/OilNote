@@ -1,0 +1,17 @@
+<preference-headers xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- These settings headers are only used on tablets. -->
+
+    <header
+        android:fragment="com.example.raul.oilnote.Activitys.SettingsActivity$GeneralPreferenceFragment"
+        android:icon="@drawable/profile_24"
+        android:title="@string/profile"
+        android:summary="@string/summary_profile"/>
+
+    <header
+        android:fragment="com.example.raul.oilnote.Activitys.SettingsActivity$NotificationPreferenceFragment"
+        android:icon="@drawable/notification_24"
+        android:title="@string/notification"
+        android:summary="@string/summary_notification"/>
+
+</preference-headers>

@@ -55,9 +55,19 @@
         <activity android:name=".Activitys.InfoPlotActivity" />
         <activity android:name=".Activitys.AddWeightActivity" />
         <activity android:name=".Activitys.InfoWeightActivity" />
-        <activity android:name=".Activitys.EditWeightActivity"/>
+        <activity android:name=".Activitys.EditWeightActivity" />
         <activity android:name=".Activitys.ListExpensesActivity" />
-        <activity android:name=".Activitys.AddExpenseActivity"></activity>
+        <activity android:name=".Activitys.AddExpenseActivity" />
+        <activity
+            android:name=".Activitys.SettingsActivity"
+            android:label="@string/title_activity_settings"
+            android:parentActivityName=".Activitys.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.raul.oilnote.Activitys.MainActivity" />
+        </activity>
+        <activity android:name=".Activitys.OptionsActivity" />
+        <activity android:name=".Activitys.ChangePassword"></activity>
     </application>
 
 </manifest>

@@ -91,9 +91,6 @@ public class AddJornalActivity extends BaseActivity {
         // Evento para controlar la el radiobuton con el cual le daremos visibilidad al linearSalary:
         eventRadioButton();
 
-        // Control de prioridad al tocar los elementos dentro de un ScrollView:
-        controlTouchEvent();
-
     }
 
     public void eventRadioButton(){
@@ -124,27 +121,6 @@ public class AddJornalActivity extends BaseActivity {
             }
         });
 
-
-    }
-
-    // Con este metodo solucionamos el problema que se origina la intentar interactuar con elementos
-    // que se encuentran dentro de un ScrollView:
-    public void controlTouchEvent(){
-
-        calendar.setOnTouchListener(new View.OnTouchListener() {
-            public boolean onTouch(View v, MotionEvent event) {
-                scrollView.requestDisallowInterceptTouchEvent(false);
-                Log.e("Tocando","Tocando");
-                return false;
-            }
-        });
-
-        scrollView.setOnTouchListener(new View.OnTouchListener() {
-            public boolean onTouch(View v, MotionEvent event) {
-                calendar.requestDisallowInterceptTouchEvent(true);
-                return false;
-            }
-        });
 
     }
 

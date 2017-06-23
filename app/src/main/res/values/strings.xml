@@ -7,6 +7,7 @@
     <string name="loading">Cargando datos...</string>
     <string name="checking">Comprobando datos...</string>
     <string name="user_register">"Registrado usuario..."</string>
+    <string name="change_password">"Cambiando contraseña..."</string>
     <string name="save">Guardando...</string>
     <string name="options">Opciones</string>
     <string name="cancel">Cancelar</string>
@@ -46,12 +47,19 @@
     <string name="tv_registration">¿No tienes cuenta aún? Create una</string>
     <string name="login_fail">El usuario no existe o la contraseña es incorrecta</string>
     <string name="emptry_camp">Este campo no puede estar vacio</string>
+    <string name="distinc_camp">Las contraseñas no coinciden</string>
     <string name="error_password">La contraseña debe de contener al menos 6 caracteres</string>
+    <string name="equals_password">La contraseña nueva debe de ser diferente a la anterior</string>
+    <string name="error_old_password">La contraseña no coincide con la que hay actualmente</string>
 
     <!--                Main_Activity               -->
 
     <string name="calendar">Calendario</string>
     <string name="fast_access">Acceso rápido</string>
+    <string name="general_info">Información general</string>
+    <string name="tree">Olivas</string>
+    <string name="worker_list">Lista de trabajadores</string>
+    <string name="add_expense">Añadir gasto</string>
 
     <!--            Registration_Activity           -->
 
@@ -69,6 +77,8 @@
     <string name="error_user">El usuario debe de contener al menos 4 caracteres</string>
     <string name="successful_registration">Usuario registrado exitosamente</string>
     <string name="error_registration">Fallo en el registro del usuario</string>
+    <string name="successful_change">La contraseña a sido cambiada exitosamente</string>
+    <string name="error_change">Fallo en cambio de contraseña</string>
 
     <!--                  DrawerMenu                -->
 
@@ -89,9 +99,32 @@
     <string name="_efficiency">Indique el rendimiento</string>
     <string name="efficiency">Rendimiento</string>
 
+    <!--                  Pereferences                -->
+
+    <string name="preferences">Preferencias</string>
+    <string name="profile">Perfil</string>
+    <string name="summary_profile">Edita los detalles de tu perfil</string>
+    <string name="acount">Cuenta</string>
+    <string name="summary_acount">Cambia tu contraseña</string>
+    <string name="notification">Notificaciones</string>
+    <string name="summary_notification">Activa o desactiva las notificaciones</string>
+
+    <!--                  Pereferences                -->
+
+    <string name="segurity">Seguridad</string>
+    <string name="change_pass">Cambia tu contraseña</string>
+    <string name="type_jornal">Tipo jornales</string>
+    <string name="change_jornal">Administa el tipo de jornal a pagar</string>
+    <string name="auto_login">Logueo automatico</string>
+    <string name="change_auto_login">Activa o desactiva el logueo automático</string>
+    <string name="old_pass">Contraseña actual</string>
+    <string name="new_pass">Contraseña nueva</string>
+    <string name="comfir_pass">Comfirmar contraseña</string>
+
     <!--               ListWorkerActivity            -->
 
     <string name="worker">"Trabajador"</string>
+    <string name="workers">"Trabajadores"</string>
     <string name="salary">"Salario"</string>
     <string name="successful_remove_worker">El trabajador fue elimidado con exito</string>
     <string name="error_remove_worker">El trabajador fue no elimidado con exito</string>
@@ -143,7 +176,8 @@
     <string name="error_remove_plot">La parcela no fue elimidada con exito</string>
     <string name="are_sure_plant">¿Está seguro de que desea borrar esta parcela?</string>
     <string name="total_weight">Total recogidos </string>
-    <string name="half_efficiency">Total recogidos </string>
+    <string name="total_kg">Kg recogidos </string>
+    <string name="half_efficiency">Rendimiento medio </string>
 
     <!--               ListWeigthsActivity             -->
 
@@ -189,6 +223,7 @@
 
     <!--               AddPlotActivity             -->
 
+    <string name="plots">Parcelas</string>
     <string name="name_plot">Nombre de la parcela</string>
     <string name="number_plot">Número de olivas</string>
     <string name="weigths">Pesajes</string>
@@ -213,5 +248,78 @@
 
     <string name="successful_edit_weight">El pesaje ha sido editado correctamente</string>
     <string name="error_edit_weight">El pesaje no ha sido editado correctamente</string>
+    <string name="title_activity_settings">Settings</string>
+
+    <!-- Strings related to Settings -->
+
+    <!-- Example General settings -->
+    <string name="pref_header_general">General</string>
+
+    <string name="pref_title_social_recommendations">Enable social recommendations</string>
+    <string name="pref_description_social_recommendations">Recommendations for people to contact
+        based on your message history
+    </string>
+
+    <string name="pref_title_display_name">Nombre de Usuario</string>
+    <string name="pref_default_display_name">Usuario</string>
+
+    <string name="pref_title_add_friends_to_messages">Add friends to messages</string>
+    <string-array name="pref_example_list_titles">
+        <item>Always</item>
+        <item>When possible</item>
+        <item>Never</item>
+    </string-array>
+    <string-array name="pref_example_list_values">
+        <item>1</item>
+        <item>0</item>
+        <item>-1</item>
+    </string-array>
+
+    <!-- Example settings for Data & Sync -->
+    <string name="pref_header_data_sync">Data &amp; sync</string>
+
+    <string name="pref_title_sync_frequency">Sync frequency</string>
+    <string-array name="pref_sync_frequency_titles">
+        <item>15 minutes</item>
+        <item>30 minutes</item>
+        <item>1 hour</item>
+        <item>3 hours</item>
+        <item>6 hours</item>
+        <item>Never</item>
+    </string-array>
+    <string-array name="pref_sync_frequency_values">
+        <item>15</item>
+        <item>30</item>
+        <item>60</item>
+        <item>180</item>
+        <item>360</item>
+        <item>-1</item>
+    </string-array>
+
+    <string-array name="list_preference_entries">
+        <item>Entry 1</item>
+        <item>Entry 2</item>
+        <item>Entry 3</item>
+    </string-array>
+
+    <string-array name="list_preference_entry_values">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+
+    <string-array name="multi_select_list_preference_default_value" />
+
+    <string name="pref_title_system_sync_settings">System sync settings</string>
+
+    <!-- Example settings for Notifications -->
+    <string name="pref_header_notifications">Notifications</string>
+
+    <string name="pref_title_new_message_notifications">Recibir notificaciones</string>
+
+    <string name="pref_title_ringtone">Sonido</string>
+    <string name="pref_ringtone_silent">Silencio</string>
+
+    <string name="pref_title_vibrate">Vibración</string>
 
 </resources>
