@@ -26,11 +26,12 @@ public class GlobalVars {
     public static String MAIL_APP               = "oilnoteapp@gmail.com";
     public static String MAIL_PASS              = "proyectonote";
     public static String SUBJETC                = "Oil Note le da la BIENVENIDA!!";
+    public static String SUBJETC2               = "Cambio de contraseña";
     public static String CONTENT                = "Nos complace darle la bienvenida a esta aplación. " +
                                                   "Le mandamos este correo para mostrarle los datos con" +
                                                   "los que se ha registrado. ";
 
-    public static String CHANGEPASS             = "Le mandamos este correo para confrimas el cambio de contraseña." +
+    public static String CHANGEPASS             = "Le mandamos este correo para confirmar el cambio de contraseña. " +
                                                   "Su nueva contraseña es:  ";
 
 

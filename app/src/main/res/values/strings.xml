@@ -125,6 +125,18 @@
     <string name="new_pass">Contraseña nueva</string>
     <string name="comfir_pass">Comfirmar contraseña</string>
 
+    <!--               TypeJornalActivity            -->
+
+    <string name="asaja">"Asaja"</string>
+    <string name="seis_quince">"6 horas y 15 minutos"</string>
+    <string name="seis_treinta">"6 horas y 30 minutos"</string>
+    <string name="siete_descanso">"7 horas con descanso</string>
+    <string name="siete">"7 horas"</string>
+    <string name="custom">"Personalizado"</string>
+    <string name="cant">"Cuantia (€)"</string>
+    <string name="custom_text">"Crea un jornal personalizado"</string>
+
+
     <!--               ListWorkerActivity            -->
 
     <string name="worker">"Trabajador"</string>

@@ -26,6 +26,7 @@ import static com.example.raul.oilnote.Utils.GlobalVars.CONTENT;
 import static com.example.raul.oilnote.Utils.GlobalVars.MAIL_APP;
 import static com.example.raul.oilnote.Utils.GlobalVars.MAIL_PASS;
 import static com.example.raul.oilnote.Utils.GlobalVars.SUBJETC;
+import static com.example.raul.oilnote.Utils.GlobalVars.SUBJETC2;
 import static com.example.raul.oilnote.Utils.GlobalVars.USER_COD;
 import static com.example.raul.oilnote.Utils.GlobalVars.USER_EMAIL;
 import static com.example.raul.oilnote.Utils.GlobalVars.USER_PASSWORD;
@@ -188,7 +189,7 @@ public class ChangePassword extends AppCompatActivity {
 
     public void sendMail(){
         new MailJob(MAIL_APP, MAIL_PASS).execute(
-                new MailJob.Mail(MAIL_APP, USER_EMAIL, SUBJETC, CHANGEPASS + pass)
+                new MailJob.Mail(MAIL_APP, USER_EMAIL, SUBJETC2, CHANGEPASS + pass)
         );
     }
 }

@@ -67,7 +67,8 @@
                 android:value="com.example.raul.oilnote.Activitys.MainActivity" />
         </activity>
         <activity android:name=".Activitys.OptionsActivity" />
-        <activity android:name=".Activitys.ChangePassword"></activity>
+        <activity android:name=".Activitys.ChangePassword" />
+        <activity android:name=".Activitys.TypeJornalActivity"></activity>
     </application>
 
 </manifest>

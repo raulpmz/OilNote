@@ -31,7 +31,7 @@ public class OptionsActivity extends BaseActivity {
         linearJornal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //startActivity(new Intent(OptionsActivity.this, ChangePassword.class));
+                startActivity(new Intent(OptionsActivity.this, TypeJornalActivity.class));
             }
         });
 
