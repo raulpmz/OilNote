@@ -254,7 +254,7 @@ public class ListWorkerActivity extends BaseActivity {
         }
     }
 
-    // Mapeo los dato del JSONArray que recivo en una lista de trabajadores para montar el adaptador:
+    // Mapeo los dato del JSONArray que recibo en una lista de trabajadores para montar el adaptador:
     public List<Worker> mapWorkersList(JSONArray jsonArray) throws JSONException {
 
         List<Worker> lw = new ArrayList<>();

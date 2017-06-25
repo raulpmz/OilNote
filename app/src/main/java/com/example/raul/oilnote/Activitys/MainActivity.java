@@ -12,6 +12,7 @@ import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.CalendarView;
 import android.widget.TextView;
@@ -53,7 +54,7 @@ public class MainActivity extends BaseActivity {
         tv_workers  = (TextView) findViewById(R.id.tv_workers);
         tv_kgs      = (TextView) findViewById(R.id.tv_kg);
 
-        // DecoView (Grafica):
+        // DecoView (Gráfica):
         arcView     = (DecoView)findViewById(R.id.dynamicArcView);
 
         Log.e("CODIGO USUARIO","" + USER_COD);Log.e("NOMBRE USUARIO",USER_NAME);Log.e("CORREO USUARIO",USER_EMAIL);Log.e("CONTRASEÑA USUARIO",USER_PASSWORD);
@@ -232,10 +233,25 @@ public class MainActivity extends BaseActivity {
                         .build()
         );
 
-        // Configuramos 2 animaciones para mostrar el resultado en dos tiempos:
-        //arcView.addEvent(new DecoEvent.Builder(animation).setIndex(series1Index).setDelay(3500).build());
+        // Configuramos la animación:
         arcView.addEvent(new DecoEvent.Builder(half).setIndex(series1Index).setDelay(3500).build());
 
+    }
+
+    public void buttonJornal(View v){
+        startActivity(new Intent (MainActivity.this,AddJornalActivity.class));
+    }
+
+    public void buttonWeight(View v){
+        startActivity(new Intent (MainActivity.this,AddWeightActivity.class));
+    }
+
+    public void buttonWorkers(View v){
+        startActivity(new Intent (MainActivity.this,ListWorkerActivity.class));
+    }
+
+    public void buttonExpenses(View v){
+        startActivity(new Intent (MainActivity.this,AddExpenseActivity.class));
     }
 
 }

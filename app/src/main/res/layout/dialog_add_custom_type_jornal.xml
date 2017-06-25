@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@color/Gris"
     android:padding="36dp">
 
@@ -23,7 +23,7 @@
         android:background="@color/GrisOscuro" />
 
     <EditText
-        android:id="@+id/nombre_input"
+        android:id="@+id/et_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -34,23 +34,26 @@
         android:inputType="textPersonName" />
 
     <EditText
-        android:id="@+id/contrasena_input"
+        android:id="@+id/et_cuantity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/et_name"
         android:ems="10"
         android:hint="@string/cant"
         android:inputType="numberDecimal"
-        android:layout_below="@+id/nombre_input"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:maxLength="5" />
 
 
     <Button
-        android:id="@+id/entrar_boton"
+        android:id="@+id/button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:text="@string/add"
-        android:textAppearance="@style/TextAppearance.AppCompat" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/et_cuantity"
+        android:layout_marginTop="35dp"
+        android:onClick="buttonTypeJornal"
+        android:text="@string/add" />
 </RelativeLayout>

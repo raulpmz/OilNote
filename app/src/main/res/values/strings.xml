@@ -135,6 +135,8 @@
     <string name="custom">"Personalizado"</string>
     <string name="cant">"Cuantia (€)"</string>
     <string name="custom_text">"Crea un jornal personalizado"</string>
+    <string name="successful_add_type_jornal">El tipo de jornal fue añadido con exito</string>
+    <string name="error_add_type_jornal">El tipo de jornal no fue añadido con exito</string>
 
 
     <!--               ListWorkerActivity            -->

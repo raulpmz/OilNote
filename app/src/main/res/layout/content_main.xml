@@ -131,7 +131,7 @@
                             android:orientation="vertical">
 
                             <LinearLayout
-                                android:id="@+id/btn_share1"
+                                android:id="@+id/btn_add_jornal"
                                 android:layout_width="match_parent"
                                 android:layout_height="5dp"
                                 android:layout_margin="3dip"
@@ -141,6 +141,7 @@
                                 android:elevation="1dp"
                                 android:focusable="true"
                                 android:gravity="center"
+                                android:onClick="buttonJornal"
                                 android:orientation="horizontal"
                                 android:padding="5dip">
 
@@ -155,7 +156,7 @@
                             </LinearLayout>
 
                             <LinearLayout
-                                android:id="@+id/btn_ir1"
+                                android:id="@+id/btn_list_workers"
                                 android:layout_width="match_parent"
                                 android:layout_height="5dp"
                                 android:layout_margin="3dip"
@@ -165,6 +166,7 @@
                                 android:elevation="1dp"
                                 android:focusable="true"
                                 android:gravity="center"
+                                android:onClick="buttonWorkers"
                                 android:orientation="horizontal"
                                 android:padding="5dip">
 
@@ -186,7 +188,7 @@
                             android:orientation="vertical">
 
                             <LinearLayout
-                                android:id="@+id/btn_share"
+                                android:id="@+id/btn_add_weight"
                                 android:layout_width="match_parent"
                                 android:layout_height="5dp"
                                 android:layout_margin="3dip"
@@ -196,6 +198,7 @@
                                 android:elevation="1dp"
                                 android:focusable="true"
                                 android:gravity="center"
+                                android:onClick="buttonWeight"
                                 android:orientation="horizontal"
                                 android:padding="5dip">
 
@@ -210,7 +213,7 @@
                             </LinearLayout>
 
                             <LinearLayout
-                                android:id="@+id/btn_ir"
+                                android:id="@+id/btn_add_expense"
                                 android:layout_width="match_parent"
                                 android:layout_height="5dp"
                                 android:layout_margin="3dip"
@@ -220,6 +223,7 @@
                                 android:elevation="1dp"
                                 android:focusable="true"
                                 android:gravity="center"
+                                android:onClick="buttonExpenses"
                                 android:orientation="horizontal"
                                 android:padding="5dip">
 
