@@ -1,7 +1,9 @@
 package com.example.raul.oilnote.Activitys;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -34,6 +36,8 @@ public class LoginActivity extends BaseActivity {
     protected EditText et_user, et_password;
     protected String username, userpassword;
     protected Connection connection;
+    protected SharedPreferences prefs;
+    protected SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +63,10 @@ public class LoginActivity extends BaseActivity {
         // Clase Conexión:
         connection  = new Connection();
 
+        // Preferencias:
+        prefs = getSharedPreferences("MisPreferencias", Context.MODE_PRIVATE);
+        editor = prefs.edit();
+
         // Object's:
         user = new User();
     }
@@ -81,6 +89,27 @@ public class LoginActivity extends BaseActivity {
                 startActivity(new Intent(this,RegistrationActivity.class));
                 finish();
                 break;
+        }
+    }
+
+    public void autoLoginVerification(){
+        //Compruebo que el usuario está validado:
+        if (prefs.getBoolean("is_login", false)) {
+            //Logueo automático:
+            USER_COD        = prefs.getInt("user_cod",1);
+            USER_NAME       = prefs.getString("user_name", "");
+            USER_EMAIL      = prefs.getString("user_email", "");
+            USER_PASSWORD   = prefs.getString("user_pass", "");
+
+            //Insertar datos del usuario:
+            et_user.setText(USER_COD);
+            et_password.setText(USER_EMAIL);
+
+            username = USER_NAME;
+            userpassword = USER_PASSWORD;
+
+            //Procedo a obtener los datnew LoginTask().execute();
+            new LoginTask().execute();
         }
     }
 
@@ -114,6 +143,13 @@ public class LoginActivity extends BaseActivity {
         USER_NAME       = user.getUserName();
         USER_EMAIL      = user.getEmail();
         USER_PASSWORD   = user.getPassword();
+
+        editor.putBoolean("is_login", true);
+        editor.putInt("user_cod", USER_COD);
+        editor.putString("user_name", USER_NAME);
+        editor.putString("user_email", USER_EMAIL);
+        editor.putString("user_pass", USER_PASSWORD);
+        editor.commit();
     }
 
     // Si los datos complen de forma correcta las condiciones se inicia la consulta asincrona:

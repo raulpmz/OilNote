@@ -212,6 +212,7 @@ public class AddJornalActivity extends BaseActivity {
 
         private HashMap<String, String> parametrosPost = new HashMap<>();
 
+
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
