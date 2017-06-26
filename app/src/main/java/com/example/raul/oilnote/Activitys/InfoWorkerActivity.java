@@ -40,6 +40,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -511,7 +512,10 @@ public class InfoWorkerActivity extends BaseActivity {
             cont += money;
         }
 
-        return cont + " €";
+        DecimalFormat df = new DecimalFormat("0.00");
+        String fotmat = df.format(cont);
+
+        return fotmat + " €";
     }
 
     /**

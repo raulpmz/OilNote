@@ -30,6 +30,7 @@
                 android:layout_height="wrap_content"
                 android:background="@color/MarronNegro"
                 android:text="@string/marginbenefits"
+                android:textAlignment="center"
                 android:textColor="@color/Gris"
                 android:textSize="20dip"
                 android:textStyle="bold" />
