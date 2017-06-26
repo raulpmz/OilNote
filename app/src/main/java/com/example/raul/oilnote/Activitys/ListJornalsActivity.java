@@ -155,7 +155,7 @@ public class ListJornalsActivity extends BaseActivity {
                                 if(pos == 0){
                                     dialog.dismiss();
                                     alert2.setTitle(R.string.attention);
-                                    alert2.setMessage(R.string.are_sure_plant);
+                                    alert2.setMessage(R.string.are_sure_jornal);
                                     alert2.setPositiveButton(R.string.add_remove, new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {

@@ -1,5 +1,7 @@
 package com.example.raul.oilnote.Activitys;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -17,6 +19,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.raul.oilnote.Objects.Person;
+import com.example.raul.oilnote.Objects.TypeJornal;
 import com.example.raul.oilnote.Objects.Worker;
 import com.example.raul.oilnote.R;
 
@@ -36,18 +40,23 @@ import static com.example.raul.oilnote.Utils.GlobalVars.USER_COD;
 public class AddJornalActivity extends BaseActivity {
 
     protected List<Worker> listWorkers, listJW, lw;
+    protected List<TypeJornal> listTypeJornals;
     protected RadioButton rb_assist, rb_miss;
-    protected String date, worker_cod, name;
+    protected String date, worker_cod, name, salary;
     protected LinearLayout linearSalary;
     protected SimpleDateFormat ss1, ss2;
     protected ScrollView scrollView;
     protected CalendarView calendar;
     protected TextView tv_date;
-    protected Spinner spinner;
+    protected Spinner spinner, spSalary;
+    protected SharedPreferences prefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState, R.layout.activity_add_jornal);
+
+        // Preferencias:
+        prefs = getSharedPreferences("MisPreferencias", Context.MODE_PRIVATE);
 
         // CalendarView:
         calendar        = (CalendarView) findViewById(R.id.calendar_add_jornal);
@@ -64,6 +73,7 @@ public class AddJornalActivity extends BaseActivity {
 
         // Spinner:
         spinner         = (Spinner) findViewById(R.id.sp_add_jornal);
+        spSalary        = (Spinner) findViewById(R.id.sp_salary);
 
         // LinearLayout:
         linearSalary    = (LinearLayout) findViewById(R.id.LinearSpinnerSalary);
@@ -71,6 +81,7 @@ public class AddJornalActivity extends BaseActivity {
         // ArrayList's:
         listWorkers     = new ArrayList<>();
         listJW          = new ArrayList<>();
+        listTypeJornals = new ArrayList<>();
 
         // SimpleDateFormat:
         ss1             = new SimpleDateFormat("dd-MM-yyyy");
@@ -128,6 +139,7 @@ public class AddJornalActivity extends BaseActivity {
     public void buttonSave(View v){
         worker_cod  = lw.get(spinner.getSelectedItemPosition()).getWorkerCod();
         name        = spinner.getSelectedItem().toString();
+        salary      = listTypeJornals.get(spSalary.getSelectedItemPosition()).getMoney();
 
         if(rb_assist.isChecked()){
             new AddJornalWorkersTask().execute();
@@ -171,9 +183,32 @@ public class AddJornalActivity extends BaseActivity {
         }
     }
 
+    // Mapeo los datos del JSONArray que recibo para montar el adaptador:
+    public List<TypeJornal> mapTypeJornalList(JSONArray jsonArray) throws JSONException {
+
+        List<TypeJornal> lw = new ArrayList<>();
+
+        if(jsonArray != null){
+            for(int i = 0; i < jsonArray.length() ; i++ ){
+
+                TypeJornal typeJornal = new TypeJornal();
+
+                typeJornal.setId(jsonArray.getJSONObject(i).getString("type"));
+                typeJornal.setName(jsonArray.getJSONObject(i).getString("type_name"));
+                typeJornal.setMoney(jsonArray.getJSONObject(i).getString("type_value"));
+
+                lw.add(typeJornal);
+            }
+            listTypeJornals = lw;
+        }
+
+        return lw;
+    }
+
     // Metodo para rellenar el spiner con los trabajadores disponebles para apuntar el jornal
     public void fillSpinner(){
         List<String> lw2 = new ArrayList<>();
+        List<String> lSalary = new ArrayList<>();
         lw = new ArrayList<>();
         boolean contains;
 
@@ -201,7 +236,20 @@ public class AddJornalActivity extends BaseActivity {
         spinner_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(spinner_adapter);
 
+        for(int i = 0 ; i< listTypeJornals.size(); i++){
+            lSalary.add(listTypeJornals.get(i).getName() + " - " + listTypeJornals.get(i).getMoney());
+        }
+
+        //Creamos el adaptador:
+        ArrayAdapter spinneradapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, lSalary);
+
+        //Añadimos el layout para el menú y rellenamos el spinner:
+        spinner_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spSalary.setAdapter(spinneradapter);
+
     }
+
+
 
     /**
      *  Hilos.
@@ -211,6 +259,10 @@ public class AddJornalActivity extends BaseActivity {
     class WorkersTask extends AsyncTask<Void, Void, JSONArray> {
 
         private HashMap<String, String> parametrosPost = new HashMap<>();
+        private JSONArray jsonArrayWorkers  = new JSONArray();
+        private JSONArray jsonArrayJornals  = new JSONArray();
+        private JSONArray jsonArrayMissings = new JSONArray();
+        private JSONArray jsonArraySalary   = new JSONArray();
 
 
         @Override
@@ -224,11 +276,44 @@ public class AddJornalActivity extends BaseActivity {
 
             try {
                 // Consulto los trabajadores que tiene el usuario:
-                parametrosPost.put("ins_sql", "SELECT * FROM workers WHERE user_cod = '" + USER_COD + "' ORDER BY worker_name");
-                jSONArray = connection.sendRequest(BASE_URL_READ, parametrosPost);
-                if (jSONArray != null) {
-                    return jSONArray;
+                parametrosPost.put("ins_sql",   "SELECT * FROM workers " +
+                                                "WHERE user_cod = '" + USER_COD + "' " +
+                                                "ORDER BY worker_name");
+                jsonArrayWorkers = connection.sendRequest(BASE_URL_READ, parametrosPost);
+
+                // Consulto los trabajadores tienen anotados ya el jornal ese día:
+                parametrosPost.put("ins_sql",   "SELECT worker_cod, worker_name " +
+                                                "FROM jornals  " +
+                                                "WHERE jornal_date = '"+ date +"' " +
+                                                "AND user_cod = '" + USER_COD + "' ORDER BY worker_name");
+                jsonArrayJornals = connection.sendRequest(BASE_URL_READ, parametrosPost);
+
+                // Consulto los trabajadores que tienen una falta ese día:
+                parametrosPost.put("ins_sql",   "SELECT worker_cod, worker_name " +
+                                                "FROM missings " +
+                                                "WHERE missing_date = '"+ date +"' " +
+                                                "AND user_cod = '" + USER_COD + "' " +
+                                                "ORDER BY worker_name");
+                jsonArrayMissings = connection.sendRequest(BASE_URL_READ, parametrosPost);
+
+                // Según las preferencias del salario que tengamos escogidas obtengo unos precios u otros:
+                if(prefs.getInt("type_jornal",1) == 5){
+                    parametrosPost.put("ins_sql",   "SELECT * " +
+                                                    "FROM type_jornal " +
+                                                    "WHERE user_cod = '" + USER_COD + "' ");
+                    Log.e("parametrosPost",""+parametrosPost);
+                    jsonArraySalary = connection.sendRequest(BASE_URL_READ, parametrosPost);
+                }else{
+                    parametrosPost.put("ins_sql",   "SELECT * " +
+                                                    "FROM asaja " +
+                                                    "WHERE type = '"+ prefs.getInt("type_jornal",1) +"'");
+                    Log.e("parametrosPost",""+parametrosPost);
+                    jsonArraySalary = connection.sendRequest(BASE_URL_READ, parametrosPost);
                 }
+
+
+                return jSONArray;
+
             } catch (Exception e) {
                 e.getMessage();
             }
@@ -243,13 +328,28 @@ public class AddJornalActivity extends BaseActivity {
             onStopProgressDialog();
 
             try {
-                if(jsonArray != null){
-                    listWorkers = mapWorkersList(jsonArray);
-                    new JornalWorkersTask().execute();
+                if(jsonArrayWorkers != null){
+                    listWorkers = mapWorkersList(jsonArrayWorkers);
 
                 }else{
                     // Poner mensaje avisando de que no tiene trabajadores.
                 }
+
+                if(jsonArrayJornals != null){
+                    mapListJW(jsonArrayJornals);
+                }
+
+                if(jsonArrayMissings != null){
+                    mapListJW(jsonArrayMissings);
+
+                }
+
+                if(jsonArraySalary != null){
+                    mapTypeJornalList(jsonArraySalary);
+                }
+                Log.e("lita jornales",""+listTypeJornals.size());
+                fillSpinner();
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -260,6 +360,8 @@ public class AddJornalActivity extends BaseActivity {
     class JornalWorkersTask extends AsyncTask<Void, Void, JSONArray> {
 
         private HashMap<String, String> parametrosPost = new HashMap<>();
+        private JSONArray jsonArrayJornals  = new JSONArray();
+        private JSONArray jsonArrayMissings = new JSONArray();
 
         @Override
         protected void onPreExecute() {
@@ -276,10 +378,18 @@ public class AddJornalActivity extends BaseActivity {
                                                 "FROM jornals  " +
                                                 "WHERE jornal_date = '"+ date +"' " +
                                                 "AND user_cod = '" + USER_COD + "' ORDER BY worker_name");
-                jSONArray = connection.sendRequest(BASE_URL_READ, parametrosPost);
-                if (jSONArray != null) {
-                    return jSONArray;
-                }
+                jsonArrayJornals = connection.sendRequest(BASE_URL_READ, parametrosPost);
+
+                // Consulto los trabajadores que tienen una falta ese día:
+                parametrosPost.put("ins_sql",   "SELECT worker_cod, worker_name " +
+                        "FROM missings " +
+                        "WHERE missing_date = '"+ date +"' " +
+                        "AND user_cod = '" + USER_COD + "' " +
+                        "ORDER BY worker_name");
+                jsonArrayMissings = connection.sendRequest(BASE_URL_READ, parametrosPost);
+
+                return jSONArray;
+
             } catch (Exception e) {
                 e.getMessage();
             }
@@ -292,19 +402,22 @@ public class AddJornalActivity extends BaseActivity {
             super.onPostExecute(jsonArray);
             onStopProgressDialog();
             try {
-                if(jsonArray != null){
-                    mapListJW(jsonArray);
-                    new MissingWorkersTask().execute();
-                }else{
-                    // Poner mensaje avisando de que no tiene trabajadores.
+                if(jsonArrayJornals != null){
+                    mapListJW(jsonArrayJornals);
                 }
+                if(jsonArrayMissings != null){
+                    mapListJW(jsonArrayMissings);
+                }
+
+                fillSpinner();
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
     }
 
-    // Hilo para obtener los trabajadores que tienen ese dia anotado ya:
+    /*// Hilo para obtener los trabajadores que tienen ese dia anotado ya:
     class MissingWorkersTask extends AsyncTask<Void, Void, JSONArray> {
 
         private HashMap<String, String> parametrosPost = new HashMap<>();
@@ -352,7 +465,7 @@ public class AddJornalActivity extends BaseActivity {
                 e.printStackTrace();
             }
         }
-    }
+    }*/
 
     // Hilo anotar la asistencia del trabajador:
     class AddJornalWorkersTask extends AsyncTask<Void,Void,JSONObject>{
@@ -369,8 +482,8 @@ public class AddJornalActivity extends BaseActivity {
         protected JSONObject doInBackground(Void... params) {
 
             try {
-                parametrosPost.put("ins_sql",   "INSERT INTO jornals (user_cod , worker_cod, worker_name, jornal_date) " +
-                                                "VALUES ("+ USER_COD +","+ worker_cod +",'"+ name +"', '"+ date +"');");
+                parametrosPost.put("ins_sql",   "INSERT INTO jornals (user_cod , worker_cod, worker_name, jornal_date,  jornal_salary) " +
+                                                "VALUES ("+ USER_COD +","+ worker_cod +",'"+ name +"', '"+ date +"', '"+ salary +"');");
                 jsonObject = connection.sendWrite(BASE_URL_WRITE, parametrosPost);
                 if (jsonObject != null) {
                     return jsonObject;

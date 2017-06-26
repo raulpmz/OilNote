@@ -134,7 +134,7 @@ public class InfoTypeJornalActivity extends AppCompatActivity {
 
                 TypeJornal typeJornal = new TypeJornal();
 
-                typeJornal.setId(jsonArray.getJSONObject(i).getString("type_cod"));
+                typeJornal.setId(jsonArray.getJSONObject(i).getString("type"));
                 typeJornal.setName(jsonArray.getJSONObject(i).getString("type_name"));
                 typeJornal.setMoney(jsonArray.getJSONObject(i).getString("type_value"));
 

@@ -69,6 +69,8 @@ public class LoginActivity extends BaseActivity {
 
         // Object's:
         user = new User();
+
+        autoLoginVerification();
     }
 
     @Override
@@ -102,14 +104,17 @@ public class LoginActivity extends BaseActivity {
             USER_PASSWORD   = prefs.getString("user_pass", "");
 
             //Insertar datos del usuario:
-            et_user.setText(USER_COD);
+            et_user.setText(USER_NAME);
             et_password.setText(USER_EMAIL);
 
-            username = USER_NAME;
-            userpassword = USER_PASSWORD;
+            username        = USER_NAME;
+            userpassword    = USER_PASSWORD;
 
             //Procedo a obtener los datnew LoginTask().execute();
             new LoginTask().execute();
+             Log.e("Entra","Verification");
+        }else{
+            Log.e("No Entra","Verification");
         }
     }
 
@@ -144,12 +149,18 @@ public class LoginActivity extends BaseActivity {
         USER_EMAIL      = user.getEmail();
         USER_PASSWORD   = user.getPassword();
 
+        editor.putInt("user_cod",       user.getUserCod());
+        editor.putString("user_name",   user.getUserName());
+        editor.putString("user_email",  user.getEmail());
+        editor.putString("user_pass",   user.getPassword());
         editor.putBoolean("is_login", true);
-        editor.putInt("user_cod", USER_COD);
-        editor.putString("user_name", USER_NAME);
-        editor.putString("user_email", USER_EMAIL);
-        editor.putString("user_pass", USER_PASSWORD);
         editor.commit();
+
+        Log.e("", "Opción 1: " + prefs.getBoolean("is_login", false));
+        Log.e("", "user_name: " + prefs.getString("user_name", ""));
+        Log.e("", "user_email: " + prefs.getString("user_email", ""));
+        Log.e("", "user_pass: " + prefs.getString("user_pass", ""));
+        Log.e("", "user_cod: " + prefs.getInt("user_cod", 1));
     }
 
     // Si los datos complen de forma correcta las condiciones se inicia la consulta asincrona:
