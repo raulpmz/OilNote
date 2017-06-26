@@ -269,10 +269,10 @@ public class InfoPlotActivity extends BaseActivity {
                     setListViewHeightBasedOnChildren(listViewWeigths);
 
                     // Pongo el total de los kg recogidos en esa parcela:
-                    total.setText(getResources().getString(R.string.total_weight) + calculateTotalWeigth(listWeight) + " kg");
+                    total.setText(getResources().getString(R.string.total_weight) + ": " + calculateTotalWeigth(listWeight) + " kg");
 
                     // Pongo el rendimiento medio de la parcela:
-                    efficiency.setText(getResources().getString(R.string.half_efficiency) + calculateTotalEfficiency(listWeight));
+                    efficiency.setText(getResources().getString(R.string.half_efficiency) + ": " + calculateTotalEfficiency(listWeight));
                 }else{
                     // Poner una lista avisando de que no tiene jornales:
                 }

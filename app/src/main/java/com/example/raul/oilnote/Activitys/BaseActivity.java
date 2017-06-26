@@ -142,6 +142,15 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
                 }
                 break;
 
+            // Botón para añadir gastos:
+            case R.id.add_expenses:
+                if(!BaseActivity.this.getClass().equals(AddExpenseActivity.class)){
+                    intent = new Intent(this,AddExpenseActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                }
+                break;
+
             // Botón para acceder a la lista de trabajadores:
             case R.id.list_worker:
                 if(!BaseActivity.this.getClass().equals(ListWorkerActivity.class)){

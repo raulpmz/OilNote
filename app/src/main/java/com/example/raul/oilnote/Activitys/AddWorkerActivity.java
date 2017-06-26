@@ -91,7 +91,7 @@ public class AddWorkerActivity extends AppCompatActivity {
         jsonObject      = new JSONObject();
     }
 
-    @Override
+    /*@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.toolbar_menu, menu);
 
@@ -120,15 +120,22 @@ public class AddWorkerActivity extends AppCompatActivity {
                 break;
         }
         return super.onOptionsItemSelected(item);
-    }
+    }*/
 
     public void buttonAdd(View v){
-        new AddWorkerTask().execute();
+        if(checkData()){
+            new AddWorkerTask().execute();
+        }
     }
 
     public boolean checkData(){
         if(name_worker.length() <= 2){
             name_worker.setError(getResources().getString(R.string.name_small));
+            name_worker.requestFocus();
+            return false;
+        }
+        if(name_worker.getText().toString().equals("")){
+            name_worker.setError(getResources().getString(R.string.emptry_camp));
             name_worker.requestFocus();
             return false;
         }
