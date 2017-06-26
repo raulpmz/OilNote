@@ -209,6 +209,12 @@
     <string name="error_remove_weight">El pesaje no fue elimidado con exito</string>
     <string name="are_sure_weight">¿Está seguro de que desea borrar este pesaje?</string>
 
+    <!--               TypeListActivity             -->
+
+    <string name="successful_remove_type">Este tipo de jornal fue elimidado con exito</string>
+    <string name="error_remove_type">Este tipo de jornal no fue elimidado con exito</string>
+    <string name="are_sure_type">¿Está seguro de que desea borrar este tipo de jornal?</string>
+
     <!--               ListExpensesActivity             -->
 
     <string name="successful_remove_expense">El gasto fue elimidado con exito</string>

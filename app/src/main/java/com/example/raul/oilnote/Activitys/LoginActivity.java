@@ -51,8 +51,8 @@ public class LoginActivity extends BaseActivity {
         // EditText:
         et_user             = (EditText) findViewById(R.id.et_user);
         et_password         = (EditText) findViewById(R.id.et_password);
-        et_user             .setText("raulpmz");
-        et_password         .setText("administrador");
+        /*et_user             .setText("raulpmz");
+        et_password         .setText("administrador");*/
 
         // onClick:
         btn_enter           .setOnClickListener(this);

@@ -91,37 +91,6 @@ public class AddWorkerActivity extends AppCompatActivity {
         jsonObject      = new JSONObject();
     }
 
-    /*@Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.toolbar_menu, menu);
-
-        menu.findItem(R.id.action_save).setVisible(true);
-        menu.findItem(R.id.action_save).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        switch (id) {
-
-            // Guardamos el trabajador en nuestra base de datos:
-            case R.id.action_save:
-                if(checkData()){
-                    new AddWorkerTask().execute();
-                }
-                break;
-
-            // Para cancelar añadir trabajador y abortar la actividad:
-            case R.id.action_discard:
-                finish();
-                break;
-        }
-        return super.onOptionsItemSelected(item);
-    }*/
-
     public void buttonAdd(View v){
         if(checkData()){
             new AddWorkerTask().execute();
@@ -143,31 +112,25 @@ public class AddWorkerActivity extends AppCompatActivity {
     }
 
     public void onClickOptionCamera(View v){
-        final CharSequence[] items = new CharSequence[2];
+        final CharSequence[] items = new CharSequence[1];
 
-        items[0] = getResources().getString(R.string.from_camera);
-        items[1] = getResources().getString(R.string.from_galery);
+        items[0] = getResources().getString(R.string.from_galery);
+
 
         alert.setTitle(getResources().getString(R.string.options))
                 .setItems(items, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int pos) {
 
-                        // Si la opción es la camara la abrirá:
+                        // Si la opción es la galeria la abrirá:
                         if(pos == 0){
                             // Comprueba si tiene los permisos de cámara activados la aplicación:
-                            if(isPermissionCameraActivated()){
-                                Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
-                                startActivityForResult(intent, ACT_CAMARA);
-                            }
-                        }
-                        // Si la opción es la galería la abrirá:
-                        if(pos == 1){
                             if(isPermissionGaleryActivated()){
                                 Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI);
                                 startActivityForResult(intent, ACT_GALERIA);
                             }
                         }
+
                     }
                 });
         alert.setNegativeButton(getResources().getString(R.string.cancel),

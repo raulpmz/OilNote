@@ -162,31 +162,25 @@ public class EditWorkerActivity extends BaseActivity {
     }
 
     public void onClickOptionCamera(View v){
-        final CharSequence[] items = new CharSequence[2];
+        final CharSequence[] items = new CharSequence[1];
 
-        items[0] = getResources().getString(R.string.from_camera);
-        items[1] = getResources().getString(R.string.from_galery);
+        items[0] = getResources().getString(R.string.from_galery);
+
 
         alert.setTitle(getResources().getString(R.string.options))
                 .setItems(items, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int pos) {
 
-                        // Si la opción es la camara la abrirá:
+                        // Si la opción es la galeria la abrirá:
                         if(pos == 0){
                             // Comprueba si tiene los permisos de cámara activados la aplicación:
-                            if(isPermissionCameraActivated()){
-                                Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
-                                startActivityForResult(intent, ACT_CAMARA2);
-                            }
-                        }
-                        // Si la opción es la galería la abrirá:
-                        if(pos == 1){
                             if(isPermissionGaleryActivated()){
                                 Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI);
                                 startActivityForResult(intent, ACT_GALERIA2);
                             }
                         }
+
                     }
                 });
         alert.setNegativeButton(getResources().getString(R.string.cancel),

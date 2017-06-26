@@ -38,29 +38,49 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activitys.LoginActivity" />
-        <activity android:name=".Activitys.MainActivity" />
-        <activity android:name=".Activitys.RegistrationActivity" />
-        <activity android:name=".Activitys.AddWorkerActivity" />
+        <activity android:name=".Activitys.LoginActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Activitys.MainActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Activitys.RegistrationActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Activitys.AddWorkerActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Activitys.ListWorkerActivity"
             android:label="@string/title_activity_list_worker"
-            android:theme="@style/AppThemeOilNote" />
-        <activity android:name=".Activitys.InfoWorkerActivity" />
-        <activity android:name=".Activitys.EditWorkerActivity" />
-        <activity android:name=".Activitys.ListJornalsActivity" />
-        <activity android:name=".Activitys.ListPlotsActivity" />
-        <activity android:name=".Activitys.ListWeightsActivity" />
-        <activity android:name=".Activitys.ListMissingActivity" />
-        <activity android:name=".Activitys.AddJornalActivity" />
-        <activity android:name=".Activitys.AddPlotActivity" />
-        <activity android:name=".Activitys.EditPlotActivity" />
-        <activity android:name=".Activitys.InfoPlotActivity" />
-        <activity android:name=".Activitys.AddWeightActivity" />
-        <activity android:name=".Activitys.InfoWeightActivity" />
-        <activity android:name=".Activitys.EditWeightActivity" />
-        <activity android:name=".Activitys.ListExpensesActivity" />
-        <activity android:name=".Activitys.AddExpenseActivity" />
+            android:theme="@style/AppThemeOilNote"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Activitys.InfoWorkerActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Activitys.EditWorkerActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Activitys.ListJornalsActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Activitys.ListPlotsActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Activitys.ListWeightsActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Activitys.ListMissingActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Activitys.AddJornalActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Activitys.AddPlotActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Activitys.EditPlotActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Activitys.InfoPlotActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Activitys.AddWeightActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Activitys.InfoWeightActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Activitys.EditWeightActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Activitys.ListExpensesActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Activitys.AddExpenseActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Activitys.SettingsActivity"
             android:label="@string/title_activity_settings"
@@ -69,12 +89,18 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.raul.oilnote.Activitys.MainActivity" />
         </activity>
-        <activity android:name=".Activitys.OptionsActivity" />
-        <activity android:name=".Activitys.ChangePassword" />
-        <activity android:name=".Activitys.TypeJornalActivity" />
-        <activity android:name=".Activitys.InfoTypeJornalActivity" />
-        <activity android:name=".Activitys.InfoAsajaJornal" />
-        <activity android:name=".Activitys.MarginBenefitsActivity"></activity>
+        <activity android:name=".Activitys.OptionsActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Activitys.ChangePassword"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Activitys.TypeJornalActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Activitys.InfoTypeJornalActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Activitys.InfoAsajaJornal"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Activitys.MarginBenefitsActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>
