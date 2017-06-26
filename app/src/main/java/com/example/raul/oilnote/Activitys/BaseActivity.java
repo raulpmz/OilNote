@@ -3,6 +3,7 @@ package com.example.raul.oilnote.Activitys;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.design.widget.NavigationView;
@@ -42,6 +43,8 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
     protected AlertDialog.Builder alert;
     protected JSONArray jSONArray;
     protected JSONObject jsonObject;
+    protected SharedPreferences prefs;
+    protected SharedPreferences.Editor editor;
 
     public void onCreate(Bundle paramBundle, int layout) {
 
@@ -78,6 +81,10 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
         // Objetos JSON:
         jSONArray       = new JSONArray();
         jsonObject      = new JSONObject();
+
+        // Preferencias:
+        prefs = getSharedPreferences("MisPreferencias", Context.MODE_PRIVATE);
+        editor = prefs.edit();
     }
 
 
@@ -93,11 +100,11 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
 
         switch (id){
 
-            case R.id.action_settings:
+            /*case R.id.action_settings:
                 Log.e("Pulsado","MenuTool");
                 break;
 
-           /* case R.id.action_add_worker:
+            case R.id.action_add_worker:
                 startActivity(new Intent(BaseActivity.this.getBaseContext(),AddWorkerActivity.class));
                 break;*/
 
@@ -225,6 +232,13 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
                 }
+                break;
+
+            // Botón para cerrar la sesión:
+            case R.id.nav_close_session:
+                editor.putBoolean("is_login", false);
+                editor.commit();
+                System.exit(0);
                 break;
         }
 

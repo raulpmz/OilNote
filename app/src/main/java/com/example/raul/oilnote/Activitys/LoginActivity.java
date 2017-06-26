@@ -1,6 +1,5 @@
 package com.example.raul.oilnote.Activitys;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -14,7 +13,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.raul.oilnote.Objects.User;
-import com.example.raul.oilnote.Objects.Worker;
 import com.example.raul.oilnote.R;
 import com.example.raul.oilnote.Utils.Connection;
 
