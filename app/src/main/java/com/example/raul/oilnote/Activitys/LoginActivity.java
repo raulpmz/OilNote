@@ -110,9 +110,6 @@ public class LoginActivity extends BaseActivity {
 
             //Procedo a obtener los datnew LoginTask().execute();
             new LoginTask().execute();
-             Log.e("Entra","Verification");
-        }else{
-            Log.e("No Entra","Verification");
         }
     }
 

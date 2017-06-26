@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -13,7 +12,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -229,6 +227,15 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_options:
                 if(!BaseActivity.this.getClass().equals(OptionsActivity.class)){
                     intent = new Intent(this,OptionsActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                }
+                break;
+
+            // Botón para acceder a la actividad margenes de beneficio:
+            case R.id.list_margin_benefits:
+                if(!BaseActivity.this.getClass().equals(MarginBenefitsActivity.class)){
+                    intent = new Intent(this,MarginBenefitsActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
                 }

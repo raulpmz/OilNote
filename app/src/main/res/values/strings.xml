@@ -55,6 +55,10 @@
     <string name="error_password">La contraseña debe de contener al menos 6 caracteres</string>
     <string name="equals_password">La contraseña nueva debe de ser diferente a la anterior</string>
     <string name="error_old_password">La contraseña no coincide con la que hay actualmente</string>
+    <string name="total">Total: </string>
+    <string name="benefits">Beneficios</string>
+    <string name="marginbenefits">Margen de beneficios</string>
+    <string name="prec">Aceite €/1L: </string>
 
     <!--                Main_Activity               -->
 

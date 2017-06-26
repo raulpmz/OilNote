@@ -55,7 +55,8 @@ public class MainActivity extends BaseActivity {
         tv_kgs      = (TextView) findViewById(R.id.tv_kg);
 
         // DecoView (Gráfica):
-        arcView     = (DecoView)findViewById(R.id.dynamicArcView);
+        arcView     = (DecoView
+                )findViewById(R.id.dynamicArcView);
 
         Log.e("CODIGO USUARIO","" + USER_COD);Log.e("NOMBRE USUARIO",USER_NAME);Log.e("CORREO USUARIO",USER_EMAIL);Log.e("CONTRASEÑA USUARIO",USER_PASSWORD);
 

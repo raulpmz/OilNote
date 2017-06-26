@@ -70,7 +70,8 @@
         <activity android:name=".Activitys.ChangePassword" />
         <activity android:name=".Activitys.TypeJornalActivity" />
         <activity android:name=".Activitys.InfoTypeJornalActivity" />
-        <activity android:name=".Activitys.InfoAsajaJornal"></activity>
+        <activity android:name=".Activitys.InfoAsajaJornal" />
+        <activity android:name=".Activitys.MarginBenefitsActivity"></activity>
     </application>
 
 </manifest>
