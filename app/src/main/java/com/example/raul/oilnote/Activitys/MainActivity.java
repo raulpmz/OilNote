@@ -67,7 +67,6 @@ public class MainActivity extends BaseActivity {
         getMenuInflater().inflate(R.menu.toolbar_menu, menu);
 
         menu.findItem(R.id.action_settings).setVisible(true);
-        menu.findItem(R.id.action_preferences).setVisible(true);
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -83,10 +82,6 @@ public class MainActivity extends BaseActivity {
                 startActivity(new Intent(MainActivity.this,OptionsActivity.class));
                 break;
 
-            // Opción preferencias:
-            case R.id.action_preferences:
-                startActivity(new Intent(MainActivity.this,SettingsActivity.class));
-                break;
         }
 
         return super.onOptionsItemSelected(item);
